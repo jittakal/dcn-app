@@ -19,17 +19,17 @@ public class Area extends Model {
 	public String name;
 
 	public static Finder<Long, Area> find = new Finder(Long.class, Area.class);
-
+	
+	public static Area get(Long id){
+		return find.byId(id);
+	}
+	
 	public static List<Area> all() {
 		return find.all();
-	}
-
-	public static void create(Area area) {
-		area.save();
-	}
+	}		
 
 	public static void delete(Long id) {
-		find.ref(id).delete();
+		find.byId(id).delete();
 	}
-
+	
 }

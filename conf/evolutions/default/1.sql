@@ -33,7 +33,7 @@ create table employee (
   id                        bigint not null,
   name                      varchar(255) not null,
   address                   varchar(255) not null,
-  mobile_number             integer,
+  mobile_number             varchar(255),
   joining_date              timestamp not null,
   terminate_date            timestamp,
   constraint pk_employee primary key (id))
@@ -59,6 +59,8 @@ create table user (
   id                        bigint not null,
   username                  varchar(255),
   password                  varchar(255),
+  role                      varchar(255),
+  employee_id               bigint,
   constraint pk_user primary key (id))
 ;
 
@@ -86,6 +88,8 @@ alter table sub_area add constraint fk_sub_area_area_4 foreign key (area_id) ref
 create index ix_sub_area_area_4 on sub_area (area_id);
 alter table sub_area add constraint fk_sub_area_employee_5 foreign key (employee_id) references employee (id) on delete restrict on update restrict;
 create index ix_sub_area_employee_5 on sub_area (employee_id);
+alter table user add constraint fk_user_employee_6 foreign key (employee_id) references employee (id) on delete restrict on update restrict;
+create index ix_user_employee_6 on user (employee_id);
 
 
 

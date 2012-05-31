@@ -1,10 +1,13 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.validation.NotNull;
 
@@ -24,4 +27,18 @@ public class SubArea extends Model {
 	@ManyToOne
 	@NotNull
 	public Employee employee;
+	
+	public static Finder<Long, SubArea> find = new Finder(Long.class, SubArea.class);
+	
+	public static SubArea get(Long id){
+		return find.byId(id);
+	}
+	
+	public static List<SubArea> all() {
+		return find.all();
+	}		
+
+	public static void delete(Long id) {
+		find.byId(id).delete();
+	}
 }

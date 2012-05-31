@@ -6,8 +6,25 @@
 GET     /                           controllers.Application.index()
 GET		/login						controllers.LoginController.index()
 POST	/welcome					controllers.LoginController.submit()
-GET		/areas						controllers.AreaController.index()	
-GET		/service/area 				controllers.AreaController.get_area()					
+
+# Employee
+GET		/service/employees			controllers.EmployeeController.all()
+GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
+POST	/service/employee			controllers.EmployeeController.create()
+PUT		/service/employee/:id		controllers.EmployeeController.update(id: Long)
+
+# Area
+GET		/portal/area				controllers.AreaController.index()
+GET		/service/areas				controllers.AreaController.all()	
+GET		/service/area/:id 			controllers.AreaController.get(id: Long)					
+POST	/service/area				controllers.AreaController.create()
+PUT		/service/area/:id			controllers.AreaController.update(id: Long)
+
+# Sub Area
+GET		/service/subareas			controllers.SubAreaController.all()	
+GET		/service/subarea/:id 		controllers.SubAreaController.get(id: Long)					
+POST	/service/subarea			controllers.SubAreaController.create()
+PUT		/service/subarea/:id		controllers.SubAreaController.update(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
