@@ -1,0 +1,53 @@
+@(title: String, loginForm: Form[User])
+
+@import helper._
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery-ui-1.8.20.custom.min.js")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">                
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery-ui-1.8.20.custom.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+    	<div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <a class="brand" href="#">Darpan Cable Network</a>                    
+                </div>
+            </div>
+        </div>
+
+		<div class="container">
+        @helper.form(action = routes.LoginController.submit) {
+        
+        <fieldset>
+            <legend>Login</legend>
+            
+            @inputText(
+                loginForm("username"), 
+                '_label -> "Username", 
+                '_help -> "Please enter a valid username.",
+                '_error -> loginForm.globalError
+            )
+            
+            @inputPassword(
+                loginForm("password"), 
+                '_label -> "Password",
+                '_help -> "A password must be at least 6 characters. "
+            )
+                        
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Login">            
+        </div>
+        }
+        </div>
+    </body>
+</html>

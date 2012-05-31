@@ -1,0 +1,18 @@
+@(areas: List[Area])
+
+@import helper._
+
+@main("Area") {
+    
+    <h1>@areas.size() Areas</h1>
+    
+    <ul>
+        @for(area <- areas) {
+            <li>
+                @area.name
+                         
+            </li>
+        }
+    </ul>       
+    
+}
