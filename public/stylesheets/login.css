@@ -1,0 +1,25 @@
+
+.logincontainer{
+    width: 400px;
+    margin-top: 50px;
+    border: 1px solid rgb(221, 221, 221)
+}
+
+.loginactions-top{
+    margin: 0px;
+    border-top: 0px;
+    border-bottom: 1px solid rgb(221, 221, 221)
+}
+
+.loginactions-bottom{
+    margin: 0px;    
+}
+
+.loginform{
+    margin:0px;    
+}
+
+.loginheader{
+    font-size:25px;
+    font-weight:200
+}

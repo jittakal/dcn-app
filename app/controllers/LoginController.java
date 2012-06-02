@@ -2,24 +2,38 @@ package controllers;
 
 import models.User;
 import play.data.Form;
-import play.mvc.Call;
 import play.mvc.Controller;
 import play.mvc.Result;
+import vos.UserVO;
 
 public class LoginController extends Controller {
 	
-	final static Form<User> loginForm = form(User.class);
+	final static Form<UserVO> loginForm = form(UserVO.class);
 	
 	public static Result index() {
 		return ok(views.html.login.index.render("Darpan Cable Network",loginForm));
 	}
 	
 	public static Result submit(){
-		Form<User> filledForm = loginForm.bindFromRequest();
+		Form<UserVO> filledForm = loginForm.bindFromRequest();
+
+		/*if(filledForm.hasErrors()){
+			return badRequest();
+		}*/
+					
+		UserVO uservo=filledForm.get();
+		if(uservo==null){			
+			return index();
+		}
 		
-		User user=filledForm.get();
-		System.out.println(user.username);
-		return  ok(views.html.index.render("Jitendra Takalkar"));		
+		User auser=User.authenticate(uservo.username,uservo.password);
+		if(auser==null){
+			return index();
+		}
+		
+		session().put("username", auser.username);
+		session().put("role", auser.role);
+		return  ok(views.html.index.render(auser.username.toUpperCase() + "," + auser.role.toUpperCase()));		
 	}
 
 }

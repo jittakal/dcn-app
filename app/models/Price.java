@@ -1,11 +1,9 @@
 package models;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import play.db.ebean.Model;
 
@@ -15,15 +13,30 @@ import com.avaje.ebean.validation.NotNull;
 public class Price extends Model {
 	
 	@Id
-	public long id;
+	public Long id;
 	
 	@NotNull
 	public int amount;
 	
-	@Temporal(value=TemporalType.DATE)
-	public Date startDate;
+	/*@Temporal(value=TemporalType.DATE)
+	@NotNull
+	public Date start_date;
 	
 	@Temporal(value=TemporalType.DATE)
-	public Date endDate;		
+	public Date end_date;*/
+	
+	public static Finder<Long, Price> find = new Finder(Long.class, Price.class);
+
+	public static Price get(Long id) {
+		return find.byId(id);
+	}
+
+	public static List<Price> all() {
+		return find.all();
+	}
+
+	public static void delete(Long id) {
+		find.byId(id).delete();
+	}
 
 }

@@ -4,14 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.validation.NotNull;
 

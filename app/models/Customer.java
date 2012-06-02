@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,29 +17,51 @@ import com.avaje.ebean.validation.NotNull;
 public class Customer extends Model {
 	
 	@Id
-	public long id;
+	public Long id;
 	
 	@NotNull
 	public String name;
 	
 	@ManyToOne
 	@NotNull
-	public SubArea subArea;
+	public SubArea sub_area;
 	
 	@NotNull
 	public String address;
 	
-	public int mobileNumber;
+	public int mobile_number;
 	
-	public int homeNumber;
+	public int home_number;
 	
-	public String emailAddress;
+	public String email_address;
 	
 	@NotNull
 	@Temporal(value=TemporalType.DATE)
-	public Date joiningDate;
+	public Date joining_date;
 	
 	@Temporal(value=TemporalType.DATE)
-	public Date terminateDate;
+	public Date terminate_date;
+	
+	@ManyToOne
+	@NotNull
+	public Price price;
+	
+	@NotNull
+	public int balance;
+	
+	
+	public static Finder<Long, Customer> find = new Finder(Long.class, Customer.class);
+
+	public static Customer get(Long id) {
+		return find.byId(id);
+	}
+
+	public static List<Customer> all() {
+		return find.all();
+	}
+
+	public static void delete(Long id) {
+		find.byId(id).delete();
+	}
 
 }

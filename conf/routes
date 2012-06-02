@@ -7,6 +7,12 @@ GET     /                           controllers.Application.index()
 GET		/login						controllers.LoginController.index()
 POST	/welcome					controllers.LoginController.submit()
 
+# User
+GET		/service/users				controllers.UserController.all()	
+GET		/service/user/:id 			controllers.UserController.get(id: Long)					
+POST	/service/user				controllers.UserController.create()
+PUT		/service/user/:id			controllers.UserController.update(id: Long)
+
 # Employee
 GET		/service/employees			controllers.EmployeeController.all()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
@@ -25,6 +31,31 @@ GET		/service/subareas			controllers.SubAreaController.all()
 GET		/service/subarea/:id 		controllers.SubAreaController.get(id: Long)					
 POST	/service/subarea			controllers.SubAreaController.create()
 PUT		/service/subarea/:id		controllers.SubAreaController.update(id: Long)
+
+# Price
+GET		/service/prices				controllers.PriceController.all()	
+GET		/service/price/:id	 		controllers.PriceController.get(id: Long)					
+POST	/service/price				controllers.PriceController.create()
+PUT		/service/price/:id			controllers.PriceController.update(id: Long)
+
+# Customer
+GET		/service/customers			controllers.CustomerController.all()	
+GET		/service/customer/:id		controllers.CustomerController.get(id: Long)					
+POST	/service/customer			controllers.CustomerController.create()
+PUT		/service/customer/:id		controllers.CustomerController.update(id: Long)
+
+# Invoice
+GET		/service/invoices			controllers.InvoiceController.all()	
+GET		/service/invoice/:id		controllers.InvoiceController.get(id: Long)					
+POST	/service/invoice			controllers.InvoiceController.create()
+PUT		/service/invoice/:id		controllers.InvoiceController.update(id: Long)
+
+# Payment
+GET		/service/payments			controllers.PaymentController.all()	
+GET		/service/payment/:id		controllers.PaymentController.get(id: Long)					
+POST	/service/payment			controllers.PaymentController.create()
+PUT		/service/payment/:id		controllers.PaymentController.update(id: Long)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.validation.NotNull;
 
