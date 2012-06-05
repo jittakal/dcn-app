@@ -1,4 +1,4 @@
-@(title: String, loginForm: Form[vos.UserVO])
+@(loginForm: Form[vos.UserVO])
 
 @import helper._
 
@@ -6,7 +6,7 @@
 
 <html>
     <head>
-        <title>@title</title>
+        <title>Darpan Cable Network</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/ui-lightness/jquery-ui-1.8.20.custom.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">                
@@ -30,11 +30,16 @@
             <div class="actions loginactions-top">
                 <span class="loginheader">Login</span>
             </div>
+
+            @if(loginForm.hasErrors()) {
+              <h1>@loginForm.errorsAsJson()</h1>
+            } 
+
             <fieldset>            
             <dl class=" " id="username_field">
                 <dt><label for="username">Username <span style="color:red">*</span> </label></dt>                
                 <dd>
-                <input type="text" id="username" name="username" value="" >
+                <input type="text" id="username" name="username" value="">
                 </dd>            
             </dl>
 

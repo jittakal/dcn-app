@@ -11,15 +11,15 @@ public class LoginController extends Controller {
 	final static Form<UserVO> loginForm = form(UserVO.class);
 	
 	public static Result index() {
-		return ok(views.html.login.index.render("Darpan Cable Network",loginForm));
+		return ok(views.html.login.index.render(loginForm));
 	}
 	
 	public static Result submit(){
 		Form<UserVO> filledForm = loginForm.bindFromRequest();
 
-		/*if(filledForm.hasErrors()){
-			return badRequest();
-		}*/
+		if(filledForm.hasErrors()){
+			return badRequest(views.html.login.index.render(filledForm));
+		}
 					
 		UserVO uservo=filledForm.get();
 		if(uservo==null){			

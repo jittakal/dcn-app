@@ -11,5 +11,15 @@ public class UserVO implements Serializable {
 	
 	@Required
 	public String password;
+	
+	public String validate() {
+        if(username ==null){
+            return "Invalid username";	
+        }
+        if(password ==null){
+            return "Invalid password";
+        }
+        return null;
+    }
 
 }
