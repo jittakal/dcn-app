@@ -3,6 +3,8 @@ package controllers;
 import java.util.List;
 
 import models.Area;
+import forms.AreaForm;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security.Authenticated;
@@ -14,13 +16,65 @@ import org.codehaus.jackson.node.ObjectNode;
 import views.html.area.*;
 
 public class AreaController extends Controller {
+
+	final static Form<AreaForm> areaForm = form(AreaForm.class);
 	
 	//@Authenticated
 	/**
 	 * @return
 	 */
 	public static Result index(){
-		return ok(index.render(Area.all()));
+		return ok(index.render());
+	}
+
+	public static Result create_new(){
+		return ok(create.render(areaForm));
+	}
+
+	public static Result create_save(){
+		Form<AreaForm> filledForm = areaForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			return badRequest(views.html.area.create.render(filledForm));
+		}
+					
+		AreaForm areaForm=filledForm.get();
+		if(areaForm==null){			
+			return badRequest(views.html.area.create.render(filledForm));
+		}
+
+		Area area=new Area();
+		area.name=areaForm.name;
+		area.save();
+								
+		return  index();//ok(views.html.welcome.render());		
+	}
+
+	public static Result update_get(Long id){
+		Area area=Area.get(id);		
+		AreaForm aForm=new AreaForm();
+		aForm.name=area.name;
+		return ok(update.render(areaForm.fill(aForm),id));
+	}
+
+	public static Result update_save(Long id){
+		Form<AreaForm> filledForm = areaForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			return badRequest(views.html.area.create.render(filledForm));
+		}
+					
+		AreaForm areaForm=filledForm.get();
+		if(areaForm==null){			
+			return badRequest(views.html.area.create.render(filledForm));
+		}
+
+		Area area=new Area();
+		area.id=id;
+		area.name=areaForm.name;
+		area.update();
+								
+		return  index();//ok(views.html.welcome.render());		
 	}
 	
 	/**

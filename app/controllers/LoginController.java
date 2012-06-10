@@ -23,17 +23,23 @@ public class LoginController extends Controller {
 					
 		UserVO uservo=filledForm.get();
 		if(uservo==null){			
-			return index();
+			return badRequest(views.html.login.index.render(filledForm));
 		}
 		
-		User auser=User.authenticate(uservo.username,uservo.password);
+		User auser=uservo.getUser();//User.authenticate(uservo.username,uservo.password);
 		if(auser==null){
-			return index();
+			return badRequest(views.html.login.index.render(filledForm));
 		}
 		
 		session().put("username", auser.username);
 		session().put("role", auser.role);
-		return  ok(views.html.index.render(auser.username.toUpperCase() + "," + auser.role.toUpperCase()));		
+		return  ok(views.html.welcome.render());		
+	}
+
+	public static Result welcome(){
+		session().put("username", "jittakal");
+		session().put("role", "admin");
+		return ok(views.html.welcome.render());
 	}
 
 }

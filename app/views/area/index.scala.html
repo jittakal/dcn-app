@@ -1,18 +1,99 @@
-@(areas: List[Area])
+@main(){
 
-@import helper._
 
-@main("Area") {
-    
-    <h1>@areas.size() Areas</h1>
-    
-    <ul>
-        @for(area <- areas) {
-            <li>
-                @area.name
-                         
-            </li>
-        }
-    </ul>       
-    
-}
+ <div class="subnav">
+    <ul class="nav nav-pills">      
+      <li class=""><a href="@routes.AreaController.create_new()" id="area-grid-add">Add</a></li>
+      <li class=""><a href="#" link="@routes.AreaController.update_get(0L)" id="area-grid-edit">Edit</a></li>
+      <li class=""><a href="#" id="area-grid-delete">Delete</a></li>      
+    </ul>
+  </div>
+
+	
+  <br/>
+
+	<table id="area-grid"></table> 
+	<div id="area-pager"></div>
+
+	<script type="text/javascript">
+
+	$(function(){
+		process_areas();
+
+		$("#area-grid-edit").click(area_grid_edit_click);
+		$("#area-grid-delete").click(area_grid_delete_click);
+
+	});
+
+	var process_areas = function() {		
+  		$.ajax({
+			url: '/service/areas',
+			processData:false,
+			type: 'GET',
+			beforeSend:function(jqXHR, settings){					
+				jqXHR.setRequestHeader("Content-Type", "application/json");	
+				$('body').css('cursor','wait');	
+			},
+			success: function(data, textStatus, jqXHR){					
+				render_areas(data);	
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				//alert('Error process_order_by_kunde_id');				
+				//display_error_msg(errorThrown);	
+			},
+			complete: function(jqXHR,textStatus){	
+				$('body').css('cursor','auto');	
+			}	
+		});
+	};
+
+	var render_areas = function(areas) {		
+		if(areas == undefined || areas == null){
+			return;
+		}	
+
+		$("#area-grid").jqGrid({
+			datatype: "local",
+		    colNames:['ID','Name'],
+		    colModel:[
+		    	{name:'id',index:'id',width:'280px',sorttype:"number"},
+		    	{name:'name',index:'name',width:'280px'}
+		    ],
+		    rowNum:10,
+			rowList:[10,20,30],
+		    pager: '#area-pager',
+		    viewrecords: true,
+		    multiselect: false,
+		    caption: "Areas",		    
+		    height: 250,
+		    width: 900
+		}).navGrid('#area-pager',{edit:false,add:false,del:false});
+
+		$.each(areas,function(i,area){
+			$("#area-grid").jqGrid('addRowData',i+1,area);	
+		});
+	};
+
+	var area_grid_edit_click = function(){		
+		var id = $("#area-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#area-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.id);
+			$(this).attr('href',link);
+		} else { 
+			alert("Please select row");
+		} 		
+	}
+
+	var area_grid_delete_click = function(){		
+		var id = $("#area-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = jQuery("#area-grid").jqGrid('getRowData',id); 			 
+		} else { 
+			alert("Please select row");
+		}
+	}
+
+	</script>
+}	

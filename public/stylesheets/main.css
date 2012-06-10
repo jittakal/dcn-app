@@ -1,9 +1,19 @@
 html, body {
-    background-color: #eee;
+    background-color: #FFFFFF;
 }
 body {
     padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
 }
+
+body {
+    background-color: #FFFFFF;
+    background-image: url("/assets/img/grid-18px-masked.png");
+    background-position: 0 40px;
+    background-repeat: repeat-x;
+    padding-top: 40px;
+    position: relative;
+}
+
 .container > footer p {
     text-align: center; /* center align it with the container */
 }
@@ -76,4 +86,14 @@ body {
 
 .phone_template, .profile_template {
     display: none;
+}
+
+.subnav {
+    background-color: #EEEEEE;
+    background-image: -moz-linear-gradient(center top , #F5F5F5 0%, #EEEEEE 100%);
+    background-repeat: repeat-x;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px 4px 4px 4px;
+    height: 36px;
+    width: 100%;
 }

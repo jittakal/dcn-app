@@ -6,6 +6,7 @@
 GET     /                           controllers.Application.index()
 GET		/login						controllers.LoginController.index()
 POST	/welcome					controllers.LoginController.submit()
+GET		/get/welcome				controllers.LoginController.welcome()
 
 # User
 GET		/service/users				controllers.UserController.all()	
@@ -14,6 +15,8 @@ POST	/service/user				controllers.UserController.create()
 PUT		/service/user/:id			controllers.UserController.update(id: Long)
 
 # Employee
+GET 	/portal/employees 			controllers.EmployeeController.index()
+
 GET		/service/employees			controllers.EmployeeController.all()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
 POST	/service/employee			controllers.EmployeeController.create()
@@ -21,6 +24,11 @@ PUT		/service/employee/:id		controllers.EmployeeController.update(id: Long)
 
 # Area
 GET		/portal/area				controllers.AreaController.index()
+GET 	/portal/create/area 		controllers.AreaController.create_new()
+POST 	/portal/create/area 		controllers.AreaController.create_save()
+GET 	/portal/update/area/:id 	controllers.AreaController.update_get(id: Long)
+POST 	/portal/update/area/:id 	controllers.AreaController.update_save(id: Long)
+
 GET		/service/areas				controllers.AreaController.all()	
 GET		/service/area/:id 			controllers.AreaController.get(id: Long)					
 POST	/service/area				controllers.AreaController.create()

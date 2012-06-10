@@ -13,7 +13,13 @@ import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import views.html.employee.*;
+
 public class EmployeeController extends Controller {
+
+	public static Result index(){
+		return ok(index.render());
+	}
 	
 	/**
 	 * Return List of all Employees in JSON format.

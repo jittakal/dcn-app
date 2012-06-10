@@ -1,0 +1,72 @@
+@main(){
+
+ 	<div class="subnav">
+	    <ul class="nav nav-pills">      
+	      <li class=""><a href="#">Add</a></li>      
+	    </ul>
+  	</div>
+
+	<br/>
+
+	<table id="employee-grid"></table> 
+	<div id="employee-pager"></div>
+
+	<script type="text/javascript">
+
+	$(function(){
+		process_employees();
+	});
+
+	var process_employees = function() {		
+  		$.ajax({
+			url: '/service/employees',
+			processData:false,
+			type: 'GET',
+			beforeSend:function(jqXHR, settings){					
+				jqXHR.setRequestHeader("Content-Type", "application/json");	
+				$('body').css('cursor','wait');	
+			},
+			success: function(data, textStatus, jqXHR){					
+				render_employees(data);	
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				//alert('Error process_order_by_kunde_id');				
+				//display_error_msg(errorThrown);	
+			},
+			complete: function(jqXHR,textStatus){	
+				$('body').css('cursor','auto');	
+			}	
+		});
+	};
+
+	var render_employees = function(employees) {		
+		if(employees == undefined || employees == null){
+			return;
+		}	
+
+		$("#employee-grid").jqGrid({
+			datatype: "local",
+		    colNames:['ID','Name','Address','Mobile'],
+		    colModel:[
+		    	{name:'id',index:'id',sorttype:"number"},
+		    	{name:'name',index:'name'},
+		    	{name:'address',index:'address'},
+		    	{name:'mobile_number',index:'mobile_number'}
+		    ],
+		    rowNum:10,
+			rowList:[10,20,30],
+		    pager: '#employee-pager',
+		    viewrecords: true,
+		    multiselect: false,
+		    caption: "Employees",		    
+		    height: 250,
+		    width: 900
+		}).navGrid('#employee-pager',{edit:false,add:false,del:false});
+
+		$.each(employees,function(i,employee){
+			$("#employee-grid").jqGrid('addRowData',i+1,employee);	
+		});
+	};
+	</script>
+
+}	
