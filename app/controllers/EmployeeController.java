@@ -4,7 +4,8 @@ import java.util.List;
 
 import models.Employee;
 import models.SubArea;
-
+import forms.EmployeeForm;
+import play.data.Form;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -17,8 +18,33 @@ import views.html.employee.*;
 
 public class EmployeeController extends Controller {
 
+	final static Form<EmployeeForm> employeeForm = form(EmployeeForm.class);
+
 	public static Result index(){
 		return ok(index.render());
+	}
+
+	public static Result create_new(){
+		return ok(create.render(employeeForm));
+	}
+
+	public static Result create_save(){
+		Form<EmployeeForm> filledForm = employeeForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			return badRequest(views.html.employee.create.render(filledForm));
+		}
+					
+		EmployeeForm employeeForm=filledForm.get();
+		if(employeeForm==null){			
+			return badRequest(views.html.employee.create.render(filledForm));
+		}
+
+		Employee employee=new Employee();
+		employee.name=employeeForm.name;
+		//employee.save();
+								
+		return  index();
 	}
 	
 	/**

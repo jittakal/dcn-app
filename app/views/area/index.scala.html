@@ -31,18 +31,15 @@
 			processData:false,
 			type: 'GET',
 			beforeSend:function(jqXHR, settings){					
-				jqXHR.setRequestHeader("Content-Type", "application/json");	
-				$('body').css('cursor','wait');	
+				jqXHR.setRequestHeader("Content-Type", "application/json");					
 			},
 			success: function(data, textStatus, jqXHR){					
 				render_areas(data);	
 			},
-			error: function(jqXHR, textStatus, errorThrown){
-				//alert('Error process_order_by_kunde_id');				
+			error: function(jqXHR, textStatus, errorThrown){				
 				//display_error_msg(errorThrown);	
 			},
-			complete: function(jqXHR,textStatus){	
-				$('body').css('cursor','auto');	
+			complete: function(jqXHR,textStatus){					
 			}	
 		});
 	};
@@ -56,18 +53,15 @@
 			datatype: "local",
 		    colNames:['ID','Name'],
 		    colModel:[
-		    	{name:'id',index:'id',width:'280px',sorttype:"number"},
-		    	{name:'name',index:'name',width:'280px'}
-		    ],
-		    rowNum:10,
-			rowList:[10,20,30],
-		    pager: '#area-pager',
+		    	{name:'id',index:'id',width:'50px'},
+		    	{name:'name',index:'name'}
+		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
 		    caption: "Areas",		    
 		    height: 250,
 		    width: 900
-		}).navGrid('#area-pager',{edit:false,add:false,del:false});
+		});		
 
 		$.each(areas,function(i,area){
 			$("#area-grid").jqGrid('addRowData',i+1,area);	

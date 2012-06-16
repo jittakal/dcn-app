@@ -16,6 +16,8 @@ PUT		/service/user/:id			controllers.UserController.update(id: Long)
 
 # Employee
 GET 	/portal/employees 			controllers.EmployeeController.index()
+GET 	/portal/create/employee 	controllers.EmployeeController.create_new()
+POST 	/portal/create/employee 	controllers.EmployeeController.create_save()
 
 GET		/service/employees			controllers.EmployeeController.all()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
@@ -23,7 +25,7 @@ POST	/service/employee			controllers.EmployeeController.create()
 PUT		/service/employee/:id		controllers.EmployeeController.update(id: Long)
 
 # Area
-GET		/portal/area				controllers.AreaController.index()
+GET		/portal/areas				controllers.AreaController.index()
 GET 	/portal/create/area 		controllers.AreaController.create_new()
 POST 	/portal/create/area 		controllers.AreaController.create_save()
 GET 	/portal/update/area/:id 	controllers.AreaController.update_get(id: Long)

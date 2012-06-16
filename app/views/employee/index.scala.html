@@ -2,7 +2,7 @@
 
  	<div class="subnav">
 	    <ul class="nav nav-pills">      
-	      <li class=""><a href="#">Add</a></li>      
+	      <li class=""><a href="@routes.EmployeeController.create_new()">Add</a></li>      
 	    </ul>
   	</div>
 
@@ -23,18 +23,14 @@
 			processData:false,
 			type: 'GET',
 			beforeSend:function(jqXHR, settings){					
-				jqXHR.setRequestHeader("Content-Type", "application/json");	
-				$('body').css('cursor','wait');	
+				jqXHR.setRequestHeader("Content-Type", "application/json");					
 			},
 			success: function(data, textStatus, jqXHR){					
 				render_employees(data);	
 			},
-			error: function(jqXHR, textStatus, errorThrown){
-				//alert('Error process_order_by_kunde_id');				
-				//display_error_msg(errorThrown);	
+			error: function(jqXHR, textStatus, errorThrown){				
 			},
-			complete: function(jqXHR,textStatus){	
-				$('body').css('cursor','auto');	
+			complete: function(jqXHR,textStatus){					
 			}	
 		});
 	};
@@ -48,14 +44,11 @@
 			datatype: "local",
 		    colNames:['ID','Name','Address','Mobile'],
 		    colModel:[
-		    	{name:'id',index:'id',sorttype:"number"},
+		    	{name:'id',index:'id',sorttype:'number',width:'50px'},
 		    	{name:'name',index:'name'},
 		    	{name:'address',index:'address'},
 		    	{name:'mobile_number',index:'mobile_number'}
-		    ],
-		    rowNum:10,
-			rowList:[10,20,30],
-		    pager: '#employee-pager',
+		    ],		    
 		    viewrecords: true,
 		    multiselect: false,
 		    caption: "Employees",		    

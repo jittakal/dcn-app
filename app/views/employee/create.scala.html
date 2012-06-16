@@ -1,0 +1,35 @@
+@(employeeForm: Form[forms.EmployeeForm])
+
+@import helper._
+
+
+@main() {
+	
+	@form(action = routes.EmployeeController.create_save()) {
+		@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> "employee name", '_label -> "Employee Name")	
+
+		@textarea(field=employeeForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 'placeholder -> "employee address", '_label -> "Address")	
+
+		@inputText(field=employeeForm("mobile_number"), args = 'class -> "input-large", 'placeholder -> "mobile number", '_label -> "Mobile Number")	
+
+		@inputText(field=employeeForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining date")	
+
+		@inputText(field=employeeForm("terminating_date"), args = 'class -> "input-large", '_label -> "Terminating Date")	
+		<button type="submit" class="btn btn-primary">Save</button>
+	}
+
+	<script type="text/javascript">
+		$(function() {
+			$("#joining_date").datepicker({dateFormat:"dd/mm/yy"});
+			$("#terminating_date").datepicker({dateFormat:"dd/mm/yy"});
+
+			$("#joining_date").keypress(function() {
+  				return false;
+			});
+
+			$("#terminating_date").keypress(function() {
+  				return false;
+			});
+		});
+	</script>
+}

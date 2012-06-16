@@ -4,29 +4,29 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import vos.UserVO;
+import forms.UserForm;
 
 public class LoginController extends Controller {
 	
-	final static Form<UserVO> loginForm = form(UserVO.class);
+	final static Form<UserForm> loginForm = form(UserForm.class);
 	
 	public static Result index() {
 		return ok(views.html.login.index.render(loginForm));
 	}
 	
 	public static Result submit(){
-		Form<UserVO> filledForm = loginForm.bindFromRequest();
+		Form<UserForm> filledForm = loginForm.bindFromRequest();
 
 		if(filledForm.hasErrors()){
 			return badRequest(views.html.login.index.render(filledForm));
 		}
 					
-		UserVO uservo=filledForm.get();
-		if(uservo==null){			
+		UserForm userForm=filledForm.get();
+		if(userForm==null){			
 			return badRequest(views.html.login.index.render(filledForm));
 		}
 		
-		User auser=uservo.getUser();//User.authenticate(uservo.username,uservo.password);
+		User auser=userForm.getUser();
 		if(auser==null){
 			return badRequest(views.html.login.index.render(filledForm));
 		}

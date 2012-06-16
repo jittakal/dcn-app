@@ -97,3 +97,11 @@ body {
     height: 36px;
     width: 100%;
 }
+
+.error{
+    color: #333333;
+}
+
+.info{
+    color: #333333;
+}
