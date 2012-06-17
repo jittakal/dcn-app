@@ -39,6 +39,10 @@ POST	/service/area				controllers.AreaController.create()
 PUT		/service/area/:id			controllers.AreaController.update(id: Long)
 
 # Sub Area
+GET		/portal/subareas			controllers.SubAreaController.index()
+GET 	/portal/create/subarea 		controllers.SubAreaController.create_new()
+POST 	/portal/create/subarea 		controllers.SubAreaController.create_save()
+
 GET		/service/subareas			controllers.SubAreaController.all()	
 GET		/service/subarea/:id 		controllers.SubAreaController.get(id: Long)					
 POST	/service/subarea			controllers.SubAreaController.create()

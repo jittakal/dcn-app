@@ -10,6 +10,8 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import util.JsonDateSerializer;
+import java.util.Map;
+import java.util.HashMap;
 
 import play.db.ebean.Model;
 
@@ -55,6 +57,15 @@ public class Employee extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+
+	public static Map asMap(){
+		List<Employee> employees=find.select("id,name").findList();
+		Map empMap=new HashMap<String,String>();
+		for(Employee employee: employees){
+			empMap.put(employee.id,employee.name);
+		}
+		return empMap;
 	}
 
 }

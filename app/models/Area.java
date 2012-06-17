@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import java.util.Map;
+import java.util.HashMap;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
@@ -30,6 +31,15 @@ public class Area extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+
+	public static Map asMap(){
+		List<Area> areas=find.select("id,name").findList();
+		Map areaMap=new HashMap<String,String>();
+		for(Area area: areas){
+			areaMap.put(area.id,area.name);
+		}
+		return areaMap;
 	}
 	
 }
