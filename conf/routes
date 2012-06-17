@@ -18,6 +18,8 @@ PUT		/service/user/:id			controllers.UserController.update(id: Long)
 GET 	/portal/employees 			controllers.EmployeeController.index()
 GET 	/portal/create/employee 	controllers.EmployeeController.create_new()
 POST 	/portal/create/employee 	controllers.EmployeeController.create_save()
+GET 	/portal/update/employee/:id controllers.EmployeeController.update_get(id: Long)
+POST 	/portal/update/employee/:id controllers.EmployeeController.update_save(id: Long)
 
 GET		/service/employees			controllers.EmployeeController.all()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)

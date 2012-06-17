@@ -3,9 +3,9 @@
 
  <div class="subnav">
     <ul class="nav nav-pills">      
-      <li class=""><a href="@routes.AreaController.create_new()" id="area-grid-add">Add</a></li>
-      <li class=""><a href="#" link="@routes.AreaController.update_get(0L)" id="area-grid-edit">Edit</a></li>
-      <li class=""><a href="#" id="area-grid-delete">Delete</a></li>      
+      <li class=""><a href="@routes.AreaController.create_new()" id="area-add">Add</a></li>
+      <li class=""><a href="#" link="@routes.AreaController.update_get(0L)" id="area-edit">Edit</a></li>
+      <li class=""><a href="#" id="area-delete">Delete</a></li>      
     </ul>
   </div>
 
@@ -20,8 +20,8 @@
 	$(function(){
 		process_areas();
 
-		$("#area-grid-edit").click(area_grid_edit_click);
-		$("#area-grid-delete").click(area_grid_delete_click);
+		$("#area-edit").click(area_edit_click);
+		$("#area-delete").click(area_delete_click);
 
 	});
 
@@ -68,7 +68,7 @@
 		});
 	};
 
-	var area_grid_edit_click = function(){		
+	var area_edit_click = function(){		
 		var id = $("#area-grid").jqGrid('getGridParam','selrow'); 
 		if (id) { 
 			var ret = $("#area-grid").jqGrid('getRowData',id); 			
@@ -80,7 +80,7 @@
 		} 		
 	}
 
-	var area_grid_delete_click = function(){		
+	var area_delete_click = function(){		
 		var id = $("#area-grid").jqGrid('getGridParam','selrow'); 
 		if (id) { 
 			var ret = jQuery("#area-grid").jqGrid('getRowData',id); 			 

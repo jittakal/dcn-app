@@ -7,12 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import util.JsonDateSerializer;
 
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
+@JsonSerialize(include = Inclusion.NON_NULL)
 public class Employee extends Model {
 	@Id
 	public Long id;
@@ -27,9 +31,11 @@ public class Employee extends Model {
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
+	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date joining_date;
 	
 	@Temporal(TemporalType.DATE)
+	@JsonSerialize(using=JsonDateSerializer.class,include = Inclusion.NON_NULL)
 	public Date terminate_date;
 	
 	/**

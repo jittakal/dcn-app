@@ -50,6 +50,42 @@ public class EmployeeController extends Controller {
 								
 		return  index();
 	}
+
+	public static Result update_get(Long id){
+		Employee employee=Employee.get(id);		
+		EmployeeForm eForm=new EmployeeForm();
+		eForm.name=employee.name;
+		eForm.address=employee.address;
+		eForm.mobile_number=employee.mobile_number;
+		eForm.joining_date=employee.joining_date;
+		eForm.terminate_date=employee.terminate_date;
+		
+		return ok(update.render(employeeForm.fill(eForm),id));
+	}
+
+	public static Result update_save(Long id){
+		Form<EmployeeForm> filledForm = employeeForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			return badRequest(views.html.employee.update.render(filledForm,id));
+		}
+					
+		EmployeeForm employeeForm=filledForm.get();
+		if(employeeForm==null){			
+			return badRequest(views.html.employee.update.render(filledForm,id));
+		}
+
+		Employee employee=new Employee();
+		employee.id=id;
+		employee.name=employeeForm.name;
+		employee.address=employeeForm.address;
+		employee.mobile_number=employeeForm.mobile_number;
+		employee.joining_date=employeeForm.joining_date;
+		employee.terminate_date=employeeForm.terminate_date;
+		employee.update();
+								
+		return  index();
+	}
 	
 	/**
 	 * Return List of all Employees in JSON format.

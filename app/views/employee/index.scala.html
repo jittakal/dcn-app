@@ -2,7 +2,11 @@
 
  	<div class="subnav">
 	    <ul class="nav nav-pills">      
-	      <li class=""><a href="@routes.EmployeeController.create_new()">Add</a></li>      
+	      <li class=""><a href="@routes.EmployeeController.create_new()" id="employee-add">Add</a></li> 
+	      <li class="">
+	      	<a href="#" link="@routes.EmployeeController.update_get(0L)" id="employee-edit">Edit</a>
+	      </li>  
+	         
 	    </ul>
   	</div>
 
@@ -15,6 +19,8 @@
 
 	$(function(){
 		process_employees();
+
+		$("#employee-edit").click(employee_edit_click);
 	});
 
 	var process_employees = function() {		
@@ -42,12 +48,13 @@
 
 		$("#employee-grid").jqGrid({
 			datatype: "local",
-		    colNames:['ID','Name','Address','Mobile'],
+		    colNames:['ID','Name','Address','Mobile','Joining Date'],
 		    colModel:[
 		    	{name:'id',index:'id',sorttype:'number',width:'50px'},
 		    	{name:'name',index:'name'},
 		    	{name:'address',index:'address'},
-		    	{name:'mobile_number',index:'mobile_number'}
+		    	{name:'mobile_number',index:'mobile_number'},
+		    	{name:'joining_date',index:'joining_date'}
 		    ],		    
 		    viewrecords: true,
 		    multiselect: false,
@@ -60,6 +67,27 @@
 			$("#employee-grid").jqGrid('addRowData',i+1,employee);	
 		});
 	};
+
+	var employee_edit_click = function(){		
+		var id = $("#employee-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#employee-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.id);
+			$(this).attr('href',link);
+		} else { 
+			alert("Please select row");
+		} 		
+	}
+
+	var employee_delete_click = function(){		
+		var id = $("#employee-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = jQuery("#employee-grid").jqGrid('getRowData',id); 			 
+		} else { 
+			alert("Please select row");
+		}
+	}
 	</script>
 
 }	

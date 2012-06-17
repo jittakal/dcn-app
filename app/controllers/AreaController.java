@@ -61,12 +61,12 @@ public class AreaController extends Controller {
 		Form<AreaForm> filledForm = areaForm.bindFromRequest();
 
 		if(filledForm.hasErrors()){
-			return badRequest(views.html.area.create.render(filledForm));
+			return badRequest(views.html.area.update.render(filledForm,id));
 		}
 					
 		AreaForm areaForm=filledForm.get();
 		if(areaForm==null){			
-			return badRequest(views.html.area.create.render(filledForm));
+			return badRequest(views.html.area.update.render(filledForm,id));
 		}
 
 		Area area=new Area();
