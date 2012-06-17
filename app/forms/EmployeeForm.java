@@ -4,6 +4,7 @@ import java.io.Serializable;
 import play.data.validation.Constraints.Required;
 import play.data.validation.Constraints.MaxLength;
 import java.util.Date;
+import play.data.format.Formats.DateTime;
 
 public class EmployeeForm implements Serializable{
 
@@ -17,7 +18,9 @@ public class EmployeeForm implements Serializable{
 	public String mobile_number;
 
 	@Required
+	@DateTime(pattern="dd/MM/yyyy")
 	public Date joining_date;
 
-	public Date terminating_date;
+	@DateTime(pattern="dd/MM/yyyy")
+	public Date terminate_date;
 }
