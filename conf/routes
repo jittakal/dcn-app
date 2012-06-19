@@ -9,6 +9,8 @@ POST	/welcome					controllers.LoginController.submit()
 GET		/get/welcome				controllers.LoginController.welcome()
 
 # User
+GET 	/portal/users 				controllers.UserController.index()
+
 GET		/service/users				controllers.UserController.all()	
 GET		/service/user/:id 			controllers.UserController.get(id: Long)					
 POST	/service/user				controllers.UserController.create()
@@ -51,6 +53,10 @@ POST	/service/subarea			controllers.SubAreaController.create()
 PUT		/service/subarea/:id		controllers.SubAreaController.update(id: Long)
 
 # Price
+GET		/portal/prices				controllers.PriceController.index()
+GET 	/portal/create/price 		controllers.PriceController.create_new()
+POST 	/portal/create/price 		controllers.PriceController.create_save()
+
 GET		/service/prices				controllers.PriceController.all()	
 GET		/service/price/:id	 		controllers.PriceController.get(id: Long)					
 POST	/service/price				controllers.PriceController.create()

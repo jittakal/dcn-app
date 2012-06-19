@@ -6,13 +6,51 @@ import models.Price;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
-
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import forms.PriceForm;
+import views.html.price.*;
 
 public class PriceController extends Controller {
+
+	final static Form<PriceForm> priceForm =  form (PriceForm.class);
+	
+	/**
+	 * Return Price by id.
+	 * @return 
+	 * 
+	 * @return
+	 */
+	
+	public static Result index(){
+		return ok(index.render());
+	}
+	
+	public static Result create_new(){
+		return ok(create.render(priceForm));
+	}
+	
+	public static Result create_save(){
+		Form<PriceForm> filledForm = priceForm.bindFromRequest();
+			
+		if(filledForm.hasErrors()){
+			return badRequest(create.render(filledForm));
+		}
+		
+		PriceForm priceForm=filledForm.get();
+		if(priceForm==null){
+			return badRequest(create.render(filledForm));
+		}
+		
+		Price price=new Price();
+		price.amount=priceForm.amount;
+		price.save();
+		
+		return  index();
+	}
 
 	/**
 	 * Return List of all Prices in JSON format.

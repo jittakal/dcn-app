@@ -11,8 +11,13 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.user.*;
 
 public class UserController extends Controller {
+
+	public static Result index(){
+		return ok(index.render());
+	}
 
 	/**
 	 * Return List of all Users in JSON format.
