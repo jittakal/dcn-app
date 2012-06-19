@@ -56,6 +56,8 @@ PUT		/service/subarea/:id		controllers.SubAreaController.update(id: Long)
 GET		/portal/prices				controllers.PriceController.index()
 GET 	/portal/create/price 		controllers.PriceController.create_new()
 POST 	/portal/create/price 		controllers.PriceController.create_save()
+GET 	/portal/update/price/:id 	controllers.PriceController.update_get(id: Long)
+POST 	/portal/update/price/:id 	controllers.PriceController.update_save(id: Long)
 
 GET		/service/prices				controllers.PriceController.all()	
 GET		/service/price/:id	 		controllers.PriceController.get(id: Long)					

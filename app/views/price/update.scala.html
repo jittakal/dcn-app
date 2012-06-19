@@ -1,0 +1,11 @@
+@(priceForm: Form[forms.PriceForm],id: Long)
+
+@import helper._
+
+
+@main() {
+	@form(action = routes.PriceController.update_save(id)) {
+		@inputText(field= priceForm("Amount"), args='class->"input-large", 'placeholder->"amount")
+		<button type="Submit" class="btn btn-primary">Save</b>
+	}
+}

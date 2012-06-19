@@ -52,6 +52,33 @@ public class PriceController extends Controller {
 		return  index();
 	}
 
+	public static Result update_get(Long id){
+		Price price=Price.get(id);		
+		PriceForm pForm=new PriceForm();
+		pForm.amount=price.amount;
+		return ok(update.render(priceForm.fill(pForm),id));
+	}
+
+	public static Result update_save(Long id){
+		Form<PriceForm> filledForm = priceForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			return badRequest(update.render(filledForm,id));
+		}
+					
+		PriceForm priceForm=filledForm.get();
+		if(priceForm==null){			
+			return badRequest(update.render(filledForm,id));
+		}
+
+		Price price=new Price();
+		price.id=id;
+		price.amount=priceForm.amount;
+		price.update();
+								
+		return  index();
+	}
+
 	/**
 	 * Return List of all Prices in JSON format.
 	 * 

@@ -3,6 +3,7 @@
 	<div class="subnav">
     	<ul class="nav nav-pills">
     	<li class=""><a href="@routes.PriceController.create_new()" id="price-add">Add</a></li>
+    	<li class=""><a href="#" link="@routes.PriceController.update_get(0L)" id="price-edit">Edit</a></li>
     	<li class=""><a href="#" id="price-grid-delete">Delete</a></li>
     	</ul>
     </div>
@@ -15,7 +16,8 @@
 		<script type="text/javascript">
 		
 		$(function(){
-			process_prices();				
+			process_prices();	
+			$("#price-edit").click(price_edit_click);			
 		});
 		
 	var process_prices = function() {		
@@ -59,6 +61,18 @@
 		$.each(prices,function(i,price){
 			$("#price-grid").jqGrid('addRowData',i+1,price);	
 		});		
+	};
+
+	var price_edit_click = function(){		
+		var id = $("#price-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#price-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.id);
+			$(this).attr('href',link);
+		} else { 
+			alert("Please select row");
+		} 		
 	};
 		
 		
