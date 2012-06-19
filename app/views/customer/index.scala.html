@@ -1,0 +1,100 @@
+@main(){
+
+
+ <div class="subnav">
+    <ul class="nav nav-pills">      
+      <li class=""><a href="@routes.CustomerController.create_new()" id="customer-add">Add</a></li>
+      <li class=""><a href="#" link="@routes.CustomerController.update_get(0L)" id="customer-edit">Edit</a></li>
+      <li class=""><a href="#" id="customer-delete">Delete</a></li>      
+    </ul>
+  </div>
+
+	
+  <br/>
+
+	<table id="customer-grid"></table> 
+	<div id="customer-pager"></div>
+
+	<script type="text/javascript">
+
+	$(function(){
+		process_customers();
+
+		$("#customer-edit").click(customer_edit_click);
+		$("#customer-delete").click(customer_delete_click);
+
+	});
+
+	var process_customers = function() {		
+  		$.ajax({
+			url: '/service/customers',
+			processData:false,
+			type: 'GET',
+			beforeSend:function(jqXHR, settings){					
+				jqXHR.setRequestHeader("Content-Type", "application/json");					
+			},
+			success: function(data, textStatus, jqXHR){					
+				render_customers(data);	
+			},
+			error: function(jqXHR, textStatus, errorThrown){				
+				//display_error_msg(errorThrown);	
+			},
+			complete: function(jqXHR,textStatus){					
+			}	
+		});
+	};
+
+	var render_customers = function(customers) {		
+		if(customers == undefined || customers == null){
+			return;
+		}	
+
+		$("#customer-grid").jqGrid({
+			datatype: "local",
+		    colNames:['ID','Name','Address','Mobile','Sub Area','Amount','Joining Date'],
+		    colModel:[
+		    	{name:'id',index:'id',width:'50px'},
+		    	{name:'name',index:'name'},
+		    	{name:'address',index:'address'},
+		    	{name:'mobile_number',index:'mobile_number'},
+		    	{name:'subareaname',index:'subareaname'},
+		    	{name:'priceamount',index:'priceamount'},		    	
+		    	{name:'joining_date',index:'joining_date'}
+		    ],		   
+		    viewrecords: true,
+		    multiselect: false,
+		    caption: "Customers",		    
+		    height: 250,
+		    width: 900
+		});		
+
+		$.each(customers,function(i,customer){
+			customer.subareaname=customer.sub_area.name;
+			customer.priceamount=customer.price.amount;
+			$("#customer-grid").jqGrid('addRowData',i+1,customer);	
+		});
+	};
+
+	var customer_edit_click = function(){		
+		var id = $("#customer-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#customer-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.id);
+			$(this).attr('href',link);
+		} else { 
+			alert("Please select row");
+		} 		
+	}
+
+	var customer_delete_click = function(){		
+		var id = $("#customer-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = jQuery("#customer-grid").jqGrid('getRowData',id); 			 
+		} else { 
+			alert("Please select row");
+		}
+	}
+
+	</script>
+}	

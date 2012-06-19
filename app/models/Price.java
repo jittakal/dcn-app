@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import java.util.Map;
+import java.util.HashMap;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
@@ -16,7 +17,7 @@ public class Price extends Model {
 	public Long id;
 	
 	@NotNull
-	public int amount;
+	public Integer amount;
 	
 	/*@Temporal(value=TemporalType.DATE)
 	@NotNull
@@ -37,6 +38,15 @@ public class Price extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+
+	public static Map<String,String> asMap(){
+		List<Price> prices=find.select("id,amount").findList();
+		Map<String,String> priceMap=new HashMap<String,String>();
+		for(Price price: prices){
+			priceMap.put(price.id.toString(),price.amount.toString());
+		}
+		return priceMap;
 	}
 
 }

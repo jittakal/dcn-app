@@ -38,29 +38,71 @@ public class SubAreaController extends Controller {
 		if(filledForm.hasErrors()){
 			Map<String,String> areaMap=Area.asMap();
 			Map<String,String> empMap=Employee.asMap();
-			return badRequest(views.html.subarea.create.render(filledForm,areaMap,empMap));
+			return badRequest(create.render(filledForm,areaMap,empMap));
 		}
 					
 		SubAreaForm subareaForm=filledForm.get();
 		if(subareaForm==null){			
 			Map<String,String> areaMap=Area.asMap();
 			Map<String,String> empMap=Employee.asMap();
-			return badRequest(views.html.subarea.create.render(filledForm,areaMap,empMap));
+			return badRequest(create.render(filledForm,areaMap,empMap));
 		}
 
-		Area area=new Area();
-		area.id=subareaForm.areaid;		
-
-		Employee employee=new Employee();
-		employee.id=subareaForm.employeeid;		
-
-		SubArea subarea=new SubArea();
-		subarea.name=subareaForm.name;
-		subarea.area=area;
-		subarea.employee=employee;
+		SubArea subarea=formToModel(subareaForm);
 		subarea.save();
 								
 		return  index();
+	}
+
+	public static Result update_get(Long id){
+		Map<String,String> areaMap=Area.asMap();
+		Map<String,String> empMap=Employee.asMap();
+		SubArea subArea=SubArea.get(id);
+
+		SubAreaForm saForm=new SubAreaForm();
+		saForm.name=subArea.name;
+		saForm.areaid=subArea.area.id.toString();
+		saForm.employeeid=subArea.employee.id.toString();		
+		
+		return ok(update.render(subareaForm.fill(saForm),areaMap,empMap,id));
+	}
+
+	public static Result update_save(Long id){
+		Form<SubAreaForm> filledForm = subareaForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			Map<String,String> areaMap=Area.asMap();
+			Map<String,String> empMap=Employee.asMap();
+			return badRequest(update.render(filledForm,areaMap,empMap,id));
+		}
+					
+		SubAreaForm subareaForm=filledForm.get();
+		if(subareaForm==null){			
+			Map<String,String> areaMap=Area.asMap();
+			Map<String,String> empMap=Employee.asMap();
+			return badRequest(update.render(filledForm,areaMap,empMap,id));
+		}		
+
+		SubArea subarea=formToModel(subareaForm);
+		subarea.id=id;
+		subarea.update();
+								
+		return  index();
+	}
+
+	private static SubArea formToModel(SubAreaForm subareaForm){
+		Area area=new Area();
+		area.id=new Long(subareaForm.areaid);		
+
+		Employee employee=new Employee();
+		employee.id=new Long(subareaForm.employeeid);		
+
+		SubArea subarea=new SubArea();		
+		subarea.name=subareaForm.name;
+		subarea.area=area;
+		subarea.employee=employee;
+
+		return subarea;
 	}
 	
 	/**

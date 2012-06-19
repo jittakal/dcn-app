@@ -59,11 +59,11 @@ public class Employee extends Model {
 		find.byId(id).delete();
 	}
 
-	public static Map asMap(){
+	public static Map<String,String> asMap(){
 		List<Employee> employees=find.select("id,name").findList();
-		Map empMap=new HashMap<String,String>();
+		Map<String,String> empMap=new HashMap<String,String>();
 		for(Employee employee: employees){
-			empMap.put(employee.id,employee.name);
+			empMap.put(employee.id.toString(),employee.name);
 		}
 		return empMap;
 	}

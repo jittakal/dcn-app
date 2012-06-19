@@ -4,7 +4,7 @@
  <div class="subnav">
     <ul class="nav nav-pills">      
       <li class=""><a href="@routes.SubAreaController.create_new()" id="subarea-add">Add</a></li>
-      <li class=""><a href="#" id="subarea-edit">Edit</a></li>
+      <li class=""><a href="#" link="@routes.SubAreaController.update_get(0L)" id="subarea-edit">Edit</a></li>
       <li class=""><a href="#" id="subarea-delete">Delete</a></li>      
     </ul>
   </div>
@@ -55,8 +55,8 @@
 		    colModel:[
 		    	{name:'id',index:'id',width:'50px'},
 		    	{name:'name',index:'name'},
-		    	{name:'area.name',index:'area.name'},
-		    	{name:'employee.name',index:'employee.name'}
+		    	{name:'areaname',index:'areaname'},
+		    	{name:'employeename',index:'employeename'}
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
@@ -66,6 +66,8 @@
 		});		
 
 		$.each(subareas,function(i,subarea){
+			subarea.areaname=subarea.area.name;
+			subarea.employeename=subarea.employee.name;
 			$("#subarea-grid").jqGrid('addRowData',i+1,subarea);	
 		});
 	};

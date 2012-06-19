@@ -5,7 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import java.util.Map;
+import java.util.HashMap;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
@@ -14,7 +15,7 @@ import com.avaje.ebean.validation.NotNull;
 public class SubArea extends Model {
 	
 	@Id
-	public long id;
+	public Long id;
 	
 	@NotNull
 	public String name;
@@ -39,5 +40,14 @@ public class SubArea extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+
+	public static Map<String,String> asMap(){
+		List<SubArea> subareas=find.select("id,name").findList();
+		Map<String,String> subareaMap=new HashMap<String,String>();
+		for(SubArea subarea: subareas){
+			subareaMap.put(subarea.id.toString(),subarea.name);
+		}
+		return subareaMap;
 	}
 }

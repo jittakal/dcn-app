@@ -44,8 +44,7 @@ public class EmployeeController extends Controller {
 		employee.name=employeeForm.name;
 		employee.address=employeeForm.address;
 		employee.mobile_number=employeeForm.mobile_number;
-		employee.joining_date=employeeForm.joining_date;
-		employee.terminate_date=employeeForm.terminate_date;
+		employee.joining_date=employeeForm.joining_date;	
 		employee.save();
 								
 		return  index();

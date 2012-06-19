@@ -9,9 +9,9 @@ public class SubAreaForm implements Serializable{
 	public String name;
 
 	@Required
-	public Long areaid;
+	public String areaid;
 
 	@Required
-	public Long employeeid;	
+	public String employeeid;	
 	
 }

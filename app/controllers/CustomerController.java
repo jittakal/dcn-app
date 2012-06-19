@@ -11,8 +11,114 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.data.Form;
+import forms.CustomerForm;
+import models.SubArea;
+import models.Price;
+import java.util.Map;
+
+import views.html.customer.*;
 
 public class CustomerController extends Controller {
+
+	final static Form<CustomerForm> customerForm = form(CustomerForm.class);
+
+	public static Result index(){
+		return ok(index.render());
+	}
+
+	public static Result create_new(){
+		Map<String,String> subareaMap=SubArea.asMap();
+		Map<String,String> priceMap=Price.asMap();
+		return ok(create.render(customerForm,subareaMap,priceMap));
+	}
+
+	public static Result create_save(){
+		Form<CustomerForm> filledForm = customerForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			Map<String,String> subareaMap=SubArea.asMap();
+			Map<String,String> priceMap=Price.asMap();
+			return badRequest(create.render(filledForm,subareaMap,priceMap));
+		}
+					
+		CustomerForm customerForm=filledForm.get();
+		if(customerForm==null){			
+			Map<String,String> subareaMap=SubArea.asMap();
+			Map<String,String> priceMap=Price.asMap();
+			return badRequest(create.render(filledForm,subareaMap,priceMap));
+		}
+
+		Customer customer=formToModel(customerForm);
+		customer.save();
+								
+		return  index();
+	}
+
+	public static Result update_get(Long id){
+		Map<String,String> subareaMap=SubArea.asMap();
+		Map<String,String> priceMap=Price.asMap();
+		Customer customer=Customer.get(id);
+
+		CustomerForm csForm=new CustomerForm();
+		csForm.name=customer.name;
+		csForm.subareaid=customer.sub_area.id.toString();
+		csForm.address=customer.address;
+		csForm.mobile_number=customer.mobile_number;
+		csForm.home_number=customer.home_number;
+		csForm.email_address=customer.email_address;
+		csForm.joining_date=customer.joining_date;
+		csForm.terminate_date=customer.terminate_date;
+		csForm.priceid=customer.price.id.toString();
+		csForm.deposite=customer.balance;
+		
+		return ok(update.render(customerForm.fill(csForm),subareaMap,priceMap,id));
+	}
+
+	public static Result update_save(Long id){
+		Form<CustomerForm> filledForm = customerForm.bindFromRequest();
+
+		if(filledForm.hasErrors()){
+			Map<String,String> subareaMap=SubArea.asMap();
+			Map<String,String> priceMap=Price.asMap();
+			return badRequest(update.render(filledForm,subareaMap,priceMap,id));
+		}
+					
+		CustomerForm customerForm=filledForm.get();
+		if(customerForm==null){			
+			Map<String,String> subareaMap=SubArea.asMap();
+			Map<String,String> priceMap=Price.asMap();
+			return badRequest(update.render(filledForm,subareaMap,priceMap,id));
+		}		
+
+		Customer customer=formToModel(customerForm);
+		customer.id=id;
+		customer.update();
+								
+		return  index();
+	}
+
+	private static Customer formToModel(CustomerForm customerForm){
+		SubArea subarea=new SubArea();
+		subarea.id=new Long(customerForm.subareaid);		
+
+		Price price=new Price();
+		price.id=new Long(customerForm.priceid);		
+
+		Customer customer=new Customer();		
+		customer.name=customerForm.name;
+		customer.sub_area=subarea;
+		customer.address=customerForm.address;
+		customer.mobile_number=customerForm.mobile_number;
+		customer.home_number=customerForm.home_number;
+		customer.email_address=customerForm.email_address;
+		customer.joining_date=customerForm.joining_date;
+		customer.terminate_date=customerForm.terminate_date;
+		customer.price=price;
+		customer.balance=customerForm.deposite;
+
+		return customer;
+	}
 
 	/**
 	 * Return List of all Customers in JSON format.

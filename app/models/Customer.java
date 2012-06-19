@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import util.JsonDateSerializer;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
+@JsonSerialize(include = Inclusion.NON_NULL)
 public class Customer extends Model {
 	
 	@Id
@@ -29,17 +32,19 @@ public class Customer extends Model {
 	@NotNull
 	public String address;
 	
-	public int mobile_number;
+	public String mobile_number;
 	
-	public int home_number;
+	public String home_number;
 	
 	public String email_address;
 	
 	@NotNull
 	@Temporal(value=TemporalType.DATE)
+	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date joining_date;
 	
 	@Temporal(value=TemporalType.DATE)
+	@JsonSerialize(using=JsonDateSerializer.class,include = Inclusion.NON_NULL)
 	public Date terminate_date;
 	
 	@ManyToOne
@@ -47,7 +52,7 @@ public class Customer extends Model {
 	public Price price;
 	
 	@NotNull
-	public int balance;
+	public Integer balance;
 	
 	
 	public static Finder<Long, Customer> find = new Finder(Long.class, Customer.class);

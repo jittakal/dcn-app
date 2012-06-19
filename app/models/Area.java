@@ -33,11 +33,11 @@ public class Area extends Model {
 		find.byId(id).delete();
 	}
 
-	public static Map asMap(){
+	public static Map<String,String> asMap(){
 		List<Area> areas=find.select("id,name").findList();
-		Map areaMap=new HashMap<String,String>();
+		Map<String,String> areaMap=new HashMap<String,String>();
 		for(Area area: areas){
-			areaMap.put(area.id,area.name);
+			areaMap.put(area.id.toString(),area.name);
 		}
 		return areaMap;
 	}

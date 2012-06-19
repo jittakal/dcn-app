@@ -42,6 +42,8 @@ PUT		/service/area/:id			controllers.AreaController.update(id: Long)
 GET		/portal/subareas			controllers.SubAreaController.index()
 GET 	/portal/create/subarea 		controllers.SubAreaController.create_new()
 POST 	/portal/create/subarea 		controllers.SubAreaController.create_save()
+GET 	/portal/update/subarea/:id 	controllers.SubAreaController.update_get(id: Long)
+POST 	/portal/update/subarea/:id 	controllers.SubAreaController.update_save(id: Long)
 
 GET		/service/subareas			controllers.SubAreaController.all()	
 GET		/service/subarea/:id 		controllers.SubAreaController.get(id: Long)					
@@ -55,6 +57,12 @@ POST	/service/price				controllers.PriceController.create()
 PUT		/service/price/:id			controllers.PriceController.update(id: Long)
 
 # Customer
+GET		/portal/customers			controllers.CustomerController.index()
+GET 	/portal/create/customer 	controllers.CustomerController.create_new()
+POST 	/portal/create/customer 	controllers.CustomerController.create_save()
+GET 	/portal/update/customer/:id controllers.CustomerController.update_get(id: Long)
+POST 	/portal/update/customer/:id controllers.CustomerController.update_save(id: Long)
+
 GET		/service/customers			controllers.CustomerController.all()	
 GET		/service/customer/:id		controllers.CustomerController.get(id: Long)					
 POST	/service/customer			controllers.CustomerController.create()
