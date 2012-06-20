@@ -11,7 +11,10 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 
+@Authenticated(value = DcnAuthenticator.class)
 public class InvoiceController extends Controller {
 
 	

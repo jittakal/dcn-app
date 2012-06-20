@@ -16,8 +16,10 @@ import models.Area;
 import forms.SubAreaForm;
 import play.data.Form;
 import views.html.subarea.*;
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 
-
+@Authenticated(value = DcnAuthenticator.class)
 public class SubAreaController extends Controller {
 
 	final static Form<SubAreaForm> subareaForm = form(SubAreaForm.class);

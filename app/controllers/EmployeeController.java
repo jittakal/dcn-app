@@ -15,7 +15,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import views.html.employee.*;
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 
+@Authenticated(value = DcnAuthenticator.class)
 public class EmployeeController extends Controller {
 
 	final static Form<EmployeeForm> employeeForm = form(EmployeeForm.class);

@@ -18,7 +18,10 @@ import models.Price;
 import java.util.Map;
 
 import views.html.customer.*;
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 
+@Authenticated(value = DcnAuthenticator.class)
 public class CustomerController extends Controller {
 
 	final static Form<CustomerForm> customerForm = form(CustomerForm.class);

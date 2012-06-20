@@ -13,7 +13,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import forms.PriceForm;
 import views.html.price.*;
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 
+@Authenticated(value = DcnAuthenticator.class)
 public class PriceController extends Controller {
 
 	final static Form<PriceForm> priceForm =  form (PriceForm.class);
