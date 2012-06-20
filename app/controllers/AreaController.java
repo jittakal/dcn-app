@@ -12,9 +12,11 @@ import play.mvc.BodyParser;
 import play.libs.Json;
 import org.codehaus.jackson.*;
 import org.codehaus.jackson.node.ObjectNode;
-
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 import views.html.area.*;
 
+@Authenticated(value = DcnAuthenticator.class)
 public class AreaController extends Controller {
 
 	final static Form<AreaForm> areaForm = form(AreaForm.class);
