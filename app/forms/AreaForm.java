@@ -7,4 +7,5 @@ public class AreaForm implements Serializable{
 
 	@Required
 	public String name;
+	
 }

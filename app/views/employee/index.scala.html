@@ -6,7 +6,9 @@
 	      <li class="">
 	      	<a href="#" link="@routes.EmployeeController.update_get(0L)" id="employee-edit">Edit</a>
 	      </li>  
-	         
+	      <li class="">
+	      	<a href="#" link="@routes.EmployeeController.delete(0L)" id="employee-delete">Delete</a>
+	      </li>   
 	    </ul>
   	</div>
 
@@ -21,9 +23,10 @@
 		process_employees();
 
 		$("#employee-edit").click(employee_edit_click);
+		$("#employee-delete").click(employee_delete_click);
 	});
 
-	var process_employees = function() {		
+	var process_employees = function() {				
   		$.ajax({
 			url: '/service/employees',
 			processData:false,
@@ -42,11 +45,15 @@
 	};
 
 	var render_employees = function(employees) {		
+		var employee_grid=$("#employee-grid");
+
+		employee_grid.jqGrid('clearGridData');
+
 		if(employees == undefined || employees == null){
 			return;
 		}	
 
-		$("#employee-grid").jqGrid({
+		employee_grid.jqGrid({
 			datatype: "local",
 		    colNames:['ID','Name','Address','Mobile','Joining Date'],
 		    colModel:[
@@ -61,10 +68,10 @@
 		    caption: "Employees",		    
 		    height: 250,
 		    width: 900
-		}).navGrid('#employee-pager',{edit:false,add:false,del:false});
+		});
 
 		$.each(employees,function(i,employee){
-			$("#employee-grid").jqGrid('addRowData',i+1,employee);	
+			employee_grid.jqGrid('addRowData',i+1,employee);	
 		});
 	};
 
@@ -83,11 +90,32 @@
 	var employee_delete_click = function(){		
 		var id = $("#employee-grid").jqGrid('getGridParam','selrow'); 
 		if (id) { 
-			var ret = jQuery("#employee-grid").jqGrid('getRowData',id); 			 
+			var ret = $("#employee-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.id);			
+
+			$.ajax({
+				url: link,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){					
+					alert('Selected employee has been deleted successfully');
+					process_employees();
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					alert("Error : " + jqXHR.responseText);
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});
+
 		} else { 
 			alert("Please select row");
-		}
-	}
+		} 		
+	};
 	</script>
 
 }	

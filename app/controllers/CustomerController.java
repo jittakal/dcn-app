@@ -3,7 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.Customer;
-
+import models.Invoice;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -55,7 +55,7 @@ public class CustomerController extends Controller {
 		Customer customer=formToModel(customerForm);
 		customer.save();
 								
-		return  index();
+		return  redirect(controllers.routes.CustomerController.index());
 	}
 
 	public static Result update_get(Long id){
@@ -98,7 +98,7 @@ public class CustomerController extends Controller {
 		customer.id=id;
 		customer.update();
 								
-		return  index();
+		return  redirect(controllers.routes.CustomerController.index());
 	}
 
 	private static Customer formToModel(CustomerForm customerForm){
@@ -122,6 +122,18 @@ public class CustomerController extends Controller {
 
 		return customer;
 	}
+
+	public static Result delete(Long id){		
+		Customer customer=Customer.get(id);
+		if(customer==null){
+			return notFound("Customer having id [" + id + "] does not exists.");
+		}
+		if(Invoice.countByCustomer(id)==0){
+			Customer.delete(id);			
+			return ok("Selected Customer has been deleted successfully");
+		}
+		return notFound("Customer ['" + customer.name + "'] is associated with Invoice(s)");			
+	}	
 
 	/**
 	 * Return List of all Customers in JSON format.

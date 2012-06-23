@@ -12,10 +12,12 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import util.JsonDateSerializer;
 import play.db.ebean.Model;
-
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "mobile_number", "home_number", "email_address" }))
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class Customer extends Model {
 	
@@ -67,6 +69,14 @@ public class Customer extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+
+	public static int countBySubArea(Long sub_areaid){
+		return find.select("id").where().eq("sub_area_id",sub_areaid).findList().size();
+	}
+
+	public static int countByPrice(Long priceid){
+		return find.select("id").where().eq("price_id",priceid).findList().size();
 	}
 
 }

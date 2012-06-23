@@ -12,12 +12,13 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import util.JsonDateSerializer;
 import java.util.Map;
 import java.util.HashMap;
-
+import javax.persistence.UniqueConstraint;
 import play.db.ebean.Model;
-
+import javax.persistence.Table;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "mobile_number" }))
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class Employee extends Model {
 	@Id

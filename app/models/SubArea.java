@@ -8,10 +8,12 @@ import javax.persistence.ManyToOne;
 import java.util.Map;
 import java.util.HashMap;
 import play.db.ebean.Model;
-
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class SubArea extends Model {
 	
 	@Id
@@ -49,5 +51,13 @@ public class SubArea extends Model {
 			subareaMap.put(subarea.id.toString(),subarea.name);
 		}
 		return subareaMap;
+	}
+
+	public static int countByArea(Long areaid){
+		return find.select("id").where().eq("area_id",areaid).findList().size();
+	}
+
+	public static int countByEmployee(Long employeeid){
+		return find.select("id").where().eq("employee_id",employeeid).findList().size();
 	}
 }

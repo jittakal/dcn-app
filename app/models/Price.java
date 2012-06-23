@@ -7,10 +7,12 @@ import javax.persistence.Id;
 import java.util.Map;
 import java.util.HashMap;
 import play.db.ebean.Model;
-
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "amount" }))
 public class Price extends Model {
 	
 	@Id

@@ -13,6 +13,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import java.util.Map;
 import models.Area;
+import models.Customer;
 import forms.SubAreaForm;
 import play.data.Form;
 import views.html.subarea.*;
@@ -53,7 +54,7 @@ public class SubAreaController extends Controller {
 		SubArea subarea=formToModel(subareaForm);
 		subarea.save();
 								
-		return  index();
+		return  redirect(controllers.routes.SubAreaController.index());
 	}
 
 	public static Result update_get(Long id){
@@ -89,7 +90,7 @@ public class SubAreaController extends Controller {
 		subarea.id=id;
 		subarea.update();
 								
-		return  index();
+		return  redirect(controllers.routes.SubAreaController.index());
 	}
 
 	private static SubArea formToModel(SubAreaForm subareaForm){
@@ -105,6 +106,18 @@ public class SubAreaController extends Controller {
 		subarea.employee=employee;
 
 		return subarea;
+	}
+
+	public static Result delete(Long id){		
+		SubArea subarea=SubArea.get(id);
+		if(subarea==null){
+			return notFound("Sub Area having id [" + id + "] does not exists.");
+		}
+		if(Customer.countBySubArea(id)==0){
+			SubArea.delete(id);			
+			return ok("Selected Sub Area has been deleted successfully");
+		}
+		return notFound("Sub Area ['" + subarea.name + "'] is associated with Customer(s)");			
 	}
 	
 	/**

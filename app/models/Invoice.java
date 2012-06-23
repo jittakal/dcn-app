@@ -43,4 +43,8 @@ public class Invoice extends Model {
 		find.byId(id).delete();
 	}
 
+	public static int countByCustomer(Long customerid){
+		return find.select("id").where().eq("customer_id",customerid).findList().size();
+	}
+
 }

@@ -3,7 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.Price;
-
+import models.Customer;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import play.data.Form;
@@ -52,7 +52,7 @@ public class PriceController extends Controller {
 		price.amount=priceForm.amount;
 		price.save();
 		
-		return  index();
+		return  redirect(controllers.routes.PriceController.index());
 	}
 
 	public static Result update_get(Long id){
@@ -79,7 +79,19 @@ public class PriceController extends Controller {
 		price.amount=priceForm.amount;
 		price.update();
 								
-		return  index();
+		return  redirect(controllers.routes.PriceController.index());
+	}
+
+	public static Result delete(Long id){		
+		Price price=Price.get(id);
+		if(price==null){
+			return notFound("Price having id [" + id + "] does not exists.");
+		}
+		if(Customer.countByPrice(id)==0){
+			Price.delete(id);			
+			return ok("Selected Price has been deleted successfully");
+		}
+		return notFound("Price ['" + price.amount.toString() + "'] is associated with Customer(s)");			
 	}
 
 	/**

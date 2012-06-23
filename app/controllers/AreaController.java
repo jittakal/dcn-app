@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.Area;
+import models.SubArea;
 import forms.AreaForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -15,6 +16,7 @@ import org.codehaus.jackson.node.ObjectNode;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
 import views.html.area.*;
+
 
 @Authenticated(value = DcnAuthenticator.class)
 public class AreaController extends Controller {
@@ -49,7 +51,7 @@ public class AreaController extends Controller {
 		area.name=areaForm.name;
 		area.save();
 								
-		return  index();//ok(views.html.welcome.render());		
+		return redirect(controllers.routes.AreaController.index());
 	}
 
 	public static Result update_get(Long id){
@@ -76,7 +78,19 @@ public class AreaController extends Controller {
 		area.name=areaForm.name;
 		area.update();
 								
-		return  index();//ok(views.html.welcome.render());		
+		return  redirect(controllers.routes.AreaController.index());
+	}
+
+	public static Result delete(Long id){		
+		Area area=Area.get(id);		
+		if(area==null){
+			return notFound("Area with id [" + id + "] does not exists.");
+		}
+		if(SubArea.countByArea(id)==0){
+			Area.delete(id);			
+			return ok("Selected area has been deleted successfully");
+		}
+		return 	notFound("Area ['" + area.name + "'] is associated with Sub Area(s)");			
 	}
 	
 	/**

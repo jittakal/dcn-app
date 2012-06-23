@@ -4,7 +4,7 @@
     	<ul class="nav nav-pills">
     	<li class=""><a href="@routes.PriceController.create_new()" id="price-add">Add</a></li>
     	<li class=""><a href="#" link="@routes.PriceController.update_get(0L)" id="price-edit">Edit</a></li>
-    	<li class=""><a href="#" id="price-grid-delete">Delete</a></li>
+    	<li class=""><a href="#" link="@routes.PriceController.delete(0L)" id="price-delete">Delete</a></li>
     	</ul>
     </div>
     
@@ -18,6 +18,7 @@
 		$(function(){
 			process_prices();	
 			$("#price-edit").click(price_edit_click);			
+			$("#price-delete").click(price_delete_click);			
 		});
 		
 	var process_prices = function() {		
@@ -40,6 +41,8 @@
 	};
 	
 	var render_prices = function(prices) {		
+		$("#price-grid").jqGrid('clearGridData');
+
 		if(prices == undefined || prices == null){
 			return;
 		}	
@@ -73,6 +76,36 @@
 		} else { 
 			alert("Please select row");
 		} 		
+	};
+
+	var price_delete_click = function(){		
+		var id = $("#price-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#price-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.id);			
+
+			$.ajax({
+				url: link,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){					
+					alert('Selected price has been deleted successfully');
+					process_prices();
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					alert("Error : " + jqXHR.responseText);
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});
+
+		} else { 
+			alert("Please select row");
+		}
 	};
 		
 		

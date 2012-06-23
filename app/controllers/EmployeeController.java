@@ -50,7 +50,7 @@ public class EmployeeController extends Controller {
 		employee.joining_date=employeeForm.joining_date;	
 		employee.save();
 								
-		return  index();
+		return  redirect(controllers.routes.EmployeeController.index());
 	}
 
 	public static Result update_get(Long id){
@@ -86,7 +86,19 @@ public class EmployeeController extends Controller {
 		employee.terminate_date=employeeForm.terminate_date;
 		employee.update();
 								
-		return  index();
+		return  redirect(controllers.routes.EmployeeController.index());
+	}
+
+	public static Result delete(Long id){		
+		Employee employee=Employee.get(id);
+		if(employee==null){
+			return notFound("Employee having id [" + id + "] does not exists.");
+		}
+		if(SubArea.countByEmployee(id)==0){
+			Employee.delete(id);			
+			return ok("Selected Employee has been deleted successfully");
+		}
+		return 	notFound("Employee ['" + employee.name + "'] is associated with Sub Area(s)");			
 	}
 	
 	/**

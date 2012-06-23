@@ -23,6 +23,7 @@ GET 	/portal/create/employee 	controllers.EmployeeController.create_new()
 POST 	/portal/create/employee 	controllers.EmployeeController.create_save()
 GET 	/portal/update/employee/:id controllers.EmployeeController.update_get(id: Long)
 POST 	/portal/update/employee/:id controllers.EmployeeController.update_save(id: Long)
+GET 	/portal/delete/employee/:id controllers.EmployeeController.delete(id: Long)
 
 GET		/service/employees			controllers.EmployeeController.all()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
@@ -35,6 +36,7 @@ GET 	/portal/create/area 		controllers.AreaController.create_new()
 POST 	/portal/create/area 		controllers.AreaController.create_save()
 GET 	/portal/update/area/:id 	controllers.AreaController.update_get(id: Long)
 POST 	/portal/update/area/:id 	controllers.AreaController.update_save(id: Long)
+GET 	/portal/delete/area/:id 	controllers.AreaController.delete(id: Long)
 
 GET		/service/areas				controllers.AreaController.all()	
 GET		/service/area/:id 			controllers.AreaController.get(id: Long)					
@@ -47,6 +49,7 @@ GET 	/portal/create/subarea 		controllers.SubAreaController.create_new()
 POST 	/portal/create/subarea 		controllers.SubAreaController.create_save()
 GET 	/portal/update/subarea/:id 	controllers.SubAreaController.update_get(id: Long)
 POST 	/portal/update/subarea/:id 	controllers.SubAreaController.update_save(id: Long)
+GET 	/portal/delete/subarea/:id 	controllers.SubAreaController.delete(id: Long)
 
 GET		/service/subareas			controllers.SubAreaController.all()	
 GET		/service/subarea/:id 		controllers.SubAreaController.get(id: Long)					
@@ -59,6 +62,7 @@ GET 	/portal/create/price 		controllers.PriceController.create_new()
 POST 	/portal/create/price 		controllers.PriceController.create_save()
 GET 	/portal/update/price/:id 	controllers.PriceController.update_get(id: Long)
 POST 	/portal/update/price/:id 	controllers.PriceController.update_save(id: Long)
+GET 	/portal/delete/price/:id 	controllers.PriceController.delete(id: Long)
 
 GET		/service/prices				controllers.PriceController.all()	
 GET		/service/price/:id	 		controllers.PriceController.get(id: Long)					
@@ -71,11 +75,14 @@ GET 	/portal/create/customer 	controllers.CustomerController.create_new()
 POST 	/portal/create/customer 	controllers.CustomerController.create_save()
 GET 	/portal/update/customer/:id controllers.CustomerController.update_get(id: Long)
 POST 	/portal/update/customer/:id controllers.CustomerController.update_save(id: Long)
+GET 	/portal/delete/customer/:id controllers.CustomerController.delete(id: Long)
+
 
 GET		/service/customers			controllers.CustomerController.all()	
 GET		/service/customer/:id		controllers.CustomerController.get(id: Long)					
 POST	/service/customer			controllers.CustomerController.create()
 PUT		/service/customer/:id		controllers.CustomerController.update(id: Long)
+
 
 # Invoice
 GET		/service/invoices			controllers.InvoiceController.all()	

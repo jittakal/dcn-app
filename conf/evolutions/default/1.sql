@@ -6,6 +6,7 @@
 create table area (
   id                        bigint not null,
   name                      varchar(255) not null,
+  constraint uq_area_1 unique (name),
   constraint pk_area primary key (id))
 ;
 
@@ -21,6 +22,7 @@ create table customer (
   terminate_date            timestamp,
   price_id                  bigint not null,
   balance                   integer not null,
+  constraint uq_customer_1 unique (mobile_number,home_number,email_address),
   constraint pk_customer primary key (id))
 ;
 
@@ -31,6 +33,7 @@ create table employee (
   mobile_number             varchar(255),
   joining_date              timestamp not null,
   terminate_date            timestamp,
+  constraint uq_employee_1 unique (mobile_number),
   constraint pk_employee primary key (id))
 ;
 
@@ -54,6 +57,7 @@ create table payment (
 create table price (
   id                        bigint not null,
   amount                    integer not null,
+  constraint uq_price_1 unique (amount),
   constraint pk_price primary key (id))
 ;
 
@@ -62,6 +66,7 @@ create table sub_area (
   name                      varchar(255) not null,
   area_id                   bigint not null,
   employee_id               bigint not null,
+  constraint uq_sub_area_1 unique (name),
   constraint pk_sub_area primary key (id))
 ;
 
