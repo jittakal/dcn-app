@@ -80,6 +80,8 @@
 		});
 
 		$.each(employees,function(i,employee){
+			employee.pk=employee.id;
+			employee.id=i+1;
 			employee_grid.jqGrid('addRowData',i+1,employee);	
 		});
 	};
