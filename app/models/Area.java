@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.HashMap;
 import play.db.ebean.Model;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
 
@@ -16,6 +18,7 @@ import com.avaje.ebean.validation.NotNull;
 public class Area extends Model {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	public Long id;
 
 	@NotNull

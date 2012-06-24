@@ -10,13 +10,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import play.db.ebean.Model;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
 public class Payment extends Model {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	public Long id;
 	
 	@ManyToOne

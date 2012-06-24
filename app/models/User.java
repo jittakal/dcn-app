@@ -8,7 +8,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import play.db.ebean.Model;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.validation.NotNull;
 
@@ -17,6 +18,7 @@ import com.avaje.ebean.validation.NotNull;
 public class User extends Model {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	public Long id;
 
 	@NotNull

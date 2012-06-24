@@ -15,12 +15,15 @@ import play.db.ebean.Model;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class Customer extends Model {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	public Long id;
 	
 	@NotNull

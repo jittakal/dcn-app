@@ -2,7 +2,6 @@ package forms;
 
 import java.io.Serializable;
 import play.data.validation.Constraints.Required;
-import models.Price;
 
 public class PriceForm implements Serializable{
 	

@@ -61,15 +61,17 @@
 
 		$("#customer-grid").jqGrid({
 			datatype: "local",
-		    colNames:['ID','Name','Address','Mobile','Sub Area','Amount','Joining Date'],
+		    colNames:['Srno','ID','Name','Address','Mobile','Sub Area','Rate','Joining Date','Balance'],
 		    colModel:[
-		    	{name:'id',index:'id',width:'50px'},
+		    	{name:'id',index:'id',hidden:true,width:'50px',key:true},
+		    	{name:'pk',index:'pk',hidden:true,width:'50px',sorttype:'int'},
 		    	{name:'name',index:'name'},
 		    	{name:'address',index:'address'},
-		    	{name:'mobile_number',index:'mobile_number'},
+		    	{name:'mobile_number',index:'mobile_number',width:'40px'},
 		    	{name:'subareaname',index:'subareaname'},
-		    	{name:'priceamount',index:'priceamount'},		    	
-		    	{name:'joining_date',index:'joining_date'}
+		    	{name:'priceamount',index:'priceamount',width:'25px'},		    	
+		    	{name:'joining_date',hidden:true,index:'joining_date'},
+		    	{name:'balance',index:'balance',width:'35px',sorttype:'int'}
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
@@ -79,6 +81,8 @@
 		});		
 
 		$.each(customers,function(i,customer){
+			customer.pk=customer.id;
+			customer.id=i+1;
 			customer.subareaname=customer.sub_area.name;
 			customer.priceamount=customer.price.amount;
 			$("#customer-grid").jqGrid('addRowData',i+1,customer);	
@@ -90,7 +94,7 @@
 		if (id) { 
 			var ret = $("#customer-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);
+			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
 			alert("Please select row");
@@ -102,7 +106,7 @@
 		if (id) { 
 			var ret = $("#customer-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);			
+			link=link.replace('0',ret.pk);			
 
 			$.ajax({
 				url: link,

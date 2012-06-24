@@ -2,11 +2,13 @@ package forms;
 
 import java.io.Serializable;
 import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.MaxLength;
 import models.SubArea;
 
 public class SubAreaForm implements Serializable{
 
 	@Required
+	@MaxLength(value=120)
 	public String name;
 
 	@Required

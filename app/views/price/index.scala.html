@@ -49,9 +49,10 @@
 
 		$("#price-grid").jqGrid({
 			datatype: "local",
-		    colNames:['ID','Rate Amount'],
+		    colNames:['Srno','ID','Rate Amount'],
 		    colModel:[
-		    	{name:'id',index:'id',width:'50px'},
+		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
+		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
 		    	{name:'amount',index:'amount'},
 		    ],		   
 		    viewrecords: true,
@@ -62,6 +63,8 @@
 		});		
 
 		$.each(prices,function(i,price){
+			price.pk=price.id;
+			price.id=i+1;
 			$("#price-grid").jqGrid('addRowData',i+1,price);	
 		});		
 	};
@@ -71,7 +74,7 @@
 		if (id) { 
 			var ret = $("#price-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);
+			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
 			alert("Please select row");
@@ -83,7 +86,7 @@
 		if (id) { 
 			var ret = $("#price-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);			
+			link=link.replace('0',ret.pk);			
 
 			$.ajax({
 				url: link,

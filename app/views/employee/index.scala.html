@@ -63,13 +63,14 @@
 
 		employee_grid.jqGrid({
 			datatype: "local",
-		    colNames:['ID','Name','Address','Mobile','Joining Date'],
+		    colNames:['Srno','ID','Name','Address','Mobile','Joining Date'],
 		    colModel:[
-		    	{name:'id',index:'id',sorttype:'number',width:'50px'},
+		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
+		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
 		    	{name:'name',index:'name'},
 		    	{name:'address',index:'address'},
-		    	{name:'mobile_number',index:'mobile_number'},
-		    	{name:'joining_date',index:'joining_date'}
+		    	{name:'mobile_number',index:'mobile_number',width:'40px'},
+		    	{name:'joining_date',index:'joining_date',width:'40px'}
 		    ],		    
 		    viewrecords: true,
 		    multiselect: false,
@@ -88,7 +89,7 @@
 		if (id) { 
 			var ret = $("#employee-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);
+			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
 			alert("Please select row");
@@ -100,7 +101,7 @@
 		if (id) { 
 			var ret = $("#employee-grid").jqGrid('getRowData',id); 			
 			var link=$(this).attr("link");
-			link=link.replace('0',ret.id);			
+			link=link.replace('0',ret.pk);			
 
 			$.ajax({
 				url: link,

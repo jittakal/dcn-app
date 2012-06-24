@@ -8,7 +8,7 @@
 	@views.html.common.errormsg(priceForm.globalErrors())	
 	
 	@form(action = routes.PriceController.create_save()) {
-		@inputText(field= priceForm("Amount"), args='class->"input-large", 'placeholder->"amount")
+		@inputText(field= priceForm("amount"), args='class->"input-large", 'placeholder->"amount", '_label->"Amount")
 		<button type="Submit" class="btn btn-primary">Save</b>
 	}
 }

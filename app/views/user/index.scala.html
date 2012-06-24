@@ -35,9 +35,10 @@
 
 		$("#user-grid").jqGrid({
 			datatype: "local",
-		    colNames:['ID','User Name','Role'],
+		    colNames:['Srno','ID','User Name','Role'],
 		    colModel:[
-		    	{name:'id',index:'id',width:'50px'},
+		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
+		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
 		    	{name:'username',index:'username'},
 		    	{name:'role',index:'role'}
 		    ],		   
@@ -49,6 +50,8 @@
 		});		
 
 		$.each(users,function(i,user){
+			user.pk=user.id;
+			user.id=i+1;
 			$("#user-grid").jqGrid('addRowData',i+1,user);	
 		});
 		
