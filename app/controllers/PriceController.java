@@ -47,6 +47,11 @@ public class PriceController extends Controller {
 		if(priceForm==null){
 			return badRequest(create.render(filledForm));
 		}
+
+		if(Price.isAmountExists(0L,priceForm.amount)){
+			filledForm.reject("Price amount already exists.");
+			return badRequest(create.render(filledForm));	
+		}
 		
 		Price price=new Price();
 		price.amount=priceForm.amount;
@@ -74,6 +79,11 @@ public class PriceController extends Controller {
 			return badRequest(update.render(filledForm,id));
 		}
 
+		if(Price.isAmountExists(id,priceForm.amount)){
+			filledForm.reject("Price amount already exists.");
+			return badRequest(update.render(filledForm,id));	
+		}
+
 		Price price=new Price();
 		price.id=id;
 		price.amount=priceForm.amount;
@@ -87,7 +97,7 @@ public class PriceController extends Controller {
 		if(price==null){
 			return notFound("Price having id [" + id + "] does not exists.");
 		}
-		if(Customer.countByPrice(id)==0){
+		if(!Customer.isBelongsToPrice(id)){
 			Price.delete(id);			
 			return ok("Selected Price has been deleted successfully");
 		}

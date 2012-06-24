@@ -4,6 +4,8 @@
 
 
 @main() {
+
+	@views.html.common.errormsg(employeeForm.globalErrors())	
 	
 	@form(action = routes.EmployeeController.create_save()) {
 		@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> "employee name", '_label -> "Employee Name")	

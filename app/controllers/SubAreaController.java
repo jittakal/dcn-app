@@ -51,6 +51,13 @@ public class SubAreaController extends Controller {
 			return badRequest(create.render(filledForm,areaMap,empMap));
 		}
 
+		if(SubArea.isNameExists(0L,subareaForm.name)){
+			Map<String,String> areaMap=Area.asMap();
+			Map<String,String> empMap=Employee.asMap();
+			filledForm.reject("Sub Area name already exists.");
+			return badRequest(create.render(filledForm,areaMap,empMap));	
+		}
+
 		SubArea subarea=formToModel(subareaForm);
 		subarea.save();
 								
@@ -86,6 +93,13 @@ public class SubAreaController extends Controller {
 			return badRequest(update.render(filledForm,areaMap,empMap,id));
 		}		
 
+		if(SubArea.isNameExists(id,subareaForm.name)){
+			Map<String,String> areaMap=Area.asMap();
+			Map<String,String> empMap=Employee.asMap();
+			filledForm.reject("Sub Area name already exists.");
+			return badRequest(update.render(filledForm,areaMap,empMap,id));	
+		}
+
 		SubArea subarea=formToModel(subareaForm);
 		subarea.id=id;
 		subarea.update();
@@ -113,7 +127,7 @@ public class SubAreaController extends Controller {
 		if(subarea==null){
 			return notFound("Sub Area having id [" + id + "] does not exists.");
 		}
-		if(Customer.countBySubArea(id)==0){
+		if(!Customer.isBelongsToSubArea(id)){
 			SubArea.delete(id);			
 			return ok("Selected Sub Area has been deleted successfully");
 		}

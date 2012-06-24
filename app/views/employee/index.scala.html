@@ -8,7 +8,13 @@
 	      </li>  
 	      <li class="">
 	      	<a href="#" link="@routes.EmployeeController.delete(0L)" id="employee-delete">Delete</a>
-	      </li>   
+	      </li> 		          
+	      <li class="pull-right">
+	      	<a href="#" id="employee-terminated">Terminated</a>
+	      </li> 
+	      <li class="pull-right">
+	      	<a href="#" id="employee-all">All</a>
+	      </li> 
 	    </ul>
   	</div>
 
@@ -20,15 +26,17 @@
 	<script type="text/javascript">
 
 	$(function(){
-		process_employees();
+		process_employees('@routes.EmployeeController.all_active()');
 
 		$("#employee-edit").click(employee_edit_click);
 		$("#employee-delete").click(employee_delete_click);
+		$("#employee-terminated").click(employee_terminated_click);
+		$("#employee-all").click(employee_all_click);
 	});
 
-	var process_employees = function() {				
+	var process_employees = function(req_url) {				
   		$.ajax({
-			url: '/service/employees',
+			url: req_url,
 			processData:false,
 			type: 'GET',
 			beforeSend:function(jqXHR, settings){					
@@ -85,7 +93,7 @@
 		} else { 
 			alert("Please select row");
 		} 		
-	}
+	}	
 
 	var employee_delete_click = function(){		
 		var id = $("#employee-grid").jqGrid('getGridParam','selrow'); 
@@ -103,7 +111,7 @@
 				},
 				success: function(data, textStatus, jqXHR){					
 					alert('Selected employee has been deleted successfully');
-					process_employees();
+					process_employees('@routes.EmployeeController.all_active()');
 				},
 				error: function(jqXHR, textStatus, errorThrown){				
 					alert("Error : " + jqXHR.responseText);
@@ -115,6 +123,14 @@
 		} else { 
 			alert("Please select row");
 		} 		
+	};
+
+	var employee_terminated_click = function(){		
+		process_employees('@routes.EmployeeController.all_terminated()');
+	};
+
+	var employee_all_click = function(){		
+		process_employees('@routes.EmployeeController.all()');
 	};
 	</script>
 

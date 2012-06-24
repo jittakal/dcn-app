@@ -39,12 +39,17 @@ public class AreaController extends Controller {
 		Form<AreaForm> filledForm = areaForm.bindFromRequest();
 
 		if(filledForm.hasErrors()){
-			return badRequest(views.html.area.create.render(filledForm));
+			return badRequest(create.render(filledForm));
 		}
 					
 		AreaForm areaForm=filledForm.get();
 		if(areaForm==null){			
-			return badRequest(views.html.area.create.render(filledForm));
+			return badRequest(create.render(filledForm));
+		}
+		
+		if(Area.isNameExists(0L,areaForm.name)){
+			filledForm.reject("Area name already exists.");
+			return badRequest(create.render(filledForm));	
 		}
 
 		Area area=new Area();
@@ -65,16 +70,20 @@ public class AreaController extends Controller {
 		Form<AreaForm> filledForm = areaForm.bindFromRequest();
 
 		if(filledForm.hasErrors()){
-			return badRequest(views.html.area.update.render(filledForm,id));
+			return badRequest(update.render(filledForm,id));
 		}
 					
 		AreaForm areaForm=filledForm.get();
 		if(areaForm==null){			
-			return badRequest(views.html.area.update.render(filledForm,id));
+			return badRequest(update.render(filledForm,id));
 		}
 
-		Area area=new Area();
-		area.id=id;
+		if(Area.isNameExists(id,areaForm.name)){
+			filledForm.reject("Area name already exists.");
+			return badRequest(update.render(filledForm,id));	
+		}
+
+		Area area=Area.get(id);		
 		area.name=areaForm.name;
 		area.update();
 								
@@ -86,7 +95,7 @@ public class AreaController extends Controller {
 		if(area==null){
 			return notFound("Area with id [" + id + "] does not exists.");
 		}
-		if(SubArea.countByArea(id)==0){
+		if(!SubArea.isBelongsToArea(id)){
 			Area.delete(id);			
 			return ok("Selected area has been deleted successfully");
 		}

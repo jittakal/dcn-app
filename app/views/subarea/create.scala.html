@@ -2,8 +2,9 @@
 
 @import helper._
 
-
 @main() {
+
+	@views.html.common.errormsg(subareaForm.globalErrors())	
 	
 	@form(action = routes.SubAreaController.create_save()) {
 		@select(field=subareaForm("areaid"), options = options(areaMap), args= '_label -> "Area")

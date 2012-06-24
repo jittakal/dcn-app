@@ -17,7 +17,6 @@ import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "mobile_number", "home_number", "email_address" }))
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class Customer extends Model {
 	
@@ -52,6 +51,9 @@ public class Customer extends Model {
 	@ManyToOne
 	@NotNull
 	public Price price;
+
+	@NotNull
+	public Integer deposite;
 	
 	@NotNull
 	public Integer balance;
@@ -67,16 +69,24 @@ public class Customer extends Model {
 		return find.all();
 	}
 
+	public static List<Customer> allActive() {
+		return find.where().eq("terminate_date",null).findList();
+	}
+
+	public static List<Customer> allTerminated() {
+		return find.where().eq("terminate_date",null).findList();
+	}	
+
 	public static void delete(Long id) {
 		find.byId(id).delete();
 	}
 
-	public static int countBySubArea(Long sub_areaid){
-		return find.select("id").where().eq("sub_area_id",sub_areaid).findList().size();
+	public static boolean isBelongsToSubArea(Long sub_areaid){
+		return find.select("id").where().eq("sub_area_id",sub_areaid).findList().size()==0?false:true;
 	}
 
-	public static int countByPrice(Long priceid){
-		return find.select("id").where().eq("price_id",priceid).findList().size();
+	public static boolean isBelongsToPrice(Long priceid){
+		return find.select("id").where().eq("price_id",priceid).findList().size()==0?false:true;
 	}
 
 }

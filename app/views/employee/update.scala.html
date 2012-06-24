@@ -4,6 +4,8 @@
 
 
 @main() {
+
+	@views.html.common.errormsg(employeeForm.globalErrors())	
 	
 	@form(action = routes.EmployeeController.update_save(id)) {
 		@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> "employee name", '_label -> "Employee Name")	
@@ -27,8 +29,9 @@
   				return false;
 			});
 
-			$("#terminate_date").keypress(function() {
-  				return false;
+			$("#terminate_date").keypress(function(event) {
+				if(event.which!=8)
+  					return false;
 			});
 		});
 	</script>

@@ -4,6 +4,8 @@
 
 
 @main() {
+
+	@views.html.common.errormsg(customerForm.globalErrors())	
 	
 	@form(action = routes.CustomerController.update_save(id)) {
 		@select(field=customerForm("subareaid"), options = options(subareaMap), args= '_label -> "Sub Area")
@@ -39,8 +41,9 @@
   				return false;
 			});
 
-			$("#terminate_date").keypress(function() {
-  				return false;
+			$("#terminate_date").keypress(function(event) {
+				if(event.which!=8)
+  					return false;
 			});
 		});
 	</script>

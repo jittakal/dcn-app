@@ -26,6 +26,8 @@ POST 	/portal/update/employee/:id controllers.EmployeeController.update_save(id:
 GET 	/portal/delete/employee/:id controllers.EmployeeController.delete(id: Long)
 
 GET		/service/employees			controllers.EmployeeController.all()
+GET		/service/a/employees		controllers.EmployeeController.all_active()
+GET		/service/t/employees		controllers.EmployeeController.all_terminated()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
 POST	/service/employee			controllers.EmployeeController.create()
 PUT		/service/employee/:id		controllers.EmployeeController.update(id: Long)
@@ -68,6 +70,7 @@ GET		/service/prices				controllers.PriceController.all()
 GET		/service/price/:id	 		controllers.PriceController.get(id: Long)					
 POST	/service/price				controllers.PriceController.create()
 PUT		/service/price/:id			controllers.PriceController.update(id: Long)
+#DELETE 	/service/price/:id 			controllers.PriceController.delete(id: Long)
 
 # Customer
 GET		/portal/customers			controllers.CustomerController.index()
@@ -79,6 +82,8 @@ GET 	/portal/delete/customer/:id controllers.CustomerController.delete(id: Long)
 
 
 GET		/service/customers			controllers.CustomerController.all()	
+GET		/service/a/customers		controllers.CustomerController.all_active()	
+GET		/service/t/customers		controllers.CustomerController.all_terminated()	
 GET		/service/customer/:id		controllers.CustomerController.get(id: Long)					
 POST	/service/customer			controllers.CustomerController.create()
 PUT		/service/customer/:id		controllers.CustomerController.update(id: Long)

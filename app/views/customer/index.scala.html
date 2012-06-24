@@ -6,6 +6,13 @@
       <li class=""><a href="@routes.CustomerController.create_new()" id="customer-add">Add</a></li>
       <li class=""><a href="#" link="@routes.CustomerController.update_get(0L)" id="customer-edit">Edit</a></li>
       <li class=""><a href="#" link="@routes.CustomerController.delete(0L)" id="customer-delete">Delete</a></li>
+      
+      <li class="pull-right">
+	  	<a href="#" id="customer-terminated">Terminated</a>
+	  </li> 
+	  <li class="pull-right">
+	  	<a href="#" id="customer-all">All</a>
+	  </li> 
     </ul>
   </div>
 
@@ -18,16 +25,18 @@
 	<script type="text/javascript">
 
 	$(function(){
-		process_customers();
+		process_customers('@routes.CustomerController.all_active()');
 
 		$("#customer-edit").click(customer_edit_click);
 		$("#customer-delete").click(customer_delete_click);
+		$("#customer-all").click(customer_all_click);
+		$("#customer-terminated").click(customer_terminated_click);
 
 	});
 
-	var process_customers = function() {		
+	var process_customers = function(req_url) {		
   		$.ajax({
-			url: '/service/customers',
+			url: req_url,
 			processData:false,
 			type: 'GET',
 			beforeSend:function(jqXHR, settings){					
@@ -104,7 +113,7 @@
 				},
 				success: function(data, textStatus, jqXHR){					
 					alert('Selected customer has been deleted successfully');
-					process_customers();
+					process_customers('@routes.CustomerController.all_active()');
 				},
 				error: function(jqXHR, textStatus, errorThrown){				
 					alert("Error : " + jqXHR.responseText);
@@ -116,6 +125,14 @@
 		} else { 
 			alert("Please select row");
 		}
+	};
+
+	var customer_terminated_click = function(){		
+		process_customers('@routes.CustomerController.all_terminated()');
+	};
+
+	var customer_all_click = function(){		
+		process_customers('@routes.CustomerController.all()');
 	};
 
 	</script>

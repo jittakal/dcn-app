@@ -4,6 +4,8 @@
 
 
 @main() {
+
+	@views.html.common.errormsg(customerForm.globalErrors())	
 	
 	@form(action = routes.CustomerController.create_save()) {
 		@select(field=customerForm("subareaid"), options = options(subareaMap), args= '_label -> "Sub Area")

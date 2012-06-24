@@ -1,0 +1,13 @@
+@(errors: List[play.data.validation.ValidationError])
+
+@if(!errors.isEmpty()){		
+	    <ul class="nav nav-pills">  
+	    @for(error <- errors) {
+	    	<li>
+		      	<fieldset class="control-group error">
+						<label class="error">@error.message()</label>
+				</fieldset>					
+	      	</li>	       			 
+		}    		      
+	    </ul>	  
+}

@@ -51,4 +51,11 @@ public class Price extends Model {
 		return priceMap;
 	}
 
+	public static boolean isAmountExists(Long id,Integer amount){
+		if(id==0){
+			return find.select("id").where().eq("amount",amount).findList().size()==0?false:true;			
+		}
+		return find.select("id").where().ne("id",id).eq("amount",amount).findList().size()==0?false:true;		
+	}
+
 }

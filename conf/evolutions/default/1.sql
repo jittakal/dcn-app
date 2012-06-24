@@ -21,8 +21,8 @@ create table customer (
   joining_date              timestamp not null,
   terminate_date            timestamp,
   price_id                  bigint not null,
+  deposite                  integer not null,
   balance                   integer not null,
-  constraint uq_customer_1 unique (mobile_number,home_number,email_address),
   constraint pk_customer primary key (id))
 ;
 
@@ -33,7 +33,6 @@ create table employee (
   mobile_number             varchar(255),
   joining_date              timestamp not null,
   terminate_date            timestamp,
-  constraint uq_employee_1 unique (mobile_number),
   constraint pk_employee primary key (id))
 ;
 

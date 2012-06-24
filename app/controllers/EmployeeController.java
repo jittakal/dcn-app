@@ -35,12 +35,12 @@ public class EmployeeController extends Controller {
 		Form<EmployeeForm> filledForm = employeeForm.bindFromRequest();
 
 		if(filledForm.hasErrors()){
-			return badRequest(views.html.employee.create.render(filledForm));
+			return badRequest(create.render(filledForm));
 		}
 					
 		EmployeeForm employeeForm=filledForm.get();
 		if(employeeForm==null){			
-			return badRequest(views.html.employee.create.render(filledForm));
+			return badRequest(create.render(filledForm));
 		}
 
 		Employee employee=new Employee();
@@ -69,21 +69,20 @@ public class EmployeeController extends Controller {
 		Form<EmployeeForm> filledForm = employeeForm.bindFromRequest();
 
 		if(filledForm.hasErrors()){
-			return badRequest(views.html.employee.update.render(filledForm,id));
+			return badRequest(update.render(filledForm,id));
 		}
 					
 		EmployeeForm employeeForm=filledForm.get();
 		if(employeeForm==null){			
-			return badRequest(views.html.employee.update.render(filledForm,id));
+			return badRequest(update.render(filledForm,id));
 		}
 
-		Employee employee=new Employee();
-		employee.id=id;
+		Employee employee=Employee.get(id);		
 		employee.name=employeeForm.name;
 		employee.address=employeeForm.address;
 		employee.mobile_number=employeeForm.mobile_number;
 		employee.joining_date=employeeForm.joining_date;
-		employee.terminate_date=employeeForm.terminate_date;
+		employee.terminate_date=employeeForm.terminate_date;		
 		employee.update();
 								
 		return  redirect(controllers.routes.EmployeeController.index());
@@ -94,7 +93,7 @@ public class EmployeeController extends Controller {
 		if(employee==null){
 			return notFound("Employee having id [" + id + "] does not exists.");
 		}
-		if(SubArea.countByEmployee(id)==0){
+		if(!SubArea.isBelongsToEmployee(id)){
 			Employee.delete(id);			
 			return ok("Selected Employee has been deleted successfully");
 		}
@@ -107,6 +106,16 @@ public class EmployeeController extends Controller {
 	 */
 	public static Result all(){
 		List<Employee> employees=Employee.all();
+		return ok(Json.toJson(employees));
+	}
+
+	public static Result all_active(){
+		List<Employee> employees=Employee.allActive();
+		return ok(Json.toJson(employees));
+	}
+
+	public static Result all_terminated(){
+		List<Employee> employees=Employee.allTerminated();
 		return ok(Json.toJson(employees));
 	}
 

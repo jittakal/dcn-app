@@ -43,5 +43,12 @@ public class Area extends Model {
 		}
 		return areaMap;
 	}
+
+	public static boolean isNameExists(Long id,String name){
+		if(id==0){
+			return find.select("id").where().eq("name",name).findList().size()==0?false:true;			
+		}
+		return find.select("id").where().ne("id",id).eq("name",name).findList().size()==0?false:true;		
+	}
 	
 }

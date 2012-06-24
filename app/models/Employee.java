@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "mobile_number" }))
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class Employee extends Model {
 	@Id
@@ -56,17 +55,25 @@ public class Employee extends Model {
 		return find.all();
 	}		
 
+	public static List<Employee> allActive() {
+		return find.where().eq("terminate_date",null).findList();
+	}
+
+	public static List<Employee> allTerminated() {
+		return find.where().ne("terminate_date",null).findList();
+	}
+
 	public static void delete(Long id) {
 		find.byId(id).delete();
 	}
 
 	public static Map<String,String> asMap(){
-		List<Employee> employees=find.select("id,name").findList();
+		List<Employee> employees=find.select("id,name").where().eq("terminate_date",null).findList();
 		Map<String,String> empMap=new HashMap<String,String>();
 		for(Employee employee: employees){
 			empMap.put(employee.id.toString(),employee.name);
 		}
 		return empMap;
-	}
+	}	
 
 }

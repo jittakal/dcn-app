@@ -53,11 +53,18 @@ public class SubArea extends Model {
 		return subareaMap;
 	}
 
-	public static int countByArea(Long areaid){
-		return find.select("id").where().eq("area_id",areaid).findList().size();
+	public static boolean isBelongsToArea(Long areaid){
+		return find.select("id").where().eq("area_id",areaid).findList().size()==0?false:true;
 	}
 
-	public static int countByEmployee(Long employeeid){
-		return find.select("id").where().eq("employee_id",employeeid).findList().size();
+	public static boolean isBelongsToEmployee(Long employeeid){
+		return find.select("id").where().eq("employee_id",employeeid).findList().size()==0?false:true;
+	}
+
+	public static boolean isNameExists(Long id,String name){
+		if(id==0){
+			return find.select("id").where().eq("name",name).findList().size()==0?false:true;			
+		}
+		return find.select("id").where().ne("id",id).eq("name",name).findList().size()==0?false:true;		
 	}
 }

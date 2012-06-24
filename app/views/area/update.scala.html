@@ -4,6 +4,8 @@
 
 
 @main() {
+
+	@views.html.common.errormsg(areaForm.globalErrors())	
 	
 	@form(action = routes.AreaController.update_save(id)) {
 		@inputText(field=areaForm("name"), args = 'class -> "input-large", 'placeholder -> "area name", '_label -> "Area Name")		

@@ -52,7 +52,9 @@ public class CustomerController extends Controller {
 			return badRequest(create.render(filledForm,subareaMap,priceMap));
 		}
 
-		Customer customer=formToModel(customerForm);
+		Customer customer=new Customer();
+		formToModel(customer,customerForm);
+		customer.balance=0;
 		customer.save();
 								
 		return  redirect(controllers.routes.CustomerController.index());
@@ -73,7 +75,7 @@ public class CustomerController extends Controller {
 		csForm.joining_date=customer.joining_date;
 		csForm.terminate_date=customer.terminate_date;
 		csForm.priceid=customer.price.id.toString();
-		csForm.deposite=customer.balance;
+		csForm.deposite=customer.deposite;
 		
 		return ok(update.render(customerForm.fill(csForm),subareaMap,priceMap,id));
 	}
@@ -94,21 +96,28 @@ public class CustomerController extends Controller {
 			return badRequest(update.render(filledForm,subareaMap,priceMap,id));
 		}		
 
-		Customer customer=formToModel(customerForm);
-		customer.id=id;
+		Customer customer=Customer.get(id);
+
+		if(customer==null){
+			Map<String,String> subareaMap=SubArea.asMap();
+			Map<String,String> priceMap=Price.asMap();
+			filledForm.reject("Customer does not exists");
+			return badRequest(update.render(filledForm,subareaMap,priceMap,id));	
+		}
+
+		formToModel(customer,customerForm);	
 		customer.update();
 								
 		return  redirect(controllers.routes.CustomerController.index());
 	}
 
-	private static Customer formToModel(CustomerForm customerForm){
+	private static void formToModel(Customer customer,CustomerForm customerForm){
 		SubArea subarea=new SubArea();
 		subarea.id=new Long(customerForm.subareaid);		
 
 		Price price=new Price();
 		price.id=new Long(customerForm.priceid);		
-
-		Customer customer=new Customer();		
+		
 		customer.name=customerForm.name;
 		customer.sub_area=subarea;
 		customer.address=customerForm.address;
@@ -118,9 +127,7 @@ public class CustomerController extends Controller {
 		customer.joining_date=customerForm.joining_date;
 		customer.terminate_date=customerForm.terminate_date;
 		customer.price=price;
-		customer.balance=customerForm.deposite;
-
-		return customer;
+		customer.deposite=customerForm.deposite;		
 	}
 
 	public static Result delete(Long id){		
@@ -128,7 +135,7 @@ public class CustomerController extends Controller {
 		if(customer==null){
 			return notFound("Customer having id [" + id + "] does not exists.");
 		}
-		if(Invoice.countByCustomer(id)==0){
+		if(!Invoice.isBelongsToCustomer(id)){
 			Customer.delete(id);			
 			return ok("Selected Customer has been deleted successfully");
 		}
@@ -142,6 +149,16 @@ public class CustomerController extends Controller {
 	 */
 	public static Result all() {
 		List<Customer> customers = Customer.all();
+		return ok(Json.toJson(customers));
+	}
+
+	public static Result all_active() {
+		List<Customer> customers = Customer.allActive();
+		return ok(Json.toJson(customers));
+	}
+
+	public static Result all_terminated() {
+		List<Customer> customers = Customer.allTerminated();
 		return ok(Json.toJson(customers));
 	}
 

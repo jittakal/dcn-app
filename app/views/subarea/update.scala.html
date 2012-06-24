@@ -4,6 +4,8 @@
 
 
 @main() {
+
+	@views.html.common.errormsg(subareaForm.globalErrors())	
 	
 	@form(action = routes.SubAreaController.update_save(id)) {
 		@select(field=subareaForm("areaid"), options = options(areaMap), args= '_label -> "Area")
