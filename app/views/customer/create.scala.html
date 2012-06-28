@@ -8,38 +8,7 @@
 	@views.html.common.errormsg(customerForm.globalErrors())	
 	
 	@form(action = routes.CustomerController.create_save()) {
-		@select(field=customerForm("subareaid"), options = options(subareaMap), args= '_label -> "Sub Area")
-
-		@select(field=customerForm("priceid"), options = options(priceMap), args= '_label -> "Price")
-
-		@inputText(field=customerForm("name"), args = 'class -> "input-large", 'placeholder -> "customer name", '_label -> "Customer Name")	
-
-		@textarea(field=customerForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 'placeholder -> "customer address", '_label -> "Address")		
-
-		@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number")			
-
-		@inputText(field=customerForm("home_number"), args = 'class -> "input-large",'_label -> "Home Number")	
-
-		@inputText(field=customerForm("email_address"), args = 'class -> "input-large", 'placeholder -> "mail@email.com", '_label -> "Email Address")	
-		
-		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining date")
-
-		@inputText(field=customerForm("deposite"), args = 'class -> "input-large",'_label -> "Deposite Amount")				
-		<button type="submit" class="btn btn-primary">Save</button>
+		@customer.form(customerForm,subareaMap,priceMap,"Create Customer")
 	}
-
-	<script type="text/javascript">
-		$(function() {
-			$("#joining_date").datepicker({dateFormat:"dd/mm/yy"});
-			$("#terminate_date").datepicker({dateFormat:"dd/mm/yy"});
-
-			$("#joining_date").keypress(function() {
-  				return false;
-			});
-
-			$("#terminate_date").keypress(function() {
-  				return false;
-			});
-		});
-	</script>
+	
 }

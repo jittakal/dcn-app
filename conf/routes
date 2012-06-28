@@ -90,6 +90,12 @@ PUT		/service/customer/:id		controllers.CustomerController.update(id: Long)
 
 
 # Invoice
+GET		/portal/search/invoice		controllers.InvoiceController.search_get()
+POST	/portal/search/invoice		controllers.InvoiceController.search()
+POST	/portal/c/a/search/invoice	controllers.InvoiceController.on_area_change()
+POST	/portal/c/sa/search/invoice	controllers.InvoiceController.on_subarea_change()
+
+
 GET		/service/invoices			controllers.InvoiceController.all()	
 GET		/service/invoice/:id		controllers.InvoiceController.get(id: Long)					
 POST	/service/invoice			controllers.InvoiceController.create()

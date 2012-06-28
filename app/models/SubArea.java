@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import play.db.ebean.Model;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -48,8 +48,17 @@ public class SubArea extends Model {
 	}
 
 	public static Map<String,String> asMap(){
-		List<SubArea> subareas=find.select("id,name").findList();
-		Map<String,String> subareaMap=new HashMap<String,String>();
+		List<SubArea> subareas=find.select("id,name").findList();		
+		return asMap(subareas);
+	}
+
+	public static Map<String,String> asMapByAreaId(Long areaid){
+		List<SubArea> subareas=find.select("id,name").where().eq("area_id",areaid).orderBy("name").findList();
+		return asMap(subareas);
+	}
+
+	public static Map<String,String> asMap(List<SubArea> subareas){
+		Map<String,String> subareaMap=new LinkedHashMap<String,String>();
 		for(SubArea subarea: subareas){
 			subareaMap.put(subarea.id.toString(),subarea.name);
 		}

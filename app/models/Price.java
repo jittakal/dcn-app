@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import play.db.ebean.Model;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -46,8 +46,8 @@ public class Price extends Model {
 	}
 
 	public static Map<String,String> asMap(){
-		List<Price> prices=find.select("id,amount").findList();
-		Map<String,String> priceMap=new HashMap<String,String>();
+		List<Price> prices=find.select("id,amount").orderBy("amount").findList();
+		Map<String,String> priceMap=new LinkedHashMap<String,String>();
 		for(Price price: prices){
 			priceMap.put(price.id.toString(),price.amount.toString());
 		}

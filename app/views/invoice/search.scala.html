@@ -1,0 +1,64 @@
+@(invoiceSearchForm: Form[forms.InvoiceSearchForm],areaMap: Map[String,String],subareaMap: Map[String,String],customerMap: Map[String,String],monthMap: Map[String,String],yearMap: Map[String,String])
+
+@import helper._
+
+@main() {
+	
+	@views.html.common.errormsg(invoiceSearchForm.globalErrors())	
+
+	@form(action = routes.InvoiceController.search()) {
+		<table class="table">
+	    <thead>
+	    	<tr><th colspan="3">Search Invoice</th></tr>
+	    </thead>	
+	    <tbody>	
+	    <tr>	    	
+	    	<td>@select(field=invoiceSearchForm("month"), options = options(monthMap), args= '_label -> "Month")</td>
+	    	<td colspan="2">@select(field=invoiceSearchForm("year"), options = options(yearMap), args= '_label -> "Year")</td> 
+	    </tr>	    
+		<tr>
+	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(areaMap), args= '_label -> "Area")</td>
+	    	<td>@select(field=invoiceSearchForm("subareaid"), options = options(subareaMap), args= '_label -> "Sub Area")</td>
+	    	<td>@select(field=invoiceSearchForm("customerid"), options = options(customerMap), args= '_label -> "Customer")</td>	    	
+	    </tr>	    
+	    </tbody>
+	    <tfoot>
+		<tr>
+	    	<td colspan="3"><button type="submit" class="btn btn-primary">Search</button></td> 	
+	    </tr>	
+		</tfoot>
+		</table>
+
+		<script type="text/javascript">
+		var on_area_change = function(event){
+			var form=$('form');
+			form.attr('action','@routes.InvoiceController.on_area_change()');
+			form.attr('method','POST');
+			form.trigger('submit');
+		};
+
+		var on_subarea_change = function(event){
+			var form=$('form');
+			form.attr('action','@routes.InvoiceController.on_subarea_change()');
+			form.attr('method','POST');
+			form.trigger('submit');
+		};
+
+		$(function(){
+			$("#areaid").change(on_area_change);
+			$("#subareaid").change(on_subarea_change);
+		});
+		</script>
+	}
+}
+
+
+
+
+
+    
+    
+    
+    
+    
+

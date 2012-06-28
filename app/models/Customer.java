@@ -1,4 +1,4 @@
-																											package models;
+package models;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +17,8 @@ import javax.persistence.UniqueConstraint;
 import com.avaje.ebean.validation.NotNull;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 @Entity
 @JsonSerialize(include = Inclusion.NON_NULL)
@@ -77,7 +79,7 @@ public class Customer extends Model {
 	}
 
 	public static List<Customer> allTerminated() {
-		return find.where().eq("terminate_date",null).findList();
+		return find.where().ne("terminate_date",null).findList();
 	}	
 
 	public static void delete(Long id) {
@@ -90,6 +92,15 @@ public class Customer extends Model {
 
 	public static boolean isBelongsToPrice(Long priceid){
 		return find.select("id").where().eq("price_id",priceid).findList().size()==0?false:true;
+	}
+
+	public static Map<String,String> asMapBySubAreaId(Long sub_area_id){
+		List<Customer> customers=find.select("id,name").where().eq("terminate_date",null).eq("sub_area_id",sub_area_id).orderBy("name").findList();
+		Map<String,String> customerMap=new LinkedHashMap<String,String>();
+		for(Customer customer:customers){
+			customerMap.put(customer.id.toString(),customer.name);
+		}
+		return customerMap;
 	}
 
 }

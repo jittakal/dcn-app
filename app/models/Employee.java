@@ -11,7 +11,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import util.JsonDateSerializer;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.persistence.UniqueConstraint;
 import play.db.ebean.Model;
 import javax.persistence.Table;
@@ -71,8 +71,8 @@ public class Employee extends Model {
 	}
 
 	public static Map<String,String> asMap(){
-		List<Employee> employees=find.select("id,name").where().eq("terminate_date",null).findList();
-		Map<String,String> empMap=new HashMap<String,String>();
+		List<Employee> employees=find.select("id,name").where().eq("terminate_date",null).orderBy("name").findList();
+		Map<String,String> empMap=new LinkedHashMap<String,String>();
 		for(Employee employee: employees){
 			empMap.put(employee.id.toString(),employee.name);
 		}

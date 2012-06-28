@@ -8,12 +8,6 @@
 	@views.html.common.errormsg(subareaForm.globalErrors())	
 	
 	@form(action = routes.SubAreaController.update_save(id)) {
-		@select(field=subareaForm("areaid"), options = options(areaMap), args= '_label -> "Area")
-
-		@select(field=subareaForm("employeeid"), options = options(empMap), args= '_label -> "Employee")
-
-		@inputText(field=subareaForm("name"), args = 'class -> "input-large", '_label -> "Sub Area Name")		
-
-		<button type="submit" class="btn btn-primary">Save</button>
+		@subarea.form(subareaForm,areaMap,empMap,"Update Sub Area")
 	}
 }

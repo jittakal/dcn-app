@@ -7,7 +7,6 @@
 	@views.html.common.errormsg(areaForm.globalErrors())	
 	
 	@form(action = routes.AreaController.create_save()) {
-		@inputText(field=areaForm("name"), args = 'class -> "input-large", 'placeholder -> "area name", '_label -> "Area Name")		
-		<button type="submit" class="btn btn-primary">Save</button>
+		@area.form(areaForm,"Create Area")		
 	}
 }

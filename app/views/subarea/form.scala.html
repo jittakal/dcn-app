@@ -1,0 +1,26 @@
+@(subareaForm: Form[forms.SubAreaForm],areaMap: Map[String,String],empMap: Map[String,String],title: String)
+
+@import helper._
+
+<table class="table">
+    <thead>
+    	<tr><th colspan="2">@title</th></tr>
+    </thead>	
+    <tbody>	
+    <tr>	    	
+    	<td>
+		@select(field=subareaForm("areaid"), options = options(areaMap), args= '_label -> "Area")
+		</td><td>
+		@select(field=subareaForm("employeeid"), options = options(empMap), args= '_label -> "Employee")
+		</td>
+	</tr><tr><td colspan="2">
+		@inputText(field=subareaForm("name"), args = 'class -> "input-large", '_label -> "Sub Area Name")		
+		</td>
+    </tr>
+    </tbody>
+    <tfoot>
+	<tr>
+    	<td colspan="2"><button type="submit" class="btn btn-primary">Save</button></td> 	
+    </tr>	
+	</tfoot>
+</table>

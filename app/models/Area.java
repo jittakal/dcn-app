@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import play.db.ebean.Model;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
@@ -39,8 +39,8 @@ public class Area extends Model {
 	}
 
 	public static Map<String,String> asMap(){
-		List<Area> areas=find.select("id,name").findList();
-		Map<String,String> areaMap=new HashMap<String,String>();
+		List<Area> areas=find.select("id,name").orderBy("name").findList();
+		Map<String,String> areaMap=new LinkedHashMap<String,String>();
 		for(Area area: areas){
 			areaMap.put(area.id.toString(),area.name);
 		}

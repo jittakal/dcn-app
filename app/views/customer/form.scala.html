@@ -1,0 +1,81 @@
+@(customerForm: Form[forms.CustomerForm],subareaMap: Map[String,String],priceMap: Map[String,String],title: String, isupdate: Boolean = false)
+
+@import helper._
+
+<table class="table">
+    <thead>
+    	<tr><th colspan="2">@title</th></tr>
+    </thead>	
+    <tbody>	
+    <tr>	    	
+    	<td>		
+		@select(field=customerForm("subareaid"), options = options(subareaMap), args= '_label -> "Sub Area")
+		</td><td>
+		@select(field=customerForm("priceid"), options = options(priceMap), args= '_label -> "Price")
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			@inputText(field=customerForm("name"), args = 'class -> "input-large", 'placeholder -> "customer name", '_label -> "Customer Name")	
+		</td><td>
+			@textarea(field=customerForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 
+			'placeholder -> "customer address", '_label -> "Address")		
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number")			
+		</td><td>
+			@inputText(field=customerForm("home_number"), args = 'class -> "input-large",'_label -> "Home Number")
+		</td>	
+	</tr>
+
+	<tr>
+		<td>
+			@inputText(field=customerForm("email_address"), args = 'class -> "input-large", 'placeholder -> 
+			"mail@email.com", '_label -> "Email Address")	
+		</td><td>
+			@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date")
+		</td>
+	</tr>
+
+	@if(isupdate){
+	<tr>
+		<td>
+			@inputText(field=customerForm("deposite"), args = 'class -> "input-large",'_label -> "Deposite Amount")
+		</td><td>
+			@inputText(field=customerForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date")
+		</td>
+	</tr>
+	}else{
+		<tr><td colspan="2">
+			@inputText(field=customerForm("deposite"), args = 'class -> "input-large",'_label -> "Deposite Amount")
+		</td></tr>		
+	}	
+</tbody>
+    <tfoot>
+	<tr>
+    	<td colspan="2"><button type="submit" class="btn btn-primary">Save</button></td> 	
+    </tr>	
+	</tfoot>
+</table>
+
+<script type="text/javascript">
+	$(function() {
+		$("#joining_date").datepicker({dateFormat:"dd/mm/yy"});
+		$("#terminate_date").datepicker({dateFormat:"dd/mm/yy"});
+
+		$("#joining_date").keypress(function() {
+				return false;
+		});
+
+		$("#terminate_date").keypress(function(event) {
+			if(event.which!=8)
+					return false;
+		});
+	});
+</script>
+
+			
