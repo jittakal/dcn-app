@@ -1,0 +1,90 @@
+@(invoices: List[models.Invoice],title: String)
+
+@import helper._
+@import models._
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    	<tr><th colspan="6">@title</th></tr>
+    	<tr>
+            <th>&nbsp;</th>
+    		<th>Customer Name</th>
+    		<th>Customer Address</th>
+    		<th>Invoice Amount</th>
+            <th>Is Paid</th>
+    		<th>Customer Balance</th>
+    	</tr>
+    </thead>	     
+    <tbody>	
+	    @for(invoice <- invoices) {	
+		    <tr>	    	
+                <td>
+                    @if(!invoice.paid){
+                        <input id="paymentchkbox" type="checkbox" value="@invoice.customer.id"/>
+                    }else{
+                        ""
+                    }                    
+                </td>
+		    	<td>@invoice.getCustomerName()</td> 
+		    	<td>@invoice.customer.address</td>	    	
+		    	<td>@invoice.amount</td> 
+                <td><input type="checkbox" @if(invoice.paid){"checked"} disabled/></td>
+		    	<td>@invoice.customer.balance</td>
+		    </tr>	    
+		}
+ 	</tbody>	    
+    <tfoot>
+        <tr>
+            <td colspan="6"><button id="paymentbtn" type="button" class="btn btn-primary">Make Payment</button></td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+    var make_payment_on_click=function(){
+        // get values of all selected check boxes        
+
+        var customers=new Array();
+        $.each($("input#paymentchkbox:checked"),function(i,chkbox){            
+            var customer={};
+            customer.id=$(this).attr("value");
+            customers[i]=customer;                           
+        });
+
+        if(customers.length>0){            
+            post_payment(JSON.stringify(customers));            
+        }        
+    };
+
+    var post_payment = function(req_data) {     
+        $.ajax({
+            url: "@routes.PaymentController.payment()",
+            data: req_data,
+            processData:false,
+            type: "POST",
+            beforeSend:function(jqXHR, settings){                   
+                jqXHR.setRequestHeader("Content-Type", "application/json");                 
+            },
+            success: function(data, textStatus, jqXHR){                 
+                //
+            },
+            error: function(jqXHR, textStatus, errorThrown){                
+                //display_error_msg(errorThrown);   
+            },
+            complete: function(jqXHR,textStatus){                   
+                var searchbtn=$("#searchbtn");
+                if(searchbtn!=undefined){
+                    searchbtn.trigger("click");
+                }
+            }   
+        });
+    };
+
+    $(function(){
+        $("#paymentbtn").click(make_payment_on_click);
+    });
+</script>
+
+
+
+

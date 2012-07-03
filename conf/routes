@@ -94,6 +94,8 @@ GET		/portal/search/invoice		controllers.InvoiceController.search_get()
 POST	/portal/search/invoice		controllers.InvoiceController.search()
 POST	/portal/c/a/search/invoice	controllers.InvoiceController.on_area_change()
 POST	/portal/c/sa/search/invoice	controllers.InvoiceController.on_subarea_change()
+GET		/portal/generate/invoice	controllers.InvoiceController.generate_get()
+POST	/portal/generate/invoice	controllers.InvoiceController.generate()
 
 
 GET		/service/invoices			controllers.InvoiceController.all()	
@@ -106,6 +108,7 @@ GET		/service/payments			controllers.PaymentController.all()
 GET		/service/payment/:id		controllers.PaymentController.get(id: Long)					
 POST	/service/payment			controllers.PaymentController.create()
 PUT		/service/payment/:id		controllers.PaymentController.update(id: Long)
+POST	/service/do/payment			controllers.PaymentController.payment()
 
 
 # Map static resources from the /public folder to the /assets URL path

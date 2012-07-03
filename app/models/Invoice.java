@@ -5,11 +5,16 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import java.util.Date;
 import play.db.ebean.Model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import com.avaje.ebean.validation.NotNull;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import util.JsonDateSerializer;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Invoice extends Model {
@@ -23,13 +28,27 @@ public class Invoice extends Model {
 	public Customer customer;
 	
 	@NotNull
-	public int month;
+	public Integer month;
 	
 	@NotNull
-	public int year;
+	public Integer year;
 	
 	@NotNull
-	public int amount;
+	public Integer amount;
+
+	@NotNull
+	public Boolean paid;
+
+	public String getCustomerName(){
+		return customer.name;
+	}
+
+
+
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@JsonSerialize(using=JsonDateSerializer.class)
+	public Date invoice_date;
 	
 	public static Finder<Long, Invoice> find = new Finder(Long.class, Invoice.class);
 
@@ -48,5 +67,23 @@ public class Invoice extends Model {
 	public static boolean isBelongsToCustomer(Long customerid){
 		return find.select("id").where().eq("customer_id",customerid).findList().size()==0?false:true;
 	}
+
+	public static boolean isInvoiceExists(Long customerid, Integer month, Integer year){
+		return find.select("id").where().eq("customer_id",customerid).eq("month",month).eq("year",year).findList().size()==0?false:true;	
+	}
+	
+	public static List<Invoice> search(Integer month,Integer year){
+		return find.where().eq("month",month).eq("year",year).findList();	
+	}
+
+	public static List<Invoice> search(Integer month,Integer year, Long subAreaId){
+		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).findList();	
+
+		List<Invoice> filteredInvoices =
+                find.filter() 
+                        .eq("customer.sub_area.id", subAreaId)                        
+                        .filter(invoices);
+        return filteredInvoices;
+	}	
 
 }

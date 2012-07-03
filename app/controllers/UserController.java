@@ -15,7 +15,7 @@ import views.html.user.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
 
-@Authenticated(value = DcnAuthenticator.class)
+//@Authenticated(value = DcnAuthenticator.class)
 public class UserController extends Controller {
 
 	public static Result index(){

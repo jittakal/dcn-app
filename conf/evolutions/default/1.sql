@@ -42,6 +42,8 @@ create table invoice (
   month                     integer not null,
   year                      integer not null,
   amount                    integer not null,
+  paid                      boolean not null,
+  invoice_date              timestamp not null,
   constraint pk_invoice primary key (id))
 ;
 

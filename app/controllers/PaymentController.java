@@ -17,6 +17,20 @@ import util.DcnAuthenticator;
 @Authenticated(value = DcnAuthenticator.class)
 public class PaymentController extends Controller {
 
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result payment() {
+		JsonNode jsonNode = request().body().asJson();
+		if (jsonNode == null) {
+			return badRequest("Expecting Json data");
+		}
+
+		for(JsonNode jsNode:jsonNode){
+			System.out.println(jsNode.path("id").getTextValue());
+		}
+
+		return ok();
+	}
+
 	public static Result all() {
 		List<Payment> payments = Payment.all();
 		return ok(Json.toJson(payments));

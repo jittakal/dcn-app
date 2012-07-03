@@ -1,6 +1,7 @@
-@(invoiceSearchForm: Form[forms.InvoiceSearchForm],areaMap: Map[String,String],subareaMap: Map[String,String],customerMap: Map[String,String],monthMap: Map[String,String],yearMap: Map[String,String])
+@(invoiceSearchForm: Form[forms.InvoiceSearchForm],areaMap: Map[String,String],subareaMap: Map[String,String],customerMap: Map[String,String],monthMap: Map[String,String],yearMap: Map[String,String],invoices: List[models.Invoice])
 
 @import helper._
+@import models._
 
 @main() {
 	
@@ -13,8 +14,8 @@
 	    </thead>	
 	    <tbody>	
 	    <tr>	    	
-	    	<td>@select(field=invoiceSearchForm("month"), options = options(monthMap), args= '_label -> "Month")</td>
-	    	<td colspan="2">@select(field=invoiceSearchForm("year"), options = options(yearMap), args= '_label -> "Year")</td> 
+	    	<td>@select(field=invoiceSearchForm("year"), options = options(yearMap), args= '_label -> "Year")</td> 
+	    	<td colspan="2">@select(field=invoiceSearchForm("month"), options = options(monthMap), args= '_label -> "Month")</td>	    	
 	    </tr>	    
 		<tr>
 	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(areaMap), args= '_label -> "Area")</td>
@@ -24,7 +25,7 @@
 	    </tbody>
 	    <tfoot>
 		<tr>
-	    	<td colspan="3"><button type="submit" class="btn btn-primary">Search</button></td> 	
+	    	<td colspan="3"><button id="searchbtn" type="submit" class="btn btn-primary">Search</button></td> 	
 	    </tr>	
 		</tfoot>
 		</table>
@@ -50,6 +51,11 @@
 		});
 		</script>
 	}
+
+	@if(invoices!=null && !invoices.isEmpty()){
+		@searchresult(invoices,"Invoice Search Result")	
+	}
+
 }
 
 
