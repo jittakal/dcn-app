@@ -3,7 +3,9 @@ package controllers;
 import java.util.List;
 
 import models.Payment;
-
+import models.Invoice;
+import models.Customer;
+import java.util.Calendar;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -25,7 +27,23 @@ public class PaymentController extends Controller {
 		}
 
 		for(JsonNode jsNode:jsonNode){
-			System.out.println(jsNode.path("id").getTextValue());
+			Long invoiceId=Long.valueOf(jsNode.path("id").getTextValue());
+			Invoice invoice=Invoice.get(invoiceId);
+
+			if(!invoice.paid){
+				Payment payment=new Payment();
+				payment.invoice=invoice;
+				payment.payment_date=Calendar.getInstance().getTime();
+				payment.amount=invoice.amount;
+				payment.save();
+
+				Customer customer=invoice.customer;
+				customer.balance -= invoice.amount;
+				customer.update();
+
+				invoice.paid=true;
+				invoice.update();	
+			}			
 		}
 
 		return ok();

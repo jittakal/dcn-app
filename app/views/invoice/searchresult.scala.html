@@ -21,14 +21,12 @@
                 <td>
                     @if(!invoice.paid){
                         <input id="paymentchkbox" type="checkbox" value="@invoice.customer.id"/>
-                    }else{
-                        ""
                     }                    
                 </td>
 		    	<td>@invoice.getCustomerName()</td> 
 		    	<td>@invoice.customer.address</td>	    	
 		    	<td>@invoice.amount</td> 
-                <td><input type="checkbox" @if(invoice.paid){"checked"} disabled/></td>
+                <td><input type="checkbox" @{if(invoice.paid) "checked" } disabled/></td>
 		    	<td>@invoice.customer.balance</td>
 		    </tr>	    
 		}
