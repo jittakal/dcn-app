@@ -3,9 +3,20 @@
 @import helper._
 @import models._
 
+<div id="invoice_report">
 <table class="table table-striped table-bordered table-condensed">
     <thead>
-    	<tr><th colspan="6">@title</th></tr>
+        <tr>
+            <th colspan="6">@title</th>       
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Month</th><th id="monthth"></th><th>Year</th><th id="yearth" colspan="2"></th>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Area</th><th id="areath"></th><th>Sub Area</th><th id="subareath" colspan="2"></th>
+        </tr>
     	<tr>
             <th>&nbsp;</th>
     		<th>Customer Name</th>
@@ -21,6 +32,8 @@
                 <td>
                     @if(!invoice.paid){
                         <input id="paymentchkbox" type="checkbox" value="@invoice.customer.id"/>
+                    }else{
+                        &nbsp;
                     }                    
                 </td>
 		    	<td>@invoice.getCustomerName()</td> 
@@ -30,10 +43,17 @@
 		    	<td>@invoice.customer.balance</td>
 		    </tr>	    
 		}
- 	</tbody>	    
+ 	</tbody>	        
+</table>
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
     <tfoot>
         <tr>
-            <td colspan="6"><button id="paymentbtn" type="button" class="btn btn-primary">Make Payment</button></td>
+            <td colspan="6">
+                <button id="paymentbtn" type="button" class="btn btn-primary">Make Payment</button>
+                <button id="printbtn" type="button" class="btn btn-primary">Print</button>
+            </td>
         </tr>
     </tfoot>
 </table>
@@ -78,8 +98,23 @@
         });
     };
 
+    var view_search_invoice = function(){
+        var w=window.open();
+        w.document.open();
+        w.document.write($("head").html());
+        w.document.write("<style>body{background-image:none;margin:auto;font-size:10px;width:1280px} .container{width:1280px}</style>");
+        w.document.write('<div class="container"><div class="well">' + $("#invoice_report").html() + "</div></div>");
+        w.document.close();
+    };
+
     $(function(){
         $("#paymentbtn").click(make_payment_on_click);
+        $("#printbtn").click(view_search_invoice);
+
+        $("#monthth").text($("option[selected]","select#month").text());
+        $("#yearth").text($("option[selected]","select#year").text());
+        $("#areath").text($("option[selected]","select#areaid").text());
+        $("#subareath").text($("option[selected]","select#subareaid").text());
     });
 </script>
 
