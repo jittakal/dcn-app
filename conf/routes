@@ -5,6 +5,7 @@
 # Home/Login page
 GET     /                           controllers.Application.index()
 POST	/portal/login				controllers.Application.login()
+GET 	/portal/logout				controllers.Application.logout()
 
 # Welcome page
 GET		/portal/welcome				controllers.Welcome.index()

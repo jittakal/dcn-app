@@ -8,6 +8,8 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import forms.UserForm;
+import play.mvc.Security.Authenticated;
+import util.DcnAuthenticator;
 import views.html.*;
 
 
@@ -40,5 +42,11 @@ public class Application extends Controller {
 		session().put("role", auser.role);
 		return  redirect(controllers.routes.Welcome.index());
 	}		
+
+	@Authenticated(value = DcnAuthenticator.class)
+	public static Result logout(){
+		session().clear();
+		return  redirect(controllers.routes.Application.index());
+	}
 
 }

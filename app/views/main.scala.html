@@ -25,7 +25,11 @@
             <div style="margin-left:10px;margin-right:10px">
                 <a class="brand" href="#">Darpan Cable Network</a>
                 <p class="navbar-text pull-right">
-                    @session.get("username").toUpperCase() &nbsp; @session.get("role").toUpperCase()
+                    @session.get("username").toUpperCase() 
+                    &nbsp; 
+                    @session.get("role").toUpperCase()
+                    &nbsp;
+                    <a href="@routes.Application.logout()">LOGOUT</a>
                 </p>                
             </div>
         </div>
