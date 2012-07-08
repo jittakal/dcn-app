@@ -8,7 +8,6 @@ import forms.AreaForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security.Authenticated;
 import play.mvc.BodyParser;
 import play.libs.Json;
 import org.codehaus.jackson.*;

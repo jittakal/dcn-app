@@ -7,11 +7,14 @@ GET     /                           controllers.Application.index()
 POST	/portal/login				controllers.Application.login()
 GET 	/portal/logout				controllers.Application.logout()
 
+
 # Welcome page
 GET		/portal/welcome				controllers.Welcome.index()
 
 # User
 GET 	/portal/users 				controllers.UserController.index()
+GET 	/portal/change/passwd		controllers.UserController.get_change_passwd()
+POST 	/portal/change/passwd		controllers.UserController.change_passwd()
 
 GET		/service/users				controllers.UserController.all()	
 GET		/service/user/:id 			controllers.UserController.get(id: Long)					

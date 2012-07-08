@@ -1,0 +1,37 @@
+@(changePasswdForm: Form[forms.ChangePasswdForm])
+
+@import helper._
+
+@main(){
+
+	@views.html.common.errormsg(changePasswdForm.globalErrors())	
+	
+	@form(action = routes.UserController.change_passwd()) {
+
+		<table class="table">
+		    <thead>
+		    	<tr><th>Change Password</th></tr>
+		    </thead>	
+		    <tbody>	
+			    <tr><td>			    	
+			    	@inputPassword(field=changePasswdForm("current_passwd"), args = 'class-> "input-large", 'placeholder -> "current password", '_label -> "Current Password")		
+			    </td></tr>
+
+			    <tr><td>			    	
+			    	@inputPassword(field=changePasswdForm("new_passwd"), args = 'class-> "input-large", 'placeholder -> "new password", '_label -> "New Password")
+			    </td></tr>
+
+			    <tr><td>			    	
+			    	@inputPassword(field=changePasswdForm("confirm_passwd"), args = 'class-> "input-large", 'placeholder -> "confirm password", '_label -> "Confirm Password")
+			    </td></tr>
+		    </tbody>
+		    <tfoot>
+			<tr>
+		    	<td><button type="submit" class="btn btn-primary">Save</button></td> 	
+		    </tr>	
+			</tfoot>
+		</table>
+		
+	}
+	
+}
