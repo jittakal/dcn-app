@@ -53,13 +53,12 @@
 	
 		$("#subarea-grid").jqGrid({
 			datatype: "local",
-		    colNames:['Srno','ID','Name','Area Name','Employee Name'],
+		    colNames:['Srno','ID','Name','Area Name'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
 		    	{name:'name',index:'name'},
-		    	{name:'areaname',index:'areaname'},
-		    	{name:'employeename',index:'employeename'}
+		    	{name:'areaname',index:'areaname'}
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
@@ -71,8 +70,7 @@
 		$.each(subareas,function(i,subarea){
 			subarea.pk=subarea.id;
 			subarea.id=i+1;
-			subarea.areaname=subarea.area.name;
-			subarea.employeename=subarea.employee.name;
+			subarea.areaname=subarea.area.name;			
 			$("#subarea-grid").jqGrid('addRowData',i+1,subarea);	
 		});
 	};

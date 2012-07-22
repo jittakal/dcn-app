@@ -62,8 +62,7 @@ public class CustomerController extends Controller {
 		csForm.subareaid=customer.sub_area.id.toString();
 		csForm.address=customer.address;
 		csForm.mobile_number=customer.mobile_number;
-		csForm.home_number=customer.home_number;
-		csForm.email_address=customer.email_address;
+		csForm.id_number=customer.id_number;		
 		csForm.joining_date=customer.joining_date;
 		csForm.terminate_date=customer.terminate_date;
 		csForm.priceid=customer.price.id.toString();
@@ -108,8 +107,7 @@ public class CustomerController extends Controller {
 		customer.sub_area=subarea;
 		customer.address=customerForm.address;
 		customer.mobile_number=customerForm.mobile_number;
-		customer.home_number=customerForm.home_number;
-		customer.email_address=customerForm.email_address;
+		customer.id_number=customerForm.id_number;		
 		customer.joining_date=customerForm.joining_date;
 		customer.terminate_date=customerForm.terminate_date;
 		customer.price=price;

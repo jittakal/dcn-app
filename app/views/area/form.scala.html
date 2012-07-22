@@ -7,6 +7,11 @@
     	<tr><th>@title</th></tr>
     </thead>	
     <tbody>	
+    <tr>            
+        <td>
+        @select(field=areaForm("employeeid"), options(models.Employee.asMap), args= '_label -> "Employee")
+        </td>
+    </tr>
     <tr>	    	
     	<td>@inputText(field=areaForm("name"), args = 'class -> "input-large", 'placeholder -> "area name", '_label -> "Area Name")		
     	</td>

@@ -33,6 +33,10 @@ public class Customer extends Model {
 	
 	@ManyToOne
 	@NotNull
+	public Area area;
+
+	@ManyToOne
+	@NotNull
 	public SubArea sub_area;
 	
 	@NotNull
@@ -40,10 +44,9 @@ public class Customer extends Model {
 	
 	public String mobile_number;
 	
-	public String home_number;
-	
-	public String email_address;
-	
+	@NotNull
+	public String id_number;
+			
 	@NotNull
 	@Temporal(value=TemporalType.DATE)
 	@JsonSerialize(using=JsonDateSerializer.class)

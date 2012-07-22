@@ -37,25 +37,16 @@
 		<td>
 			@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number")			
 		</td><td>
-			@inputText(field=customerForm("home_number"), args = 'class -> "input-large",'_label -> "Home Number")
+			@inputText(field=customerForm("id_number"), args = 'class -> "input-large",'_label -> "ID Number")
 		</td>	
 	</tr>
 
 	@if(isupdate){
-	<tr>
-		<td>
-			@inputText(field=customerForm("email_address"), args = 'class -> "input-large", 'placeholder -> 
-			"mail@email.com", '_label -> "Email Address")	
-		</td>
-		<td>
+	<tr>		
+		<td colspan="2">
 			@inputText(field=customerForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date")
 		</td>
 	</tr>
-	}else{
-		<tr><td colspan="2">
-			@inputText(field=customerForm("email_address"), args = 'class -> "input-large", 'placeholder -> 
-			"mail@email.com", '_label -> "Email Address")	
-		</td></tr>		
 	}	
 </tbody>
     <tfoot>

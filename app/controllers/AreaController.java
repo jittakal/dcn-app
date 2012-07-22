@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.Area;
 import models.SubArea;
+import models.Employee;
 import forms.AreaForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -53,6 +54,9 @@ public class AreaController extends Controller {
 
 		Area area=new Area();
 		area.name=areaForm.name;
+		Employee employee=new Employee();
+		employee.id=new Long(areaForm.employeeid);		
+		area.employee=employee;
 		area.save();
 								
 		return redirect(controllers.routes.AreaController.index());
@@ -62,6 +66,7 @@ public class AreaController extends Controller {
 		Area area=Area.get(id);		
 		AreaForm aForm=new AreaForm();
 		aForm.name=area.name;
+		aForm.employeeid=area.employee.id.toString();		
 		return ok(update.render(areaForm.fill(aForm),id));
 	}
 
@@ -84,6 +89,9 @@ public class AreaController extends Controller {
 
 		Area area=Area.get(id);		
 		area.name=areaForm.name;
+		Employee employee=new Employee();
+		employee.id=new Long(areaForm.employeeid);		
+		area.employee=employee;
 		area.update();
 								
 		return  redirect(controllers.routes.AreaController.index());

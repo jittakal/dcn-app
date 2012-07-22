@@ -10,5 +10,8 @@ public class AreaForm implements Serializable{
 	@Required
 	@MaxLength(value=120)
 	public String name;	
+
+	@Required
+	public String employeeid;
 	
 }

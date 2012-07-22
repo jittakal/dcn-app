@@ -3,7 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.Employee;
-import models.SubArea;
+import models.Area;
 import forms.EmployeeForm;
 import play.data.Form;
 import org.codehaus.jackson.JsonNode;
@@ -93,11 +93,11 @@ public class EmployeeController extends Controller {
 		if(employee==null){
 			return notFound("Employee having id [" + id + "] does not exists.");
 		}
-		if(!SubArea.isBelongsToEmployee(id)){
+		if(!Area.isBelongsToEmployee(id)){
 			Employee.delete(id);			
 			return ok("Selected Employee has been deleted successfully");
 		}
-		return 	notFound("Employee ['" + employee.name + "'] is associated with Sub Area(s)");			
+		return 	notFound("Employee ['" + employee.name + "'] is associated with Area(s)");			
 	}
 	
 	/**

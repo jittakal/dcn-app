@@ -6,7 +6,6 @@ import models.SubArea;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
-import models.Employee;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -53,17 +52,14 @@ public class SubAreaController extends Controller {
 		SubArea subarea=formToModel(subareaForm);
 		subarea.save();
 								
-		return  redirect(controllers.routes.SubAreaController.index());
+		return redirect(controllers.routes.SubAreaController.index());
 	}
 
 	public static Result update_get(Long id){		
 		SubArea subArea=SubArea.get(id);
-
 		SubAreaForm saForm=new SubAreaForm();
 		saForm.name=subArea.name;
-		saForm.areaid=subArea.area.id.toString();
-		saForm.employeeid=subArea.employee.id.toString();		
-		
+		saForm.areaid=subArea.area.id.toString();				
 		return ok(update.render(subareaForm.fill(saForm),id));
 	}
 
@@ -93,16 +89,11 @@ public class SubAreaController extends Controller {
 
 	private static SubArea formToModel(SubAreaForm subareaForm){
 		Area area=new Area();
-		area.id=new Long(subareaForm.areaid);		
-
-		Employee employee=new Employee();
-		employee.id=new Long(subareaForm.employeeid);		
+		area.id=new Long(subareaForm.areaid);				
 
 		SubArea subarea=new SubArea();		
 		subarea.name=subareaForm.name;
-		subarea.area=area;
-		subarea.employee=employee;
-
+		subarea.area=area;		
 		return subarea;
 	}
 

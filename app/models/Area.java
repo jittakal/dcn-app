@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import play.db.ebean.Model;
@@ -23,6 +24,10 @@ public class Area extends Model {
 
 	@NotNull
 	public String name;
+
+	@ManyToOne
+	@NotNull
+	public Employee employee;
 
 	public static Finder<Long, Area> find = new Finder(Long.class, Area.class);
 	
@@ -45,6 +50,10 @@ public class Area extends Model {
 			areaMap.put(area.id.toString(),area.name);
 		}
 		return areaMap;
+	}
+
+	public static boolean isBelongsToEmployee(Long employeeid){
+		return find.select("id").where().eq("employee_id",employeeid).findList().size()==0?false:true;
 	}
 
 	public static boolean isNameExists(Long id,String name){

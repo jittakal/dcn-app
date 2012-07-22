@@ -28,11 +28,7 @@ public class CustomerForm implements Serializable{
 	
 	@MaxLength(value=10)
 	@Pattern(regexp="[0-9]*")
-	public String home_number;
-	
-	@Email
-	@MaxLength(value=120)
-	public String email_address;
+	public String id_number;		
 	
 	@Required	
 	@DateTime(pattern="dd/MM/yyyy")

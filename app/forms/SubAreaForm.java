@@ -13,10 +13,7 @@ public class SubAreaForm implements Serializable{
 
 	@Required
 	public String areaid;
-
-	@Required
-	public String employeeid;	
-
+	
 	/*public String validate() {        
 		if(SubArea.isNameExists(name)){
 			return "Sub Area name ['" + name + "'] already exists";

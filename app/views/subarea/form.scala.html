@@ -4,23 +4,21 @@
 
 <table class="table">
     <thead>
-    	<tr><th colspan="2">@title</th></tr>
+    	<tr><th>@title</th></tr>
     </thead>	
     <tbody>	
     <tr>	    	
     	<td>
 		@select(field=subareaForm("areaid"), options(models.Area.asMap), args= '_label -> "Area")
-		</td><td>
-		@select(field=subareaForm("employeeid"), options(models.Employee.asMap), args= '_label -> "Employee")
 		</td>
-	</tr><tr><td colspan="2">
+	</tr><tr><td>
 		@inputText(field=subareaForm("name"), args = 'class -> "input-large", '_label -> "Sub Area Name")		
 		</td>
     </tr>
     </tbody>
     <tfoot>
 	<tr>
-    	<td colspan="2"><button type="submit" class="btn btn-primary">Save</button></td> 	
+    	<td><button type="submit" class="btn btn-primary">Save</button></td> 	
     </tr>	
 	</tfoot>
 </table>
