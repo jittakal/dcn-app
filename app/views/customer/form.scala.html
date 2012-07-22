@@ -1,4 +1,4 @@
-@(customerForm: Form[forms.CustomerForm],subareaMap: Map[String,String],priceMap: Map[String,String],title: String, isupdate: Boolean = false)
+@(customerForm: Form[forms.CustomerForm],title: String, isupdate: Boolean = false)
 
 @import helper._
 
@@ -9,9 +9,9 @@
     <tbody>	
     <tr>	    	
     	<td>		
-		@select(field=customerForm("subareaid"), options = options(subareaMap), args= '_label -> "Sub Area")
+		@select(field=customerForm("subareaid"), options = options(models.SubArea.asMap), args= '_label -> "Sub Area")
 		</td><td>
-		@select(field=customerForm("priceid"), options = options(priceMap), args= '_label -> "Price")
+		@select(field=customerForm("priceid"), options = options(models.Price.asMap), args= '_label -> "Price")
 		</td>
 	</tr>
 

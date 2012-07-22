@@ -35,125 +35,82 @@ public class InvoiceController extends Controller {
 
 	final static Form<InvoiceGenerateForm> invoiceGenerateForm = form(InvoiceGenerateForm.class);
 
-	public static Result generate_get() {				
-		Map<String,String> monthMap=new LinkedHashMap<String,String>();
+	final static int curmonth = Calendar.getInstance().get(Calendar.MONTH);
+
+	final static int curyear = Calendar.getInstance().get(Calendar.YEAR);
+
+	public static Result generate_get() {						
+		return ok(generate.render(invoiceGenerateForm,null));
+	}
+
+	public static Map<String,String> monthAsMap() {
+		Map<String,String> monthMap=new LinkedHashMap<String,String>();				
+		monthMap.put(String.valueOf(curmonth+1),get_month_map().get(String.valueOf(curmonth+1)));		
+		return monthMap;
+	}
+
+	public static Map<String,String> yearAsMap() {		
 		Map<String,String> yearMap=new LinkedHashMap<String,String>();
-		
-		Calendar calendar=Calendar.getInstance();
-		int curyear=calendar.get(Calendar.YEAR);
-		int curmonth=calendar.get(Calendar.MONTH);
-
-		monthMap.put(String.valueOf(curmonth+1),get_month_map().get(String.valueOf(curmonth+1)));
 		yearMap.put(String.valueOf(curyear),String.valueOf(curyear));
-
-		return ok(generate.render(invoiceGenerateForm,monthMap,yearMap,null));
+		return yearMap;
 	}
 
 	public static Result generate() {				
-		Form<InvoiceGenerateForm> filledForm = invoiceGenerateForm.bindFromRequest();		
-
-		Map<String,String> monthMap=new LinkedHashMap<String,String>();
-		Map<String,String> yearMap=new LinkedHashMap<String,String>();
-		
-		Calendar calendar=Calendar.getInstance();
-		int curyear=calendar.get(Calendar.YEAR);
-		int curmonth=calendar.get(Calendar.MONTH);
-
-		String monthName=get_month_map().get(String.valueOf(curmonth+1));
-
-		monthMap.put(String.valueOf(curmonth+1),monthName);
-		yearMap.put(String.valueOf(curyear),String.valueOf(curyear));
+		Form<InvoiceGenerateForm> filledForm = invoiceGenerateForm.bindFromRequest();				
 		
 		if(filledForm.hasErrors()){			
-			return badRequest(generate.render(filledForm,monthMap,yearMap,null));
+			return badRequest(generate.render(filledForm,null));
 		}
 
 		InvoiceGenerateForm iGenerateForm=filledForm.get();
 		if(iGenerateForm==null){
-			return badRequest(generate.render(filledForm,monthMap,yearMap,null));
+			return badRequest(generate.render(filledForm,null));
 		}
 
 		InvoiceService.generateInvoice(Integer.parseInt(iGenerateForm.month),Integer.parseInt(iGenerateForm.year));
 		List<Invoice> invoices=Invoice.search(Integer.parseInt(iGenerateForm.month),Integer.parseInt(iGenerateForm.year));	
-		return ok(generate.render(filledForm,monthMap,yearMap,invoices));
+		return ok(generate.render(filledForm,invoices));
 	}
 
-	public static Result search_get() {		
-		Map<String,String> areaMap=Area.asMap();
-		Map<String,String> subareaMap=new LinkedHashMap<String,String>();
-		Map<String,String> customerMap=new LinkedHashMap<String,String>();
-		Map<String,String> monthMap=get_month_map();
-		Map<String,String> yearMap=get_year_map();
-
-		if(!areaMap.isEmpty()){
-			String areaid=areaMap.keySet().iterator().next();
-			subareaMap.putAll(SubArea.asMapByAreaId(new Long(areaid)));
-		}
-
-		Calendar calendar=Calendar.getInstance();
-		int curyear=calendar.get(Calendar.YEAR);
-		int curmonth=calendar.get(Calendar.MONTH);
-
+	public static Result search_get() {				
 		InvoiceSearchForm iSearchForm=new InvoiceSearchForm();
 		iSearchForm.month=String.valueOf(curmonth+1);
 		iSearchForm.year=String.valueOf(curyear);
 
-		return ok(search.render(invoiceSearchForm.fill(iSearchForm),areaMap,subareaMap,customerMap,monthMap,yearMap,null));
+		return ok(search.render(invoiceSearchForm.fill(iSearchForm),null));
 	}
 
 	public static Result on_area_change(){
-		Form<InvoiceSearchForm> filledForm = invoiceSearchForm.bindFromRequest();		
-		Map<String,String> areaMap=Area.asMap();
-		Map<String,String> subareaMap=new LinkedHashMap<String,String>();
-		Map<String,String> customerMap=new LinkedHashMap<String,String>();
-		Map<String,String> monthMap=get_month_map();
-		Map<String,String> yearMap=get_year_map();		
+		Form<InvoiceSearchForm> filledForm = invoiceSearchForm.bindFromRequest();				
 
 		if(filledForm.hasErrors()){			
-			return badRequest(search.render(filledForm,areaMap,subareaMap,customerMap,monthMap,yearMap,null));
+			return badRequest(search.render(filledForm,null));
 		}
 
 		InvoiceSearchForm iSearchForm=filledForm.get();
 		if(iSearchForm==null){
-			return badRequest(search.render(filledForm,areaMap,subareaMap,customerMap,monthMap,yearMap,null));
+			return badRequest(search.render(filledForm,null));
 		}
-
-		if(iSearchForm.areaid!=null){
-			subareaMap.putAll(SubArea.asMapByAreaId(new Long(iSearchForm.areaid)));
-		}
-
-		return ok(search.render(invoiceSearchForm.fill(iSearchForm),areaMap,subareaMap,customerMap,monthMap,yearMap,null));	
+				
+		return ok(search.render(invoiceSearchForm.fill(iSearchForm),null));	
 	}
 
 	public static Result on_subarea_change(){
-		Form<InvoiceSearchForm> filledForm = invoiceSearchForm.bindFromRequest();		
-		Map<String,String> areaMap=Area.asMap();
-		Map<String,String> subareaMap=new LinkedHashMap<String,String>();
-		Map<String,String> customerMap=new LinkedHashMap<String,String>();
-		Map<String,String> monthMap=get_month_map();
-		Map<String,String> yearMap=get_year_map();		
+		Form<InvoiceSearchForm> filledForm = invoiceSearchForm.bindFromRequest();				
 
 		if(filledForm.hasErrors()){			
-			return badRequest(search.render(filledForm,areaMap,subareaMap,customerMap,monthMap,yearMap,null));
+			return badRequest(search.render(filledForm,null));
 		}
 
 		InvoiceSearchForm iSearchForm=filledForm.get();
 		if(iSearchForm==null){
-			return badRequest(search.render(filledForm,areaMap,subareaMap,customerMap,monthMap,yearMap,null));
-		}
+			return badRequest(search.render(filledForm,null));
+		}		
 
-		if(iSearchForm.areaid!=null){
-			subareaMap.putAll(SubArea.asMapByAreaId(new Long(iSearchForm.areaid)));
-		}
-
-		if(iSearchForm.subareaid!=null){
-			customerMap.putAll(Customer.asMapBySubAreaId(new Long(iSearchForm.subareaid)));
-		}
-
-		return ok(search.render(invoiceSearchForm.fill(iSearchForm),areaMap,subareaMap,customerMap,monthMap,yearMap,null));	
+		return ok(search.render(invoiceSearchForm.fill(iSearchForm),null));	
 	}	
 
-	private static Map<String,String> get_month_map(){
+	public static Map<String,String> get_month_map(){
 		Map<String,String> monthMap=new LinkedHashMap<String,String>();
 		monthMap.put("1","January");monthMap.put("2","February");
 		monthMap.put("3","March");monthMap.put("4","April");
@@ -164,41 +121,31 @@ public class InvoiceController extends Controller {
 		return monthMap;
 	}
 
-	private static Map<String,String> get_year_map(){
-		Map<String,String> yearMap=new LinkedHashMap<String,String>();
-		Calendar calendar=Calendar.getInstance();
-		int curyear=calendar.get(Calendar.YEAR);
+	public static Map<String,String> get_year_map(){
+		Map<String,String> yearMap=new LinkedHashMap<String,String>();		
+		int cyear=curyear;
 		for(int i=0;i<5;i++){
-			String cur_year=String.valueOf(curyear);
+			String cur_year=String.valueOf(cyear);
 			yearMap.put(cur_year,cur_year);
-			curyear-=1;
+			cyear-=1;
 		}		
 		return yearMap;
 	}
 
 	public static Result search() {
 		Form<InvoiceSearchForm> filledForm = invoiceSearchForm.bindFromRequest();		
-		Map<String,String> areaMap=Area.asMap();
-		Map<String,String> subareaMap=new LinkedHashMap<String,String>();
-		Map<String,String> customerMap=new LinkedHashMap<String,String>();
-		Map<String,String> monthMap=get_month_map();
-		Map<String,String> yearMap=get_year_map();		
-
+		
 		if(filledForm.hasErrors()){			
-			return badRequest(search.render(filledForm,areaMap,subareaMap,customerMap,monthMap,yearMap,null));
+			return badRequest(search.render(filledForm,null));
 		}
 
 		InvoiceSearchForm iSearchForm=filledForm.get();
 		if(iSearchForm==null){
-			return badRequest(search.render(filledForm,areaMap,subareaMap,customerMap,monthMap,yearMap,null));
+			return badRequest(search.render(filledForm,null));
 		}
-
-		if(iSearchForm.areaid!=null){
-			subareaMap.putAll(SubArea.asMapByAreaId(new Long(iSearchForm.areaid)));
-		}
-
+		
 		List<Invoice> invoices=Invoice.search(Integer.parseInt(iSearchForm.month),Integer.parseInt(iSearchForm.year),new Long(iSearchForm.subareaid));	
-		return ok(search.render(invoiceSearchForm.fill(iSearchForm),areaMap,subareaMap,customerMap,monthMap,yearMap,invoices));	
+		return ok(search.render(invoiceSearchForm.fill(iSearchForm),invoices));	
 	}
 
 	

@@ -1,4 +1,4 @@
-@(customerForm: Form[forms.CustomerForm],subareaMap: Map[String,String],priceMap: Map[String,String])
+@(customerForm: Form[forms.CustomerForm])
 
 @import helper._
 
@@ -8,7 +8,7 @@
 	@views.html.common.errormsg(customerForm.globalErrors())	
 	
 	@form(action = routes.CustomerController.create_save()) {
-		@customer.form(customerForm,subareaMap,priceMap,"Create Customer")
+		@customer.form(customerForm,"Create Customer")
 	}
 	
 }

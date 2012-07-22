@@ -29,33 +29,25 @@ public class SubAreaController extends Controller {
 		return ok(index.render());
 	}
 
-	public static Result create_new(){
-		Map<String,String> areaMap=Area.asMap();
-		Map<String,String> empMap=Employee.asMap();
-		return ok(create.render(subareaForm,areaMap,empMap));
+	public static Result create_new(){		
+		return ok(create.render(subareaForm));
 	}
 
 	public static Result create_save(){
 		Form<SubAreaForm> filledForm = subareaForm.bindFromRequest();
 
-		if(filledForm.hasErrors()){
-			Map<String,String> areaMap=Area.asMap();
-			Map<String,String> empMap=Employee.asMap();
-			return badRequest(create.render(filledForm,areaMap,empMap));
+		if(filledForm.hasErrors()){			
+			return badRequest(create.render(filledForm));
 		}
 					
 		SubAreaForm subareaForm=filledForm.get();
-		if(subareaForm==null){			
-			Map<String,String> areaMap=Area.asMap();
-			Map<String,String> empMap=Employee.asMap();
-			return badRequest(create.render(filledForm,areaMap,empMap));
+		if(subareaForm==null){						
+			return badRequest(create.render(filledForm));
 		}
 
-		if(SubArea.isNameExists(0L,subareaForm.name)){
-			Map<String,String> areaMap=Area.asMap();
-			Map<String,String> empMap=Employee.asMap();
+		if(SubArea.isNameExists(0L,subareaForm.name)){			
 			filledForm.reject("Sub Area name already exists.");
-			return badRequest(create.render(filledForm,areaMap,empMap));	
+			return badRequest(create.render(filledForm));	
 		}
 
 		SubArea subarea=formToModel(subareaForm);
@@ -64,9 +56,7 @@ public class SubAreaController extends Controller {
 		return  redirect(controllers.routes.SubAreaController.index());
 	}
 
-	public static Result update_get(Long id){
-		Map<String,String> areaMap=Area.asMap();
-		Map<String,String> empMap=Employee.asMap();
+	public static Result update_get(Long id){		
 		SubArea subArea=SubArea.get(id);
 
 		SubAreaForm saForm=new SubAreaForm();
@@ -74,30 +64,24 @@ public class SubAreaController extends Controller {
 		saForm.areaid=subArea.area.id.toString();
 		saForm.employeeid=subArea.employee.id.toString();		
 		
-		return ok(update.render(subareaForm.fill(saForm),areaMap,empMap,id));
+		return ok(update.render(subareaForm.fill(saForm),id));
 	}
 
 	public static Result update_save(Long id){
 		Form<SubAreaForm> filledForm = subareaForm.bindFromRequest();
 
-		if(filledForm.hasErrors()){
-			Map<String,String> areaMap=Area.asMap();
-			Map<String,String> empMap=Employee.asMap();
-			return badRequest(update.render(filledForm,areaMap,empMap,id));
+		if(filledForm.hasErrors()){			
+			return badRequest(update.render(filledForm,id));
 		}
 					
 		SubAreaForm subareaForm=filledForm.get();
-		if(subareaForm==null){			
-			Map<String,String> areaMap=Area.asMap();
-			Map<String,String> empMap=Employee.asMap();
-			return badRequest(update.render(filledForm,areaMap,empMap,id));
+		if(subareaForm==null){						
+			return badRequest(update.render(filledForm,id));
 		}		
 
-		if(SubArea.isNameExists(id,subareaForm.name)){
-			Map<String,String> areaMap=Area.asMap();
-			Map<String,String> empMap=Employee.asMap();
+		if(SubArea.isNameExists(id,subareaForm.name)){			
 			filledForm.reject("Sub Area name already exists.");
-			return badRequest(update.render(filledForm,areaMap,empMap,id));	
+			return badRequest(update.render(filledForm,id));	
 		}
 
 		SubArea subarea=formToModel(subareaForm);

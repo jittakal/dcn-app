@@ -30,26 +30,20 @@ public class CustomerController extends Controller {
 		return ok(index.render());
 	}
 
-	public static Result create_new(){
-		Map<String,String> subareaMap=SubArea.asMap();
-		Map<String,String> priceMap=Price.asMap();
-		return ok(create.render(customerForm,subareaMap,priceMap));
+	public static Result create_new(){		
+		return ok(create.render(customerForm));
 	}
 
 	public static Result create_save(){
 		Form<CustomerForm> filledForm = customerForm.bindFromRequest();
 
-		if(filledForm.hasErrors()){
-			Map<String,String> subareaMap=SubArea.asMap();
-			Map<String,String> priceMap=Price.asMap();
-			return badRequest(create.render(filledForm,subareaMap,priceMap));
+		if(filledForm.hasErrors()){			
+			return badRequest(create.render(filledForm));
 		}
 					
 		CustomerForm customerForm=filledForm.get();
-		if(customerForm==null){			
-			Map<String,String> subareaMap=SubArea.asMap();
-			Map<String,String> priceMap=Price.asMap();
-			return badRequest(create.render(filledForm,subareaMap,priceMap));
+		if(customerForm==null){						
+			return badRequest(create.render(filledForm));
 		}
 
 		Customer customer=new Customer();
@@ -60,9 +54,7 @@ public class CustomerController extends Controller {
 		return  redirect(controllers.routes.CustomerController.index());
 	}
 
-	public static Result update_get(Long id){
-		Map<String,String> subareaMap=SubArea.asMap();
-		Map<String,String> priceMap=Price.asMap();
+	public static Result update_get(Long id){		
 		Customer customer=Customer.get(id);
 
 		CustomerForm csForm=new CustomerForm();
@@ -77,32 +69,26 @@ public class CustomerController extends Controller {
 		csForm.priceid=customer.price.id.toString();
 		csForm.deposite=customer.deposite;
 		
-		return ok(update.render(customerForm.fill(csForm),subareaMap,priceMap,id));
+		return ok(update.render(customerForm.fill(csForm),id));
 	}
 
 	public static Result update_save(Long id){
 		Form<CustomerForm> filledForm = customerForm.bindFromRequest();
 
-		if(filledForm.hasErrors()){
-			Map<String,String> subareaMap=SubArea.asMap();
-			Map<String,String> priceMap=Price.asMap();
-			return badRequest(update.render(filledForm,subareaMap,priceMap,id));
+		if(filledForm.hasErrors()){			
+			return badRequest(update.render(filledForm,id));
 		}
 					
 		CustomerForm customerForm=filledForm.get();
-		if(customerForm==null){			
-			Map<String,String> subareaMap=SubArea.asMap();
-			Map<String,String> priceMap=Price.asMap();
-			return badRequest(update.render(filledForm,subareaMap,priceMap,id));
+		if(customerForm==null){						
+			return badRequest(update.render(filledForm,id));
 		}		
 
 		Customer customer=Customer.get(id);
 
-		if(customer==null){
-			Map<String,String> subareaMap=SubArea.asMap();
-			Map<String,String> priceMap=Price.asMap();
+		if(customer==null){			
 			filledForm.reject("Customer does not exists");
-			return badRequest(update.render(filledForm,subareaMap,priceMap,id));	
+			return badRequest(update.render(filledForm,id));	
 		}
 
 		formToModel(customer,customerForm);	

@@ -1,6 +1,7 @@
-@(invoiceGenerateForm: Form[forms.InvoiceGenerateForm],monthMap: Map[String,String],yearMap: Map[String,String],invoices: List[models.Invoice])
+@(invoiceGenerateForm: Form[forms.InvoiceGenerateForm],invoices: List[models.Invoice])
 
 @import helper._
+@import controllers._
 
 @main() {
 
@@ -14,8 +15,8 @@
 		    </thead>	
 		    <tbody>	
 		    <tr>	    	
-		    	<td>@select(field=invoiceGenerateForm("year"), options = options(yearMap), args= '_label -> "Year")</td> 
-		    	<td colspan="2">@select(field=invoiceGenerateForm("month"), options = options(monthMap), args= '_label -> "Month")</td>	    	
+		    	<td>@select(field=invoiceGenerateForm("year"), options = options(InvoiceController.yearAsMap), args= '_label -> "Year")</td> 
+		    	<td colspan="2">@select(field=invoiceGenerateForm("month"), options = options(InvoiceController.monthAsMap), args= '_label -> "Month")</td>	    	
 		    </tr>	    
 			</tbody>
 		    <tfoot>

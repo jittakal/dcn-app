@@ -52,7 +52,7 @@ public class SubArea extends Model {
 		return asMap(subareas);
 	}
 
-	public static Map<String,String> asMapByAreaId(Long areaid){
+	public static Map<String,String> asMapByAreaId(String areaid){
 		List<SubArea> subareas=find.select("id,name").where().eq("area_id",areaid).orderBy("name").findList();
 		return asMap(subareas);
 	}

@@ -17,19 +17,22 @@ import views.html.common.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
 
-@Authenticated(value = DcnAuthenticator.class)
+
 public class UserController extends Controller {
 
 	final static Form<ChangePasswdForm> changePasswdForm = form(ChangePasswdForm.class);
 
+	@Authenticated(value = DcnAuthenticator.class)
 	public static Result index(){
 		return ok(index.render());
 	}
 
+	@Authenticated(value = DcnAuthenticator.class)
 	public static Result get_change_passwd(){
 		return ok(passwd.render(changePasswdForm));
 	}
 
+	@Authenticated(value = DcnAuthenticator.class)
 	public static Result change_passwd(){
 		Form<ChangePasswdForm> filledForm = changePasswdForm.bindFromRequest();
 
@@ -59,6 +62,7 @@ public class UserController extends Controller {
 	 * 
 	 * @return
 	 */
+	@Authenticated(value = DcnAuthenticator.class)
 	public static Result all() {
 		List<User> users = User.all();
 		return ok(Json.toJson(users));
@@ -69,6 +73,7 @@ public class UserController extends Controller {
 	 * 
 	 * @return
 	 */
+	@Authenticated(value = DcnAuthenticator.class)
 	public static Result get(Long id) {
 		if (id == null) {
 			return badRequest("Expecting User Id");
@@ -106,6 +111,7 @@ public class UserController extends Controller {
 	 * @param id
 	 * @return
 	 */
+	@Authenticated(value = DcnAuthenticator.class)
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id) {
 		if (id == null) {

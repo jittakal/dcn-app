@@ -1,4 +1,4 @@
-@(subareaForm: Form[forms.SubAreaForm],areaMap: Map[String,String],empMap: Map[String,String])
+@(subareaForm: Form[forms.SubAreaForm])
 
 @import helper._
 
@@ -7,6 +7,6 @@
 	@views.html.common.errormsg(subareaForm.globalErrors())	
 	
 	@form(action = routes.SubAreaController.create_save()) {
-		@subarea.form(subareaForm,areaMap,empMap,"Create Sub Area")
+		@subarea.form(subareaForm,"Create Sub Area")
 	}
 }
