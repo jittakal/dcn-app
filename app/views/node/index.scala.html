@@ -1,0 +1,121 @@
+@main(){
+
+
+ <div class="subnav">
+    <ul class="nav nav-pills">      
+      <li class=""><a href="@routes.NodeController.create_new()" class="btn" id="node-add">Add</a></li>
+      <li class=""><a href="#" link="@routes.NodeController.update_get(0L)" class="btn" id="node-edit">Edit</a></li>
+      <li class=""><a href="#" link="@routes.NodeController.delete(0L)" class="btn" id="node-delete">Delete</a></li>      
+    </ul>
+  </div>
+
+	
+  <br/>
+
+	<table id="node-grid"></table> 
+	<div id="node-pager"></div>
+
+	<script type="text/javascript">
+
+	$(function(){
+		process_nodes();
+
+		$("#node-edit").click(node_edit_click);
+		$("#node-delete").click(node_delete_click);
+
+	});
+
+	var process_nodes = function() {		
+  		$.ajax({
+			url: '/service/nodes',
+			processData:false,
+			type: 'GET',
+			beforeSend:function(jqXHR, settings){					
+				jqXHR.setRequestHeader("Content-Type", "application/json");					
+			},
+			success: function(data, textStatus, jqXHR){					
+				render_nodes(data);	
+			},
+			error: function(jqXHR, textStatus, errorThrown){				
+				//display_error_msg(errorThrown);	
+			},
+			complete: function(jqXHR,textStatus){					
+			}	
+		});
+	};
+
+	var render_nodes = function(nodes) {		
+		$("#node-grid").jqGrid('clearGridData');
+
+		if(nodes == undefined || nodes == null){
+			return;
+		}	
+	
+		$("#node-grid").jqGrid({
+			datatype: "local",
+		    colNames:['Srno','ID','Name','Area Name'],
+		    colModel:[
+		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
+		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
+		    	{name:'name',index:'name'},
+		    	{name:'areaname',index:'areaname'}
+		    ],		   
+		    viewrecords: true,
+		    multiselect: false,
+		    caption: "Areas",		    
+		    height: 250,
+		    width: 900
+		});		
+
+		$.each(nodes,function(i,node){
+			node.pk=node.id;
+			node.id=i+1;
+			node.areaname=node.area.name;			
+			$("#node-grid").jqGrid('addRowData',i+1,node);	
+		});
+	};
+
+	var node_edit_click = function(){		
+		var id = $("#node-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#node-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.pk);
+			$(this).attr('href',link);
+		} else { 
+			alert("Please select row");
+		} 		
+	};
+
+	var node_delete_click = function(){		
+		var id = $("#node-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#node-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.pk);			
+
+			$.ajax({
+				url: link,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){					
+					alert('Selected node has been deleted successfully');
+					process_nodes();
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					alert("Error : " + jqXHR.responseText);
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});
+
+		} else { 
+			alert("Please select row");
+		}
+	};
+
+	</script>
+}	

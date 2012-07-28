@@ -1,0 +1,24 @@
+@(nodeForm: Form[forms.NodeForm],title: String)
+
+@import helper._
+
+<table class="table">
+    <thead>
+    	<tr><th>@title</th></tr>
+    </thead>	
+    <tbody>	
+    <tr>	    	
+    	<td>
+		@select(field=nodeForm("areaid"), options(models.Area.asMap), args= '_label -> "Area")
+		</td>
+	</tr><tr><td>
+		@inputText(field=nodeForm("name"), args = 'class -> "input-large", '_label -> "Node Name")		
+		</td>
+    </tr>
+    </tbody>
+    <tfoot>
+	<tr>
+    	<td><button type="submit" class="btn btn-primary">Save</button></td> 	
+    </tr>	
+	</tfoot>
+</table>

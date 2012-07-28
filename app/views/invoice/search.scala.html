@@ -19,8 +19,8 @@
 	    	<td>@select(field=invoiceSearchForm("month"), options = options(InvoiceController.monthAsMap), args= '_label -> "Month")</td>	    	
 	    </tr>	    
 		<tr>
-	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(Area.asMap), args= '_label -> "Area")</td>
-	    	<td>@select(field=invoiceSearchForm("subareaid"), options = options(SubArea.asMapByAreaId(invoiceSearchForm("areaid").value)), args= '_label -> "Sub Area")</td>	    	
+	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(Area.asMap), args= '_label -> "Area", '_default -> "--- Choose Area ---")</td>
+	    	<td>@select(field=invoiceSearchForm("subareaid"), options = options(SubArea.asMapByAreaId(invoiceSearchForm("areaid").value)), args= '_label -> "Sub Area", '_default -> "--- Choose Subarea ---")</td>	    	
 	    </tr>	    
 	    </tbody>
 	    <tfoot>
@@ -36,14 +36,7 @@
 			form.attr('action','@routes.InvoiceController.on_area_change()');
 			form.attr('method','POST');
 			form.trigger('submit');
-		};
-
-		var on_subarea_change = function(event){
-			var form=$('form');
-			form.attr('action','@routes.InvoiceController.on_subarea_change()');
-			form.attr('method','POST');
-			form.trigger('submit');
-		};
+		};		
 
 		$(function(){
 			$("#areaid").change(on_area_change);

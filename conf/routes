@@ -62,6 +62,19 @@ GET		/service/subarea/:id 		controllers.SubAreaController.get(id: Long)
 POST	/service/subarea			controllers.SubAreaController.create()
 PUT		/service/subarea/:id		controllers.SubAreaController.update(id: Long)
 
+# Node
+GET		/portal/nodes				controllers.NodeController.index()
+GET 	/portal/create/node 		controllers.NodeController.create_new()
+POST 	/portal/create/node 		controllers.NodeController.create_save()
+GET 	/portal/update/node/:id 	controllers.NodeController.update_get(id: Long)
+POST 	/portal/update/node/:id 	controllers.NodeController.update_save(id: Long)
+GET 	/portal/delete/node/:id 	controllers.NodeController.delete(id: Long)
+
+GET		/service/nodes				controllers.NodeController.all()	
+GET		/service/node/:id 			controllers.NodeController.get(id: Long)					
+POST	/service/node				controllers.NodeController.create()
+PUT		/service/node/:id			controllers.NodeController.update(id: Long)
+
 # Price
 GET		/portal/prices				controllers.PriceController.index()
 GET 	/portal/create/price 		controllers.PriceController.create_new()

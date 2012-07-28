@@ -24,6 +24,8 @@ create table customer (
   name                      varchar(255) not null,
   area_id                   bigint not null,
   sub_area_id               bigint not null,
+  node_id                   bigint not null,
+  amply_id                  bigint not null,
   address                   varchar(255) not null,
   mobile_number             varchar(255),
   id_number                 varchar(255) not null,
@@ -124,16 +126,20 @@ alter table customer add constraint fk_customer_area_3 foreign key (area_id) ref
 create index ix_customer_area_3 on customer (area_id);
 alter table customer add constraint fk_customer_sub_area_4 foreign key (sub_area_id) references sub_area (id) on delete restrict on update restrict;
 create index ix_customer_sub_area_4 on customer (sub_area_id);
-alter table customer add constraint fk_customer_price_5 foreign key (price_id) references price (id) on delete restrict on update restrict;
-create index ix_customer_price_5 on customer (price_id);
-alter table invoice add constraint fk_invoice_customer_6 foreign key (customer_id) references customer (id) on delete restrict on update restrict;
-create index ix_invoice_customer_6 on invoice (customer_id);
-alter table node add constraint fk_node_area_7 foreign key (area_id) references area (id) on delete restrict on update restrict;
-create index ix_node_area_7 on node (area_id);
-alter table payment add constraint fk_payment_invoice_8 foreign key (invoice_id) references invoice (id) on delete restrict on update restrict;
-create index ix_payment_invoice_8 on payment (invoice_id);
-alter table sub_area add constraint fk_sub_area_area_9 foreign key (area_id) references area (id) on delete restrict on update restrict;
-create index ix_sub_area_area_9 on sub_area (area_id);
+alter table customer add constraint fk_customer_node_5 foreign key (node_id) references node (id) on delete restrict on update restrict;
+create index ix_customer_node_5 on customer (node_id);
+alter table customer add constraint fk_customer_amply_6 foreign key (amply_id) references amply (id) on delete restrict on update restrict;
+create index ix_customer_amply_6 on customer (amply_id);
+alter table customer add constraint fk_customer_price_7 foreign key (price_id) references price (id) on delete restrict on update restrict;
+create index ix_customer_price_7 on customer (price_id);
+alter table invoice add constraint fk_invoice_customer_8 foreign key (customer_id) references customer (id) on delete restrict on update restrict;
+create index ix_invoice_customer_8 on invoice (customer_id);
+alter table node add constraint fk_node_area_9 foreign key (area_id) references area (id) on delete restrict on update restrict;
+create index ix_node_area_9 on node (area_id);
+alter table payment add constraint fk_payment_invoice_10 foreign key (invoice_id) references invoice (id) on delete restrict on update restrict;
+create index ix_payment_invoice_10 on payment (invoice_id);
+alter table sub_area add constraint fk_sub_area_area_11 foreign key (area_id) references area (id) on delete restrict on update restrict;
+create index ix_sub_area_area_11 on sub_area (area_id);
 
 
 

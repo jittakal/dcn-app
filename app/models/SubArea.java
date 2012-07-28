@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import play.db.ebean.Model;
 import javax.persistence.Table;
@@ -49,7 +50,10 @@ public class SubArea extends Model {
 	}
 
 	public static Map<String,String> asMapByAreaId(String areaid){
-		List<SubArea> subareas=find.select("id,name").where().eq("area_id",areaid).orderBy("name").findList();
+		List<SubArea> subareas=new ArrayList<SubArea>();
+		if(areaid!=null && !"".equals(areaid.trim())){
+			subareas=find.select("id,name").where().eq("area_id",areaid).orderBy("name").findList();
+		}			
 		return asMap(subareas);
 	}
 

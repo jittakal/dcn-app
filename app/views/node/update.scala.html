@@ -1,0 +1,13 @@
+@(nodeForm: Form[forms.NodeForm],id: Long)
+
+@import helper._
+
+
+@main() {
+
+	@views.html.common.errormsg(nodeForm.globalErrors())	
+	
+	@form(action = routes.NodeController.update_save(id)) {
+		@node.form(nodeForm,"Update Node")
+	}
+}

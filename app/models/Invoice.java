@@ -76,11 +76,22 @@ public class Invoice extends Model {
 		return find.where().eq("month",month).eq("year",year).findList();	
 	}
 
-	public static List<Invoice> search(Integer month,Integer year, Long subAreaId){
+	public static List<Invoice> search(Integer month,Integer year, Long areaId){
 		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).findList();	
 
 		List<Invoice> filteredInvoices =
                 find.filter() 
+                        .eq("customer.area.id", areaId)                        
+                        .filter(invoices);
+        return filteredInvoices;
+	}	
+
+	public static List<Invoice> search(Integer month,Integer year, Long areaId, Long subAreaId){
+		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).findList();	
+
+		List<Invoice> filteredInvoices =
+                find.filter() 
+                		.eq("customer.area.id", areaId)                        
                         .eq("customer.sub_area.id", subAreaId)                        
                         .filter(invoices);
         return filteredInvoices;

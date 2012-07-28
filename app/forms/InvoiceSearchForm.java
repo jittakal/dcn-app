@@ -8,11 +8,9 @@ public class InvoiceSearchForm implements Serializable{
 	@Required	
 	public String areaid;	
 
-	@Required
 	public String subareaid;
-
-	public String customerid;
-
+	
+	@Required
 	public String month;
 
 	@Required

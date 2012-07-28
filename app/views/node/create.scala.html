@@ -1,0 +1,12 @@
+@(nodeForm: Form[forms.NodeForm])
+
+@import helper._
+
+@main() {
+
+	@views.html.common.errormsg(nodeForm.globalErrors())	
+	
+	@form(action = routes.NodeController.create_save()) {
+		@node.form(nodeForm,"Create Node")
+	}
+}

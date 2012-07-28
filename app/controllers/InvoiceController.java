@@ -84,7 +84,7 @@ public class InvoiceController extends Controller {
 		Form<InvoiceSearchForm> filledForm = invoiceSearchForm.bindFromRequest();				
 
 		if(filledForm.hasErrors()){			
-			return badRequest(search.render(filledForm,null));
+			return badRequest(search.render(invoiceSearchForm,null));
 		}
 
 		InvoiceSearchForm iSearchForm=filledForm.get();
@@ -143,8 +143,17 @@ public class InvoiceController extends Controller {
 		if(iSearchForm==null){
 			return badRequest(search.render(filledForm,null));
 		}
-		
-		List<Invoice> invoices=Invoice.search(Integer.parseInt(iSearchForm.month),Integer.parseInt(iSearchForm.year),new Long(iSearchForm.subareaid));	
+
+		List<Invoice> invoices=null;
+
+		if(iSearchForm.subareaid==null || "".equals(iSearchForm.subareaid.trim())){
+			invoices=Invoice.search(Integer.parseInt(iSearchForm.month),
+				Integer.parseInt(iSearchForm.year),new Long(iSearchForm.areaid));	
+		}else{
+			invoices=Invoice.search(Integer.parseInt(iSearchForm.month),
+				Integer.parseInt(iSearchForm.year),new Long(iSearchForm.areaid),new Long(iSearchForm.subareaid));	
+		}
+				
 		return ok(search.render(invoiceSearchForm.fill(iSearchForm),invoices));	
 	}
 

@@ -38,6 +38,14 @@ public class Customer extends Model {
 	@ManyToOne
 	@NotNull
 	public SubArea sub_area;
+
+	@ManyToOne
+	@NotNull
+	public Node node;
+
+	@ManyToOne
+	@NotNull
+	public Amply amply;
 	
 	@NotNull
 	public String address;
@@ -91,6 +99,14 @@ public class Customer extends Model {
 
 	public static boolean isBelongsToSubArea(Long sub_areaid){
 		return find.select("id").where().eq("sub_area_id",sub_areaid).findList().size()==0?false:true;
+	}
+
+	public static boolean isBelongsToNode(Long nodeid){
+		return find.select("id").where().eq("node_id",nodeid).findList().size()==0?false:true;
+	}
+
+	public static boolean isBelongsToAmply(Long amplyid){
+		return find.select("id").where().eq("amply_id",amplyid).findList().size()==0?false:true;
 	}
 
 	public static boolean isBelongsToPrice(Long priceid){
