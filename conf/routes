@@ -75,6 +75,19 @@ GET		/service/node/:id 			controllers.NodeController.get(id: Long)
 POST	/service/node				controllers.NodeController.create()
 PUT		/service/node/:id			controllers.NodeController.update(id: Long)
 
+# Amply
+GET		/portal/amplys				controllers.AmplyController.index()
+GET 	/portal/create/amply 		controllers.AmplyController.create_new()
+POST 	/portal/create/amply 		controllers.AmplyController.create_save()
+GET 	/portal/update/amply/:id 	controllers.AmplyController.update_get(id: Long)
+POST 	/portal/update/amply/:id 	controllers.AmplyController.update_save(id: Long)
+GET 	/portal/delete/amply/:id 	controllers.AmplyController.delete(id: Long)
+
+GET		/service/amplys				controllers.AmplyController.all()	
+GET		/service/amply/:id 			controllers.AmplyController.get(id: Long)					
+POST	/service/amply				controllers.AmplyController.create()
+PUT		/service/amply/:id			controllers.AmplyController.update(id: Long)
+
 # Price
 GET		/portal/prices				controllers.PriceController.index()
 GET 	/portal/create/price 		controllers.PriceController.create_new()

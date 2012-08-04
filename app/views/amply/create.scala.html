@@ -1,0 +1,12 @@
+@(amplyForm: Form[forms.AmplyForm])
+
+@import helper._
+
+@main() {
+
+	@views.html.common.errormsg(amplyForm.globalErrors())	
+	
+	@form(action = routes.AmplyController.create_save()) {
+		@amply.form(amplyForm,"Create Amply")
+	}
+}

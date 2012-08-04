@@ -1,0 +1,13 @@
+@(amplyForm: Form[forms.AmplyForm],id: Long)
+
+@import helper._
+
+
+@main() {
+
+	@views.html.common.errormsg(amplyForm.globalErrors())	
+	
+	@form(action = routes.AmplyController.update_save(id)) {
+		@amply.form(amplyForm,"Update Amply")
+	}
+}

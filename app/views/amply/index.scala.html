@@ -1,0 +1,121 @@
+@main(){
+
+
+ <div class="subnav">
+    <ul class="nav nav-pills">      
+      <li class=""><a href="@routes.AmplyController.create_new()" class="btn" id="amply-add">Add</a></li>
+      <li class=""><a href="#" link="@routes.AmplyController.update_get(0L)" class="btn" id="amply-edit">Edit</a></li>
+      <li class=""><a href="#" link="@routes.AmplyController.delete(0L)" class="btn" id="amply-delete">Delete</a></li>      
+    </ul>
+  </div>
+
+	
+  <br/>
+
+	<table id="amply-grid"></table> 
+	<div id="amply-pager"></div>
+
+	<script type="text/javascript">
+
+	$(function(){
+		process_amplys();
+
+		$("#amply-edit").click(amply_edit_click);
+		$("#amply-delete").click(amply_delete_click);
+
+	});
+
+	var process_amplys = function() {		
+  		$.ajax({
+			url: '/service/amplys',
+			processData:false,
+			type: 'GET',
+			beforeSend:function(jqXHR, settings){					
+				jqXHR.setRequestHeader("Content-Type", "application/json");					
+			},
+			success: function(data, textStatus, jqXHR){					
+				render_amplys(data);	
+			},
+			error: function(jqXHR, textStatus, errorThrown){				
+				//display_error_msg(errorThrown);	
+			},
+			complete: function(jqXHR,textStatus){					
+			}	
+		});
+	};
+
+	var render_amplys = function(amplys) {		
+		$("#amply-grid").jqGrid('clearGridData');
+
+		if(amplys == undefined || amplys == null){
+			return;
+		}	
+	
+		$("#amply-grid").jqGrid({
+			datatype: "local",
+		    colNames:['Srno','ID','Name','Area Name'],
+		    colModel:[
+		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
+		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
+		    	{name:'name',index:'name'},
+		    	{name:'areaname',index:'areaname'}
+		    ],		   
+		    viewrecords: true,
+		    multiselect: false,
+		    caption: "Areas",		    
+		    height: 250,
+		    width: 900
+		});		
+
+		$.each(amplys,function(i,amply){
+			amply.pk=amply.id;
+			amply.id=i+1;
+			amply.areaname=amply.area.name;			
+			$("#amply-grid").jqGrid('addRowData',i+1,amply);	
+		});
+	};
+
+	var amply_edit_click = function(){		
+		var id = $("#amply-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#amply-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.pk);
+			$(this).attr('href',link);
+		} else { 
+			alert("Please select row");
+		} 		
+	};
+
+	var amply_delete_click = function(){		
+		var id = $("#amply-grid").jqGrid('getGridParam','selrow'); 
+		if (id) { 
+			var ret = $("#amply-grid").jqGrid('getRowData',id); 			
+			var link=$(this).attr("link");
+			link=link.replace('0',ret.pk);			
+
+			$.ajax({
+				url: link,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){					
+					alert('Selected amply has been deleted successfully');
+					process_amplys();
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					alert("Error : " + jqXHR.responseText);
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});
+
+		} else { 
+			alert("Please select row");
+		}
+	};
+
+	</script>
+}	
