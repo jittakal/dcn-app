@@ -10,5 +10,18 @@
 	@form(action = routes.CustomerController.create_save()) {
 		@customer.form(customerForm,"Create Customer")
 	}
+
+	<script type="text/javascript">
+		var on_area_change = function(event){
+			var form=$('form');
+			form.attr('action','@routes.CustomerController.on_c_area_change()');
+			form.attr('method','POST');
+			form.trigger('submit');
+		};		
+
+		$(function(){
+			$("#areaid").change(on_area_change);		
+		});
+	</script>
 	
 }

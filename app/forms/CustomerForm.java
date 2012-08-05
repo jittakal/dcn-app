@@ -14,9 +14,21 @@ public class CustomerForm implements Serializable{
 	@Required
 	@MaxLength(value=120)
 	public String name;
+
+	@Required
+	public String areaid;
 		
 	@Required
 	public String subareaid;
+
+	@Required
+	public String nodeid;
+
+	@Required
+	public String amplyid;
+
+	@Required
+	public String customerid;
 	
 	@Required
 	@MaxLength(value=255)

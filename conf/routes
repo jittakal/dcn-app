@@ -109,7 +109,8 @@ POST 	/portal/create/customer 	controllers.CustomerController.create_save()
 GET 	/portal/update/customer/:id controllers.CustomerController.update_get(id: Long)
 POST 	/portal/update/customer/:id controllers.CustomerController.update_save(id: Long)
 GET 	/portal/delete/customer/:id controllers.CustomerController.delete(id: Long)
-
+POST	/portal/c/a/create/customer	controllers.CustomerController.on_c_area_change()
+POST	/portal/c/a/update/customer/:id	controllers.CustomerController.on_u_area_change(id: Long)
 
 GET		/service/customers			controllers.CustomerController.all()	
 GET		/service/a/customers		controllers.CustomerController.all_active()	

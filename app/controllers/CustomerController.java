@@ -54,6 +54,36 @@ public class CustomerController extends Controller {
 		return  redirect(controllers.routes.CustomerController.index());
 	}
 
+	public static Result on_c_area_change(){
+		Form<CustomerForm> filledForm = customerForm.bindFromRequest();				
+
+		if(filledForm.hasErrors()){			
+			return badRequest(create.render(filledForm));
+		}
+
+		CustomerForm csForm=filledForm.get();
+		if(csForm==null){
+			return badRequest(create.render(filledForm));
+		}
+				
+		return ok(create.render(customerForm.fill(csForm)));	
+	}
+
+	public static Result on_u_area_change(Long id){
+		Form<CustomerForm> filledForm = customerForm.bindFromRequest();				
+
+		if(filledForm.hasErrors()){			
+			return badRequest(update.render(filledForm,id));
+		}
+
+		CustomerForm csForm=filledForm.get();
+		if(csForm==null){
+			return badRequest(update.render(filledForm,id));
+		}
+				
+		return ok(update.render(customerForm.fill(csForm),id));	
+	}
+
 	public static Result update_get(Long id){		
 		Customer customer=Customer.get(id);
 

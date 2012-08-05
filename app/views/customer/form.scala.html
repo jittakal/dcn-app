@@ -7,11 +7,26 @@
     	<tr><th colspan="2">@title</th></tr>
     </thead>	
     <tbody>	
+    <tr>
+    	<td>
+			@select(field=customerForm("areaid"), options(models.Area.asMap), args= '_label -> "Area", '_default -> "--- Choose Area ---")
+		</td><td>
+    		@select(field=customerForm("subareaid"), options = options(models.SubArea.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Sub Area", '_default -> "--- Choose Subarea ---")
+    	</td>
+    </tr>
     <tr>	    	
     	<td>		
-		@select(field=customerForm("subareaid"), options = options(models.SubArea.asMap), args= '_label -> "Sub Area")
+			@select(field=customerForm("nodeid"), options = options(models.Node.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Node", '_default -> "--- Choose Node ---")
 		</td><td>
-		@select(field=customerForm("priceid"), options = options(models.Price.asMap), args= '_label -> "Price")
+			@select(field=customerForm("amplyid"), options = options(models.Amply.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Amplifier", '_default -> "--- Choose Amplifier ---")
+		</td>
+	</tr>
+
+	<tr>	    	
+    	<td>		
+			@select(field=customerForm("priceid"), options = options(models.Price.asMap), args= '_label -> "Price")
+		</td><td>
+			@inputText(field=customerForm("customerid"), args = 'class -> "input-large", 'placeholder -> "customer id", '_label -> "Customer Id")				
 		</td>
 	</tr>
 
