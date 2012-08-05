@@ -26,7 +26,7 @@
     	<td>		
 			@select(field=customerForm("priceid"), options = options(models.Price.asMap), args= '_label -> "Price")
 		</td><td>
-			@inputText(field=customerForm("customerid"), args = 'class -> "input-large", 'placeholder -> "customer id", '_label -> "Customer Id")				
+			@inputText(field=customerForm("id_number"), args = 'class -> "input-large",'_label -> "ID Number")
 		</td>
 	</tr>
 
@@ -41,28 +41,29 @@
 
 	<tr>
 		<td>
+			@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number")			
+		</td>
+		<td>
 			@inputText(field=customerForm("deposite"), args = 'class -> "input-large",'_label -> "Deposite Amount")
 		</td>
-		<td>
-			@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date")
-		</td>
 	</tr>
-
+	
+	@if(isupdate){
 	<tr>
 		<td>
-			@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number")			
-		</td><td>
-			@inputText(field=customerForm("id_number"), args = 'class -> "input-large",'_label -> "ID Number")
-		</td>	
-	</tr>
-
-	@if(isupdate){
-	<tr>		
-		<td colspan="2">
+		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date")
+		</td>		
+		<td>
 			@inputText(field=customerForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date")
 		</td>
 	</tr>
-	}	
+	}else{
+	<tr>
+		<td colspan="2">
+		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date")
+		</td>
+	</tr>
+	}
 </tbody>
     <tfoot>
 	<tr>

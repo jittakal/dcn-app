@@ -13,7 +13,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.Form;
 import forms.CustomerForm;
-import models.SubArea;
+import models.*;
 import models.Price;
 import java.util.Map;
 
@@ -43,6 +43,11 @@ public class CustomerController extends Controller {
 					
 		CustomerForm customerForm=filledForm.get();
 		if(customerForm==null){						
+			return badRequest(create.render(filledForm));
+		}
+
+		if(Customer.isCustomerIdExists(0L,customerForm.id_number,new Long(customerForm.areaid))){
+			filledForm.reject("Customer Id already exists.");
 			return badRequest(create.render(filledForm));
 		}
 
@@ -89,7 +94,10 @@ public class CustomerController extends Controller {
 
 		CustomerForm csForm=new CustomerForm();
 		csForm.name=customer.name;
+		csForm.areaid=customer.area.id.toString();		
 		csForm.subareaid=customer.sub_area.id.toString();
+		csForm.nodeid=customer.node.id.toString();
+		csForm.amplyid=customer.amply.id.toString();
 		csForm.address=customer.address;
 		csForm.mobile_number=customer.mobile_number;
 		csForm.id_number=customer.id_number;		
@@ -120,6 +128,11 @@ public class CustomerController extends Controller {
 			return badRequest(update.render(filledForm,id));	
 		}
 
+		if(Customer.isCustomerIdExists(id,customerForm.id_number,new Long(customerForm.areaid))){
+			filledForm.reject("Customer Id already exists.");
+			return badRequest(update.render(filledForm,id));
+		}
+
 		formToModel(customer,customerForm);	
 		customer.update();
 								
@@ -127,11 +140,16 @@ public class CustomerController extends Controller {
 	}
 
 	private static void formToModel(Customer customer,CustomerForm customerForm){
+		Area area=new Area();
+		area.id=new Long(customerForm.areaid);
 		SubArea subarea=new SubArea();
 		subarea.id=new Long(customerForm.subareaid);		
-
 		Price price=new Price();
 		price.id=new Long(customerForm.priceid);		
+		Node node=new Node();
+		node.id=new Long(customerForm.nodeid);
+		Amply amply=new Amply();
+		amply.id=new Long(customerForm.amplyid);
 		
 		customer.name=customerForm.name;
 		customer.sub_area=subarea;
@@ -142,6 +160,10 @@ public class CustomerController extends Controller {
 		customer.terminate_date=customerForm.terminate_date;
 		customer.price=price;
 		customer.deposite=customerForm.deposite;		
+		customer.id_number=customerForm.id_number;
+		customer.node=node;
+		customer.amply=amply;
+		customer.area=area;
 	}
 
 	public static Result delete(Long id){		

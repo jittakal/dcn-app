@@ -25,10 +25,7 @@ public class CustomerForm implements Serializable{
 	public String nodeid;
 
 	@Required
-	public String amplyid;
-
-	@Required
-	public String customerid;
+	public String amplyid;	
 	
 	@Required
 	@MaxLength(value=255)

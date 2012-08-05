@@ -113,6 +113,10 @@ public class Customer extends Model {
 		return find.select("id").where().eq("price_id",priceid).findList().size()==0?false:true;
 	}
 
+	public static boolean isCustomerIdExists(Long id,String customerId, Long areaId){
+		return find.select("id").where().ne("id",id).eq("id_number",customerId).eq("area_id",areaId).findList().size()==0?false:true;
+	}
+
 	public static Map<String,String> asMapBySubAreaId(Long sub_area_id){
 		List<Customer> customers=find.select("id,name").where().eq("terminate_date",null).eq("sub_area_id",sub_area_id).orderBy("name").findList();
 		Map<String,String> customerMap=new LinkedHashMap<String,String>();
