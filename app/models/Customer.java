@@ -50,10 +50,14 @@ public class Customer extends Model {
 	@NotNull
 	public String address;
 	
+	@NotNull
 	public String mobile_number;
 	
 	@NotNull
 	public String id_number;
+
+	@NotNull
+	public String type; // "Ent" or "Other"
 			
 	@NotNull
 	@Temporal(value=TemporalType.DATE)
@@ -93,6 +97,14 @@ public class Customer extends Model {
 		return find.where().ne("terminate_date",null).findList();
 	}	
 
+	public static List<Customer> allActiveByArea(Long areaId) {
+		return find.where().eq("terminate_date",null).eq("area_id",areaId).findList();
+	}
+
+	public static List<Customer> allTerminatedByArea(Long areaId) {
+		return find.where().ne("terminate_date",null).eq("area_id",areaId).findList();
+	}
+
 	public static void delete(Long id) {
 		find.byId(id).delete();
 	}
@@ -115,6 +127,10 @@ public class Customer extends Model {
 
 	public static boolean isCustomerIdExists(Long id,String customerId, Long areaId){
 		return find.select("id").where().ne("id",id).eq("id_number",customerId).eq("area_id",areaId).findList().size()==0?false:true;
+	}
+
+	public static boolean isMobileNumberExists(Long id,String mobileNumber){
+		return find.select("id").where().ne("id",id).eq("mobile_number",mobileNumber).ne("mobile_number","0123456789").findList().size()==0?false:true;
 	}
 
 	public static Map<String,String> asMapBySubAreaId(Long sub_area_id){

@@ -50,6 +50,10 @@ public class CustomerController extends Controller {
 			filledForm.reject("Customer Id already exists.");
 			return badRequest(create.render(filledForm));
 		}
+		if(Customer.isMobileNumberExists(0L,customerForm.mobile_number)){
+			filledForm.reject("Customer mobile number already exists.");
+			return badRequest(create.render(filledForm));
+		}
 
 		Customer customer=new Customer();
 		formToModel(customer,customerForm);
@@ -132,6 +136,10 @@ public class CustomerController extends Controller {
 			filledForm.reject("Customer Id already exists.");
 			return badRequest(update.render(filledForm,id));
 		}
+		if(Customer.isMobileNumberExists(id,customerForm.mobile_number)){
+			filledForm.reject("Customer mobile number already exists.");
+			return badRequest(update.render(filledForm,id));
+		}
 
 		formToModel(customer,customerForm);	
 		customer.update();
@@ -161,9 +169,10 @@ public class CustomerController extends Controller {
 		customer.price=price;
 		customer.deposite=customerForm.deposite;		
 		customer.id_number=customerForm.id_number;
+		customer.type=customerForm.type;
 		customer.node=node;
 		customer.amply=amply;
-		customer.area=area;
+		customer.area=area;		
 	}
 
 	public static Result delete(Long id){		
@@ -197,6 +206,24 @@ public class CustomerController extends Controller {
 		List<Customer> customers = Customer.allTerminated();
 		return ok(Json.toJson(customers));
 	}
+
+	public static Result all_active_by_area(Long areaId) {
+		if (areaId == null) {
+			return badRequest("Expecting Area Id");
+		}
+
+		List<Customer> customers = Customer.allActiveByArea(areaId);
+		return ok(Json.toJson(customers));
+	}
+
+	public static Result all_terminated_by_area(Long areaId) {
+		if (areaId == null) {
+			return badRequest("Expecting Area Id");
+		}
+
+		List<Customer> customers = Customer.allTerminatedByArea(areaId);
+		return ok(Json.toJson(customers));
+	}	
 
 	/**
 	 * Return Customer by id.

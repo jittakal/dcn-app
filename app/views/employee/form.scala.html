@@ -7,20 +7,20 @@
     <thead><tr><th colspan="2">@title</th></tr></thead>	
     <tbody>	
     <tr><td>
-	@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> "employee name", '_label -> "Employee Name")	
+	@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> "employee name", '_label -> "Employee Name",'_showConstraints -> false)	
 	</td><td>
-	@textarea(field=employeeForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 'placeholder -> "employee address", '_label -> "Address")	
+	@textarea(field=employeeForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 'placeholder -> "employee address", '_label -> "Address",'_showConstraints -> false)	
 	</td></tr>
 
 	<tr><td>
-	@inputText(field=employeeForm("mobile_number"), args = 'class -> "input-large", 'placeholder -> "mobile number", '_label -> "Mobile Number")	
+	@inputText(field=employeeForm("mobile_number"), args = 'class -> "input-large", 'placeholder -> "mobile number", '_label -> "Mobile Number",'_showConstraints -> false)	
 	</td><td>
-	@inputText(field=employeeForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining date")	
+	@inputText(field=employeeForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining date",'_showConstraints -> false)	
 	</td></tr>
 
 	@if(isupdate){
 	<tr><td colspan="2">
-	@inputText(field=employeeForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date")	
+	@inputText(field=employeeForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date",'_showConstraints -> false)	
 	</td></tr>
 	}
 

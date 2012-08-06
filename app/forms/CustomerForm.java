@@ -3,6 +3,7 @@ package forms;
 import java.io.Serializable;
 import play.data.validation.Constraints.Required;
 import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Email;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -32,7 +33,9 @@ public class CustomerForm implements Serializable{
 	public String address;
 	
 	@MaxLength(value=10)
+	@MinLength(value=10)
 	@Pattern(regexp="[0-9]*")
+	@Required
 	public String mobile_number;
 	
 	@MaxLength(value=10)
@@ -51,6 +54,9 @@ public class CustomerForm implements Serializable{
 	
 	@Required
 	public Integer deposite;
+
+	@Required
+	public String type;
 
 	public String validate() {  
 		if(joining_date!=null && joining_date.after(Calendar.getInstance().getTime())){

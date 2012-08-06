@@ -9,10 +9,10 @@
     <tbody>	
     <tr>	    	
     	<td>
-		@select(field=subareaForm("areaid"), options(models.Area.asMap), args= '_label -> "Area")
+		@select(field=subareaForm("areaid"), options(models.Area.asMap), args= '_label -> "Area",'_showConstraints -> false)
 		</td>
 	</tr><tr><td>
-		@inputText(field=subareaForm("name"), args = 'class -> "input-large", '_label -> "Sub Area Name")		
+		@inputText(field=subareaForm("name"), args = 'class -> "input-large", '_label -> "Sub Area Name",'_showConstraints -> false)		
 		</td>
     </tr>
     </tbody>

@@ -9,10 +9,10 @@
     <tbody>	
     <tr>	    	
     	<td>
-		@select(field=nodeForm("areaid"), options(models.Area.asMap), args= '_label -> "Area")
+		@select(field=nodeForm("areaid"), options(models.Area.asMap), args= '_label -> "Area",'_showConstraints -> false)
 		</td>
 	</tr><tr><td>
-		@inputText(field=nodeForm("name"), args = 'class -> "input-large", '_label -> "Node Name")		
+		@inputText(field=nodeForm("name"), args = 'class -> "input-large", '_label -> "Node Name",'_showConstraints -> false)		
 		</td>
     </tr>
     </tbody>

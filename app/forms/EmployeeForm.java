@@ -3,6 +3,7 @@ package forms;
 import java.io.Serializable;
 import play.data.validation.Constraints.Required;
 import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.MinLength;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Calendar;
@@ -19,6 +20,7 @@ public class EmployeeForm implements Serializable{
 	public String address;
 
 	@MaxLength(value=10)	
+	@MinLength(value=10)
 	@Pattern(regexp="[0-9]*")
 	public String mobile_number;
 

@@ -9,10 +9,10 @@
     <tbody>	
     <tr>	    	
     	<td>
-		@select(field=amplyForm("areaid"), options(models.Area.asMap), args= '_label -> "Area")
+		@select(field=amplyForm("areaid"), options(models.Area.asMap), args= '_label -> "Area",'_showConstraints -> false)
 		</td>
 	</tr><tr><td>
-		@inputText(field=amplyForm("name"), args = 'class -> "input-large", '_label -> "Amply Name")		
+		@inputText(field=amplyForm("name"), args = 'class -> "input-large", '_label -> "Amplifier Name",'_showConstraints -> false)		
 		</td>
     </tr>
     </tbody>

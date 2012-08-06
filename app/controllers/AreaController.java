@@ -2,9 +2,8 @@ package controllers;
 
 import java.util.List;
 
-import models.Area;
-import models.SubArea;
-import models.Employee;
+import models.*;
+
 import forms.AreaForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -58,6 +57,17 @@ public class AreaController extends Controller {
 		employee.id=new Long(areaForm.employeeid);		
 		area.employee=employee;
 		area.save();
+		area.refresh();
+
+		Node node=new Node();
+		node.name=area.name + " - default Node";
+		node.area=area;
+		node.save();
+
+		Amply amply=new Amply();
+		amply.name=area.name + " - default Amplifier";
+		amply.area=area;
+		amply.save();
 								
 		return redirect(controllers.routes.AreaController.index());
 	}

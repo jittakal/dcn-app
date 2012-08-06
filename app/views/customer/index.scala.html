@@ -8,6 +8,14 @@
       <li class=""><a href="@routes.CustomerController.create_new()" class="btn" id="customer-add">Add</a></li>
       <li class=""><a href="#" link="@routes.CustomerController.update_get(0L)" class="btn" id="customer-edit">Edit</a></li>
       <li class=""><a href="#" link="@routes.CustomerController.delete(0L)" class="btn" id="customer-delete">Delete</a></li>
+      <li>
+      	<select id="areaid" name="areaid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 
+      		<option class="blank" value="0">--- Choose Area ---</option>
+      		@for((key, value) <- models.Area.asMap()){
+				<option value="@key">@value</option>
+      		}                                                      
+    	</select>
+      </li>
       
       <li class="pull-right">
 	  	<a href="#" class="btn" id="customer-terminated">Terminated</a>

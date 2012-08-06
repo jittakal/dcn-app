@@ -4,63 +4,68 @@
 
 <table class="table">
     <thead>
-    	<tr><th colspan="2">@title</th></tr>
+    	<tr>
+    		<th style="vertical-align: middle">@title</th>
+    		<th>
+			@select(field=customerForm("type"), options=options(("O","Other"),("E","Ent")), args= '_label -> "Customer Type",'_showConstraints -> false)
+			</th>
+    	</tr>
     </thead>	
-    <tbody>	
+    <tbody>	    
     <tr>
     	<td>
-			@select(field=customerForm("areaid"), options(models.Area.asMap), args= '_label -> "Area", '_default -> "--- Choose Area ---")
+			@select(field=customerForm("areaid"), options(models.Area.asMap), args= '_label -> "Area", '_default -> "--- Choose Area ---",'_showConstraints -> false)
 		</td><td>
-    		@select(field=customerForm("subareaid"), options = options(models.SubArea.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Sub Area", '_default -> "--- Choose Subarea ---")
+    		@select(field=customerForm("subareaid"), options = options(models.SubArea.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Sub Area", '_default -> "--- Choose Subarea ---",'_showConstraints -> false)
     	</td>
     </tr>
     <tr>	    	
     	<td>		
-			@select(field=customerForm("nodeid"), options = options(models.Node.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Node", '_default -> "--- Choose Node ---")
+			@select(field=customerForm("nodeid"), options = options(models.Node.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Node", '_default -> "--- Choose Node ---",'_showConstraints -> false)
 		</td><td>
-			@select(field=customerForm("amplyid"), options = options(models.Amply.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Amplifier", '_default -> "--- Choose Amplifier ---")
+			@select(field=customerForm("amplyid"), options = options(models.Amply.asMapByAreaId(customerForm("areaid").value)), args= '_label -> "Amplifier", '_default -> "--- Choose Amplifier ---",'_showConstraints -> false)
 		</td>
 	</tr>
 
 	<tr>	    	
     	<td>		
-			@select(field=customerForm("priceid"), options = options(models.Price.asMap), args= '_label -> "Price")
+			@select(field=customerForm("priceid"), options = options(models.Price.asMap), args= '_label -> "Price",'_showConstraints -> false)
 		</td><td>
-			@inputText(field=customerForm("id_number"), args = 'class -> "input-large",'_label -> "ID Number")
+			@inputText(field=customerForm("id_number"), args = 'class -> "input-large",'_label -> "ID Number",'_showConstraints -> false)
 		</td>
 	</tr>
 
 	<tr>
 		<td>
-			@inputText(field=customerForm("name"), args = 'class -> "input-large", 'placeholder -> "customer name", '_label -> "Customer Name")	
+			@inputText(field=customerForm("name"), args = 'class -> "input-large", 'placeholder -> "customer name", '_label -> "Customer Name",'_showConstraints -> false)	
 		</td><td>
 			@textarea(field=customerForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 
-			'placeholder -> "customer address", '_label -> "Address")		
+			'placeholder -> "customer address", '_label -> "Address",'_showConstraints -> false)		
 		</td>
 	</tr>
 
 	<tr>
 		<td>
-			@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number")			
+			@inputText(field=customerForm("mobile_number"), args = 'class -> "input-large", '_label -> "Mobile Number",'_showConstraints -> false)			
 		</td>
 		<td>
-			@inputText(field=customerForm("deposite"), args = 'class -> "input-large",'_label -> "Deposite Amount")
+			@inputText(field=customerForm("deposite"), args = 'class -> "input-large",'_label -> "Deposite Amount",'_showConstraints -> false)
 		</td>
 	</tr>
 	
 	@if(isupdate){
 	<tr>
 		<td>
-		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date")
+		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date",'_showConstraints -> false)
 		</td>		
 		<td>
-			@inputText(field=customerForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date")
+			@inputText(field=customerForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date",'_showConstraints -> false)
 		</td>
 	</tr>
 	}else{
 	<tr>
 		<td colspan="2">
-		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date")
+		@inputText(field=customerForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining Date",'_showConstraints -> false)
 		</td>
 	</tr>
 	}
