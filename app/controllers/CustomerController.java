@@ -207,6 +207,15 @@ public class CustomerController extends Controller {
 		return ok(Json.toJson(customers));
 	}
 
+	public static Result all_by_area(Long areaId) {
+		if (areaId == null) {
+			return badRequest("Expecting Area Id");
+		}
+		
+		List<Customer> customers = Customer.allByArea(areaId);
+		return ok(Json.toJson(customers));
+	}
+
 	public static Result all_active_by_area(Long areaId) {
 		if (areaId == null) {
 			return badRequest("Expecting Area Id");

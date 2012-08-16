@@ -116,6 +116,8 @@ GET		/service/customers			controllers.CustomerController.all()
 GET		/service/a/customers		controllers.CustomerController.all_active()	
 GET		/service/t/customers		controllers.CustomerController.all_terminated()	
 GET		/service/customer/:id		controllers.CustomerController.get(id: Long)					
+
+GET		/service/customer/al/:id	controllers.CustomerController.all_by_area(id: Long)					
 GET		/service/customer/aa/:id	controllers.CustomerController.all_active_by_area(id: Long)					
 GET		/service/customer/at/:id	controllers.CustomerController.all_terminated_by_area(id: Long)				
 POST	/service/customer			controllers.CustomerController.create()

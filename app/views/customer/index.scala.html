@@ -34,16 +34,23 @@
 	<script type="text/javascript">
 
 	$(function(){
-		process_customers('@routes.CustomerController.all_active()');
+		process_customers('@routes.CustomerController.all_active_by_area(0L)');
 
 		$("#customer-edit").click(customer_edit_click);
 		$("#customer-delete").click(customer_delete_click);
 		$("#customer-all").click(customer_all_click);
 		$("#customer-terminated").click(customer_terminated_click);
+		$("#areaid").change(on_area_change);
 
 	});
 
+	var on_area_change = function(event){
+		process_customers('@routes.CustomerController.all_active_by_area(0L)');		
+	};		
+
 	var process_customers = function(req_url) {		
+		req_url=req_url.replace('0',$("#areaid").val());
+
   		$.ajax({
 			url: req_url,
 			processData:false,
@@ -126,7 +133,7 @@
 				},
 				success: function(data, textStatus, jqXHR){					
 					alert('Selected customer has been deleted successfully');
-					process_customers('@routes.CustomerController.all_active()');
+					process_customers('@routes.CustomerController.all_active_by_area(0L)');
 				},
 				error: function(jqXHR, textStatus, errorThrown){				
 					alert("Error : " + jqXHR.responseText);
@@ -141,11 +148,11 @@
 	};
 
 	var customer_terminated_click = function(){		
-		process_customers('@routes.CustomerController.all_terminated()');
+		process_customers('@routes.CustomerController.all_terminated_by_area(0L)');
 	};
 
 	var customer_all_click = function(){		
-		process_customers('@routes.CustomerController.all()');
+		process_customers('@routes.CustomerController.all_by_area(0L)');
 	};
 
 	</script>

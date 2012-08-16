@@ -95,7 +95,11 @@ public class Customer extends Model {
 
 	public static List<Customer> allTerminated() {
 		return find.where().ne("terminate_date",null).findList();
-	}	
+	}
+
+	public static List<Customer> allByArea(Long areaId) {
+		return find.where().eq("area_id",areaId).findList();
+	}		
 
 	public static List<Customer> allActiveByArea(Long areaId) {
 		return find.where().eq("terminate_date",null).eq("area_id",areaId).findList();
