@@ -137,6 +137,21 @@ public class EmployeeController extends Controller {
 		JsonNode result = Json.toJson(employee);		
 		return ok(result);
 	}
+
+	public static Result get_by_area(Long aid){
+		if(aid==null){
+			return badRequest("Expecting Area Id");
+		}
+		
+		Area area=Area.get(aid);		
+		if(area==null){
+			return notFound("Employee with id [" + aid + "] does not exists.");
+		}
+
+		Employee employee=area.employee;
+		JsonNode result = Json.toJson(employee);		
+		return ok(result);
+	}
 	
 	/**
 	 * @return

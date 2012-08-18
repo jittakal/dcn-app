@@ -69,7 +69,7 @@ public class Employee extends Model {
 	public static void delete(Long id) {
 		find.byId(id).delete();
 	}
-
+	
 	public static Map<String,String> asMap(){
 		List<Employee> employees=find.select("id,name").where().eq("terminate_date",null).orderBy("name").findList();
 		Map<String,String> empMap=new LinkedHashMap<String,String>();

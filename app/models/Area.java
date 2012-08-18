@@ -33,7 +33,7 @@ public class Area extends Model {
 	
 	public static Area get(Long id){
 		return find.byId(id);
-	}
+	}	
 	
 	public static List<Area> all() {
 		return find.all();

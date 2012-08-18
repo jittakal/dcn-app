@@ -33,6 +33,7 @@ GET		/service/employees			controllers.EmployeeController.all()
 GET		/service/a/employees		controllers.EmployeeController.all_active()
 GET		/service/t/employees		controllers.EmployeeController.all_terminated()
 GET		/service/employee/:id		controllers.EmployeeController.get(id: Long)
+GET		/service/employee/a/:aid	controllers.EmployeeController.get_by_area(aid: Long)
 POST	/service/employee			controllers.EmployeeController.create()
 PUT		/service/employee/:id		controllers.EmployeeController.update(id: Long)
 

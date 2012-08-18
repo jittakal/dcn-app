@@ -39,11 +39,17 @@ public class Invoice extends Model {
 	@NotNull
 	public Boolean paid;
 
+	public String getCustomerId(){
+		return customer.id_number;
+	}
+
 	public String getCustomerName(){
 		return customer.name;
 	}
 
-
+	public String getSubAreaName(){
+		return customer.sub_area.name;
+	}
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
