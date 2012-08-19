@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 import models.Area;
@@ -130,6 +132,17 @@ public class InvoiceController extends Controller {
 			cyear-=1;
 		}		
 		return yearMap;
+	}
+
+	public static List<String> get_year_list(){
+		List<String> yearList=new ArrayList<String>();		
+		int cyear=curyear;
+		for(int i=0;i<5;i++){
+			String cur_year=String.valueOf(cyear);
+			yearList.add(cur_year);
+			cyear-=1;
+		}		
+		return yearList;
 	}
 
 	public static Result search() {

@@ -15,8 +15,8 @@
 	    </thead>	
 	    <tbody>	
 	    <tr>	    	
-	    	<td>@select(field=invoiceSearchForm("year"), options = options(InvoiceController.yearAsMap), args= '_label -> "Year")</td> 
-	    	<td>@select(field=invoiceSearchForm("month"), options = options(InvoiceController.monthAsMap), args= '_label -> "Month")</td>	    	
+	    	<td>@select(field=invoiceSearchForm("year"), options = options(InvoiceController.get_year_map), args= '_label -> "Year")</td> 
+	    	<td>@select(field=invoiceSearchForm("month"), options = options(InvoiceController.get_month_map), args= '_label -> "Month")</td>	    	
 	    </tr>	    
 		<tr>
 	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(Area.asMap), args= '_label -> "Area", '_default -> "--- Choose Area ---")</td>

@@ -7,8 +7,11 @@
     <thead>
     	<tr><th colspan="5">@title</th></tr>
     	<tr>
+            <th>Id Number</th>            
     		<th>Customer Name</th>
-    		<th>Customer Address</th>
+            <th>Area Name</th>
+            <th>SubArea Name</th>
+    		<th>Address</th>
     		<th>Invoice Amount</th>
             <th>Is Paid</th>
     		<th>Customer Balance</th>
@@ -16,8 +19,11 @@
     </thead>	     
     <tbody>	
 	    @for(invoice <- invoices) {	
-		    <tr>	    	
+		    <tr>                
+                <td>@invoice.getCustomerId()</td>            
 		    	<td>@invoice.getCustomerName()</td> 
+                <td>@invoice.getAreaName()</td>            
+                <td>@invoice.getSubAreaName()</td>            
 		    	<td>@invoice.customer.address</td>	    	
 		    	<td>@invoice.amount</td> 
                 <td><input type="checkbox" @if(invoice.paid){"checked"} disabled/></td>

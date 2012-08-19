@@ -1,0 +1,118 @@
+@()
+
+@import helper._
+@import models._
+@import controllers._
+
+@main() {
+		
+	<div class="subnav">
+    <ul class="nav nav-pills">                	
+    	<li>
+	      	<select id="yearid" name="yearid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 	      		
+	      		@for(year <- controllers.InvoiceController.get_year_list()){
+					<option value="@year">@year</option>
+	      		}                                                      
+	    	</select>
+    	</li>    	
+    	<li>
+	      	<select id="areaid" name="areaid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 	      		
+	      		@for((key, value) <- models.Area.asMap()){
+					<option value="@key">@value</option>
+	      		}                                                      
+	    	</select>
+    	</li>
+    	<li>
+    		<button id="generatebtn" type="button" class="btn btn-primary" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;">Generate</button>
+    	</li>    	
+    </ul>
+  	</div>
+	
+	<br/>
+
+	<div>
+		<table class="table table-striped table-bordered table-condensed">
+		    <thead>
+		        <tr>
+		            <th colspan="16">Payment Report - @{java.util.Calendar.getInstance().getTime()}</th>       
+		        </tr>        
+		    	<tr>            
+		            <th>Id Nr.</th><th>Name</th><th>Sub Area</th>
+		    		<th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th>
+		    		<th>Jun</th><th>Jul</th><th>Aug</th><th>Sept</th>
+		    		<th>Oct</th><th>Nov</th><th>Dec</th><th>Total</th>
+		    	</tr>
+		    </thead>	     
+		    <tbody id="tbodyid">				    
+		 	</tbody>	        
+		</table>	
+	</div>
+
+	<script type="text/javascript">
+		var on_area_change = function(event){
+			// empty the tbody
+			$("#tbodyid").text("");
+		};	
+
+		var on_year_change = function(event){
+			$("#tbodyid").text("");
+		};		
+
+		var render_payment_report = function(customers) {			
+			var row="<tr><td>{idnumber}</td><td>{name}</td><td>{subarea}</td><td id='month1td'>{1}</td><td id='month2td'>{2}</td><td id='month3td'>{3}</td><td id='month4td'>{4}</td><td id='month5td'>{5}</td><td id='month6td'>{6}</td><td id='month7td'>{7}</td><td id='month8td'>{8}</td><td id='month9td'>{9}</td><td id='month10td'>{10}</td><td id='month11td'>{11}</td><td id='month12td'>{12}</td><td id='totaltd'>{total}</td><tr>";
+
+			$.each(customers,function(i,customer){
+				var temprow=row;
+				temprow=temprow.replace("{idnumber}",customer.id_number).replace("{name}",customer.customer_name).replace("{subarea}",customer.sub_area_name).replace("{1}",customer.month_collection["1"]).replace("{2}",customer.month_collection["2"]).replace("{3}",customer.month_collection["3"]).replace("{4}",customer.month_collection["4"]).replace("{5}",customer.month_collection["5"]).replace("{6}",customer.month_collection["6"]).replace("{7}",customer.month_collection["7"]).replace("{8}",customer.month_collection["8"]).replace("{9}",customer.month_collection["9"]).replace("{10}",customer.month_collection["10"]).replace("{11}",customer.month_collection["11"]).replace("{12}",customer.month_collection["12"]);
+				var total=customer.month_collection["1"] + customer.month_collection["2"]+ customer.month_collection["3"] + customer.month_collection["3"]+ customer.month_collection["5"] + customer.month_collection["6"]+ customer.month_collection["7"] + customer.month_collection["8"]+ customer.month_collection["9"] + customer.month_collection["10"]+ customer.month_collection["11"] + customer.month_collection["12"];
+				temprow=temprow.replace("{total}",total);
+				$("#tbodyid").append(temprow);
+			});
+
+			var temprow=row;
+				temprow=temprow.replace("{idnumber}","").replace("{name}","").replace("{subarea}","<b>Total</b>");				
+			var rowtotal=0;
+			for(i=1; i<=12; i++){
+				var coltotal=0;
+				$.each($("td#month"+i+"td"),function(j,col){
+					coltotal+=parseInt($(col).html());
+				});
+				temprow=temprow.replace("{"+i+"}",coltotal);
+				rowtotal += coltotal;
+			}
+			temprow=temprow.replace("{total}",rowtotal);
+			$("#tbodyid").append(temprow);			
+		};
+
+		var on_generate_click = function(event){
+			$("#tbodyid").text("");
+			var req_url='@routes.PaymentController.payment_report(0L,-1)';			
+			req_url = req_url.replace("0",$("#areaid").val()).replace("-1",$("#yearid").val());
+			$.ajax({
+				url: req_url,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){					
+					render_payment_report(data);	
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					//display_error_msg(errorThrown);	
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});			
+		};
+
+		$(function(){
+			$("#areaid").change(on_area_change);		
+			$("#yearid").change(on_year_change);		
+			$("#generatebtn").click(on_generate_click);		
+		});
+	</script>
+
+
+
+}

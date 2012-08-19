@@ -30,7 +30,7 @@ public class Payment extends Model {
 	public Date payment_date;
 	
 	@NotNull
-	public int amount;
+	public Integer amount;
 	
 	public static Finder<Long, Payment> find = new Finder(Long.class, Payment.class);
 
@@ -44,6 +44,10 @@ public class Payment extends Model {
 
 	public static void delete(Long id) {
 		find.byId(id).delete();
+	}
+
+	public static List<Payment> search(Long customerid,Integer year){
+		return find.where().eq("invoice.year",year).eq("invoice.customer.id",customerid).findList();	
 	}
 
 }

@@ -9,12 +9,17 @@ import java.util.Calendar;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
+import services.PaymentService;
+import sos.CollectionReportSO;
+
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+
+import views.html.payment.*;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class PaymentController extends Controller {
@@ -47,6 +52,23 @@ public class PaymentController extends Controller {
 		}
 
 		return ok();
+	}
+
+	public static Result report() {
+		return ok(report.render());
+	}
+		
+	public static Result payment_report(Long aid, Integer year) {
+
+		if (aid == null) {
+			return badRequest("Expecting Area Id");
+		}
+		if (year == null) {
+			return badRequest("Expecting year");
+		}
+
+		List<CollectionReportSO> collectionReports=PaymentService.collectionReport(aid,year);
+		return ok(Json.toJson(collectionReports));
 	}
 
 	public static Result all() {

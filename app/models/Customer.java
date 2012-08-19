@@ -98,15 +98,15 @@ public class Customer extends Model {
 	}
 
 	public static List<Customer> allByArea(Long areaId) {
-		return find.where().eq("area_id",areaId).findList();
+		return find.where().eq("area_id",areaId).orderBy("id_number").findList();
 	}		
 
 	public static List<Customer> allActiveByArea(Long areaId) {
-		return find.where().eq("terminate_date",null).eq("area_id",areaId).findList();
+		return find.where().eq("terminate_date",null).eq("area_id",areaId).orderBy("id_number").findList();
 	}
 
 	public static List<Customer> allTerminatedByArea(Long areaId) {
-		return find.where().ne("terminate_date",null).eq("area_id",areaId).findList();
+		return find.where().ne("terminate_date",null).eq("area_id",areaId).orderBy("id_number").findList();
 	}
 
 	public static void delete(Long id) {

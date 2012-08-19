@@ -47,6 +47,10 @@ public class Invoice extends Model {
 		return customer.name;
 	}
 
+	public String getAreaName(){
+		return customer.area.name;
+	}
+
 	public String getSubAreaName(){
 		return customer.sub_area.name;
 	}
@@ -79,11 +83,11 @@ public class Invoice extends Model {
 	}
 	
 	public static List<Invoice> search(Integer month,Integer year){
-		return find.where().eq("month",month).eq("year",year).findList();	
+		return find.where().eq("month",month).eq("year",year).orderBy("customer.area.name, customer.id_number").findList();	
 	}
 
 	public static List<Invoice> search(Integer month,Integer year, Long areaId){
-		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).findList();	
+		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).orderBy("customer.id_number").findList();	
 
 		List<Invoice> filteredInvoices =
                 find.filter() 
@@ -93,7 +97,7 @@ public class Invoice extends Model {
 	}	
 
 	public static List<Invoice> search(Integer month,Integer year, Long areaId, Long subAreaId){
-		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).findList();	
+		List<Invoice> invoices=find.where().eq("month",month).eq("year",year).orderBy("customer.id_number").findList();	
 
 		List<Invoice> filteredInvoices =
                 find.filter() 
