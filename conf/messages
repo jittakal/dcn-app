@@ -1,7 +1,6 @@
 # Application
 app.name=Darpan Cable Network M
 
-
 # Common Property Names
 common.id=ID M
 
@@ -11,7 +10,6 @@ common.button.edit=Edit M
 common.button.delete=Delete M
 common.button.save=Save M
 common.button.login=Login M
-
 
 # Error Messages
 please.select.row=Please Select Row M
@@ -28,6 +26,28 @@ area.id.expecting=Expecting Area Id M
 login.username=Username M
 login.password=Password M
 
+# Welcome Page
+welcome.logout=LOGOUT M
+
+# Sidebar Menu
+menu.header.invoice=Invoice & Collection M
+menu.header.admin=Admin M
+menu.header.report=Reports M
+menu.header.profile=Profile M
+
+menu.search.invoice=Search Invoice M
+menu.generate.invoice=Generate Invoice M
+menu.payment.report=Collection Report M
+menu.customer=Customer M
+menu.employee=Employee M
+menu.area=Area M
+menu.subarea=Sub Area M
+menu.node=Node M
+menu.amplifier=Amplifier M
+menu.price=Price M
+menu.user=User M
+menu.report.1=Report 1 M
+menu.change.password=Change Password M
 
 # Area
 area=Area M

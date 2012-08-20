@@ -6,7 +6,7 @@
 
 <html>
 <head>
-<title>Darpan Cable Network</title>
+<title>@Messages("app.name")</title>
 <link rel="stylesheet" media="screen, print" href="@routes.Assets.at("stylesheets/smoothness/jquery-ui-1.8.21.custom.css")">
 <link rel="stylesheet" media="screen, print" href="@routes.Assets.at("stylesheets/ui.jqgrid.css")">
 <link rel="stylesheet" media="screen, print" href="@routes.Assets.at("stylesheets/bootstrap.css")">
@@ -23,13 +23,13 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div style="margin-left:10px;margin-right:10px">
-                <a class="brand" href="#">Darpan Cable Network</a>
+                <a class="brand" href="#">@Messages("app.name")</a>
                 <p class="navbar-text pull-right">
                     @session.get("username").toUpperCase() 
                     &nbsp; 
                     @session.get("role").toUpperCase()
                     &nbsp;
-                    <a href="@routes.Application.logout()">LOGOUT</a>
+                    <a href="@routes.Application.logout()">@Messages("welcome.logout")</a>
                 </p>                
             </div>
         </div>
