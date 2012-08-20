@@ -20,7 +20,7 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div style="margin-left:10px;margin-right:10px">
-				<a class="brand" href="#">Darpan Cable Network</a>
+				<a class="brand" href="#">@Messages("app.name")</a>
 			</div>
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 			<div class="row">
 				<div class="span4 offset9">
 					<fieldset class="control-group error">
-						<label class="error">Invalid username or password, please try again.</label>
+						<label class="error">@Messages("invalid.user")</label>
 					</fieldset>					
 				</div>
 			</div>
@@ -44,9 +44,9 @@
 			<div class="span4">				
 
 				@form(action = routes.Application.login(), args = 'class -> "well") {
- 				   	@inputText(field=loginForm("username"), args = 'size -> 10, 'class -> "input-large", 'placeholder -> "username", '_label -> "Username")
-    				@inputPassword(field=loginForm("password"), args = 'class-> "input-large", 'placeholder -> "password", '_label -> "Password")    
-    				<button type="submit" class="btn btn-primary">Login</button>
+ 				   	@inputText(field=loginForm("username"), args = 'size -> 10, 'class -> "input-large", 'placeholder -> Messages("login.username"), '_label -> Messages("login.username"))
+    				@inputPassword(field=loginForm("password"), args = 'class-> "input-large", 'placeholder -> Messages("login.password"), '_label -> Messages("login.password"))    
+    				<button type="submit" class="btn btn-primary">@Messages("common.button.login")</button>
 				}		
 
 			</div>			
