@@ -14,6 +14,7 @@ import org.codehaus.jackson.*;
 import org.codehaus.jackson.node.ObjectNode;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 import views.html.area.*;
 
 
@@ -21,8 +22,7 @@ import views.html.area.*;
 public class AreaController extends Controller {
 
 	final static Form<AreaForm> areaForm = form(AreaForm.class);
-	
-	//@Authenticated
+		
 	/**
 	 * @return
 	 */
@@ -47,7 +47,7 @@ public class AreaController extends Controller {
 		}
 		
 		if(Area.isNameExists(0L,areaForm.name)){
-			filledForm.reject("Area name already exists.");
+			filledForm.reject(Messages.get("area.name.exists"));
 			return badRequest(create.render(filledForm));	
 		}
 
@@ -60,12 +60,12 @@ public class AreaController extends Controller {
 		area.refresh();
 
 		Node node=new Node();
-		node.name=area.name + " - default Node";
+		node.name=area.name + Messages.get("default.node");
 		node.area=area;
 		node.save();
 
 		Amply amply=new Amply();
-		amply.name=area.name + " - default Amplifier";
+		amply.name=area.name + Messages.get("default.amplify");
 		amply.area=area;
 		amply.save();
 								
@@ -93,7 +93,7 @@ public class AreaController extends Controller {
 		}
 
 		if(Area.isNameExists(id,areaForm.name)){
-			filledForm.reject("Area name already exists.");
+			filledForm.reject(Messages.get("area.name.exists"));
 			return badRequest(update.render(filledForm,id));	
 		}
 
@@ -110,13 +110,13 @@ public class AreaController extends Controller {
 	public static Result delete(Long id){		
 		Area area=Area.get(id);		
 		if(area==null){
-			return notFound("Area with id [" + id + "] does not exists.");
+			return notFound(Messages.get("area.not.exists", id));
 		}
 		if(!SubArea.isBelongsToArea(id)){
 			Area.delete(id);			
-			return ok("Selected area has been deleted successfully");
+			return ok(Messages.get("area.delete.succ"));
 		}
-		return 	notFound("Area ['" + area.name + "'] is associated with Sub Area(s)");			
+		return 	notFound(Messages.get("area.assoc.subarea",area.name));			
 	}
 	
 	/**
@@ -135,13 +135,13 @@ public class AreaController extends Controller {
 	 */	
 	public static Result get(Long id){
 		if(id==null){
-			return badRequest("Expecting Area Id");
+			return badRequest(Messages.get("area.id.expecting"));
 		}
 		
 		Area area=Area.get(id);
 		
 		if(area==null){
-			return notFound("Area with id [" + id + "] does not exists.");
+			return notFound(Messages.get("area.not.exists", id));
 		}
 		JsonNode result = Json.toJson(area);		
 		return ok(result);
@@ -154,11 +154,11 @@ public class AreaController extends Controller {
 	public static Result create(){		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("common.json.expecting"));
 		}		
 		Area area=Json.fromJson(jsonNode, Area.class);
 		if(area==null){
-			return badRequest("Expecting Area Json data");
+			return badRequest(Messages.get("common.json.expecting"));
 		}
 		area.save();
 		ObjectNode result=Json.newObject();
@@ -173,16 +173,16 @@ public class AreaController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id){
 		if(id==null){
-			return badRequest("Expecting Area Id");
+			return badRequest(Messages.get("area.id.expecting"));
 		}
 		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("common.json.expecting"));
 		}		
 		Area area=Json.fromJson(jsonNode, Area.class);
 		if(area==null){
-			return badRequest("Expecting Area Json data");
+			return badRequest(Messages.get("common.json.expecting"));
 		}
 		area.id=id;
 		area.update();

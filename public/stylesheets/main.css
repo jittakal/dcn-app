@@ -12,6 +12,11 @@ body {
     background-repeat: repeat-x;
     padding-top: 40px;
     position: relative;
+    /*font-family:Shivaji01;*/
+}
+
+.ui-widget {
+    /*font-family:Shivaji01;*/
 }
 
 .container > footer p {

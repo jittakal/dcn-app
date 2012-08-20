@@ -7,6 +7,6 @@
 	@views.html.common.errormsg(areaForm.globalErrors())	
 	
 	@form(action = routes.AreaController.create_save()) {
-		@area.form(areaForm,"Create Area")		
+		@area.form(areaForm,Messages("area.add"))		
 	}
 }

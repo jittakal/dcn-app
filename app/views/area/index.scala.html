@@ -1,14 +1,19 @@
+
 @main(){
 
  <div class="subnav">
     <ul class="nav nav-pills">      
       <li class="">
-      	<a href="@routes.AreaController.create_new()" class="btn" id="area-add">Add</a></li>
-      <li class="">
-      	<a href="#" link="@routes.AreaController.update_get(0L)" class="btn" id="area-edit">Edit</a>
+      	<a href="@routes.AreaController.create_new()" class="btn" id="area-add">
+      		@Messages("common.button.add")</a>
       </li>
       <li class="">
-      	<a href="#" link="@routes.AreaController.delete(0L)" class="btn" id="area-delete">Delete</a>
+      	<a href="#" link="@routes.AreaController.update_get(0L)" class="btn" id="area-edit">
+      		@Messages("common.button.edit")</a>
+      </li>
+      <li class="">
+      	<a href="#" link="@routes.AreaController.delete(0L)" class="btn" id="area-delete">
+      		@Messages("common.button.delete")</a>
       </li>      
     </ul>
   </div>
@@ -57,7 +62,7 @@
 
 		$("#area-grid").jqGrid({
 			datatype: "local",
-		    colNames:['Srno','ID','Name','Employee Name'],
+		    colNames:['@Messages("area.index.srno")','@Messages("area.id")','@Messages("area.name")','@Messages("employee.name")'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,width:'50px',sorttype:'int'},
@@ -66,7 +71,7 @@
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
-		    caption: "Areas",		    
+		    caption: "@Messages("area.index")",		    
 		    height: 250,
 		    width: 900
 		});		
@@ -87,7 +92,7 @@
 			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
-			alert("Please select row");
+			alert("@Messages("please.select.row")");
 		} 		
 	}	
 
@@ -117,7 +122,7 @@
 			});
 
 		} else { 
-			alert("Please select row");
+			alert("@Messages("please.select.row")");
 		} 		
 	};
 

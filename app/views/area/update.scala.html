@@ -8,6 +8,6 @@
 	@views.html.common.errormsg(areaForm.globalErrors())	
 	
 	@form(action = routes.AreaController.update_save(id)) {
-		@area.form(areaForm,"Update Area")
+		@area.form(areaForm,Messages("area.update"))
 	}
 }

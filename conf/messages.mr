@@ -1,0 +1,46 @@
+# Common 
+
+# Property Names
+common.id=ID
+
+# Button Names
+common.button.add=inavaIna
+common.button.edit=Edit
+common.button.delete=Delete
+common.button.save=Save
+
+# Messages
+please.select.row=Please Select Row M
+
+common.json.expecting=Expecting Json Data
+
+
+# Area
+area=Area M
+area.id=ID M
+area.name=Area Name M
+
+area.index=Areas M
+area.index.srno=Srno M
+
+area.add=Create Area M
+
+area.update=Update Area M
+
+area.name.exists=Area name already exists M
+area.not.exists=Area with id {0} does not exists
+area.delete.succ=Selected area has been deleted successfully
+area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s)
+area.id.expecting=Expecting Area Id
+
+# Employee
+employee=Employee M
+
+employee.name=Employee Name M
+
+# Node
+default.node= - Default Node
+
+# Amplify
+default.amplify= - Default Amplifier
+
