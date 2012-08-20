@@ -3,9 +3,18 @@
 
  <div class="subnav">
     <ul class="nav nav-pills">      
-      <li class=""><a href="@routes.AmplyController.create_new()" class="btn" id="amply-add">Add</a></li>
-      <li class=""><a href="#" link="@routes.AmplyController.update_get(0L)" class="btn" id="amply-edit">Edit</a></li>
-      <li class=""><a href="#" link="@routes.AmplyController.delete(0L)" class="btn" id="amply-delete">Delete</a></li>      
+      <li class="">
+      	<a href="@routes.AmplyController.create_new()" class="btn" id="amply-add">
+      		@Messages("common.button.add")</a>
+      </li>
+      <li class="">
+      	<a href="#" link="@routes.AmplyController.update_get(0L)" class="btn" id="amply-edit">
+      		@Messages("common.button.edit")</a>
+      </li>
+      <li class="">
+      	<a href="#" link="@routes.AmplyController.delete(0L)" class="btn" id="amply-delete">
+      		@Messages("common.button.delete")</a>
+      </li>      
     </ul>
   </div>
 
@@ -53,7 +62,7 @@
 	
 		$("#amply-grid").jqGrid({
 			datatype: "local",
-		    colNames:['Srno','ID','Name','Area Name'],
+		    colNames:['@Messages("common.srno")','@Messages("common.id")','@Messages("amplifier.name")','@Messages("area.name")'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
@@ -62,7 +71,7 @@
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
-		    caption: "Amplifiers",		    
+		    caption: "@Messages("amplifier.index")",		    
 		    height: 250,
 		    width: 900
 		});		
@@ -83,7 +92,7 @@
 			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
-			alert("Please select row");
+			alert('@Messages("please.select.row")');
 		} 		
 	};
 
@@ -102,7 +111,7 @@
 					jqXHR.setRequestHeader("Content-Type", "application/json");					
 				},
 				success: function(data, textStatus, jqXHR){					
-					alert('Selected amply has been deleted successfully');
+					alert('@Messages("record.deleted.succ")');
 					process_amplys();
 				},
 				error: function(jqXHR, textStatus, errorThrown){				
@@ -113,7 +122,7 @@
 			});
 
 		} else { 
-			alert("Please select row");
+			alert('@Messages("please.select.row")');
 		}
 	};
 

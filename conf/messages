@@ -3,6 +3,7 @@ app.name=Darpan Cable Network M
 
 # Common Property Names
 common.id=ID M
+common.srno=SrNo. M
 
 # Common Button Names
 common.button.add=Add M
@@ -13,18 +14,18 @@ common.button.login=Login M
 
 # Error Messages
 please.select.row=Please Select Row M
-common.json.expecting=Expecting Json Data M
-invalid.user=Invalid username or password, please try again M
-
-area.name.exists=Area name already exists M
-area.not.exists=Area with id {0} does not exists M
-area.delete.succ=Selected area has been deleted successfully M
-area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s) M
-area.id.expecting=Expecting Area Id M
+json.expecting=Expecting Json Data M
+name.already.exists=Name already exists M
+id.not.exists=Id {0} does not exists M
+record.deleted.succ=Selected record has been deleted successfully M
+id.expecting=Expecting Id M
 
 # Login
 login.username=Username M
 login.password=Password M
+
+invalid.user=Invalid username or password, please try again M
+
 
 # Welcome Page
 welcome.logout=LOGOUT M
@@ -49,14 +50,23 @@ menu.user=User M
 menu.report.1=Report 1 M
 menu.change.password=Change Password M
 
+# Amplifier
+amplifier=Amplifier M
+amplifier.name=Amplifier Name M
+amplifier.index=Amplifiers M
+amplifier.add=Create Amplifier M
+amplifier.update=Update Amplifier M
+
+amplifier.assoc.customer=Amplifier ['{0}'] is associated with Customer(s)
+
 # Area
 area=Area M
-area.id=ID M
 area.name=Area Name M
 area.index=Areas M
-area.index.srno=Srno M
 area.add=Create Area M
 area.update=Update Area M
+
+area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s) M
 
 # Employee
 employee=Employee M

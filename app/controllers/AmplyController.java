@@ -19,6 +19,7 @@ import views.html.amply.*;
 
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class AmplyController extends Controller {
@@ -46,7 +47,7 @@ public class AmplyController extends Controller {
 		}
 
 		if(Amply.isNameExists(0L,amplyForm.name)){			
-			filledForm.reject("Amply name already exists.");
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(create.render(filledForm));	
 		}
 
@@ -77,7 +78,7 @@ public class AmplyController extends Controller {
 		}		
 
 		if(Amply.isNameExists(id,amplyForm.name)){			
-			filledForm.reject("Amply name already exists.");
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(update.render(filledForm,id));	
 		}
 
@@ -101,13 +102,13 @@ public class AmplyController extends Controller {
 	public static Result delete(Long id){		
 		Amply amply=Amply.get(id);
 		if(amply==null){
-			return notFound("Amply having id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		if(!Customer.isBelongsToAmply(id)){
 			Amply.delete(id);			
-			return ok("Selected Amply has been deleted successfully");
+			return ok(Messages.get("record.deleted.succ"));
 		}
-		return notFound("Amply ['" + amply.name + "'] is associated with Customer(s)");			
+		return notFound(Messages.get("amplifier.assoc.customer",amply.name));		 
 	}
 	
 	/**
@@ -126,13 +127,13 @@ public class AmplyController extends Controller {
 	 */	
 	public static Result get(Long id){
 		if(id==null){
-			return badRequest("Expecting Amply Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		Amply amply=Amply.get(id);
 		
 		if(amply==null){
-			return notFound("Amply with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		JsonNode result = Json.toJson(amply);		
 		return ok(result);
@@ -145,11 +146,11 @@ public class AmplyController extends Controller {
 	public static Result create(){		
 		JsonNode jsonAmply = request().body().asJson();
 		if(jsonAmply ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Amply amply=Json.fromJson(jsonAmply, Amply.class);
 		if(amply==null){
-			return badRequest("Expecting Amply Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		amply.save();
 		ObjectNode result=Json.newObject();
@@ -164,16 +165,16 @@ public class AmplyController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id){
 		if(id==null){
-			return badRequest("Expecting Amply Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		JsonNode jsonAmply = request().body().asJson();
 		if(jsonAmply ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Amply amply=Json.fromJson(jsonAmply, Amply.class);
 		if(amply==null){
-			return badRequest("Expecting Amply Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		amply.id=id;
 		amply.update();

@@ -8,6 +8,6 @@
 	@views.html.common.errormsg(amplyForm.globalErrors())	
 	
 	@form(action = routes.AmplyController.update_save(id)) {
-		@amply.form(amplyForm,"Update Amplifier")
+		@amply.form(amplyForm,Messages("amplifier.update"))
 	}
 }

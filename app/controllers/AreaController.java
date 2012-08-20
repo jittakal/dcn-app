@@ -47,7 +47,7 @@ public class AreaController extends Controller {
 		}
 		
 		if(Area.isNameExists(0L,areaForm.name)){
-			filledForm.reject(Messages.get("area.name.exists"));
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(create.render(filledForm));	
 		}
 
@@ -93,7 +93,7 @@ public class AreaController extends Controller {
 		}
 
 		if(Area.isNameExists(id,areaForm.name)){
-			filledForm.reject(Messages.get("area.name.exists"));
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(update.render(filledForm,id));	
 		}
 
@@ -110,11 +110,11 @@ public class AreaController extends Controller {
 	public static Result delete(Long id){		
 		Area area=Area.get(id);		
 		if(area==null){
-			return notFound(Messages.get("area.not.exists", id));
+			return notFound(Messages.get("id.not.exists", id));
 		}
 		if(!SubArea.isBelongsToArea(id)){
 			Area.delete(id);			
-			return ok(Messages.get("area.delete.succ"));
+			return ok(Messages.get("record.deleted.succ"));
 		}
 		return 	notFound(Messages.get("area.assoc.subarea",area.name));			
 	}
@@ -135,13 +135,13 @@ public class AreaController extends Controller {
 	 */	
 	public static Result get(Long id){
 		if(id==null){
-			return badRequest(Messages.get("area.id.expecting"));
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		Area area=Area.get(id);
 		
 		if(area==null){
-			return notFound(Messages.get("area.not.exists", id));
+			return notFound(Messages.get("id.not.exists", id));
 		}
 		JsonNode result = Json.toJson(area);		
 		return ok(result);
@@ -154,11 +154,11 @@ public class AreaController extends Controller {
 	public static Result create(){		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest(Messages.get("common.json.expecting"));
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Area area=Json.fromJson(jsonNode, Area.class);
 		if(area==null){
-			return badRequest(Messages.get("common.json.expecting"));
+			return badRequest(Messages.get("json.expecting"));
 		}
 		area.save();
 		ObjectNode result=Json.newObject();
@@ -173,16 +173,16 @@ public class AreaController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id){
 		if(id==null){
-			return badRequest(Messages.get("area.id.expecting"));
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest(Messages.get("common.json.expecting"));
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Area area=Json.fromJson(jsonNode, Area.class);
 		if(area==null){
-			return badRequest(Messages.get("common.json.expecting"));
+			return badRequest(Messages.get("json.expecting"));
 		}
 		area.id=id;
 		area.update();
