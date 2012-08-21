@@ -5,12 +5,21 @@
 
  <div class="subnav">
     <ul class="nav nav-pills">      
-      <li class=""><a href="@routes.CustomerController.create_new()" class="btn" id="customer-add">Add</a></li>
-      <li class=""><a href="#" link="@routes.CustomerController.update_get(0L)" class="btn" id="customer-edit">Edit</a></li>
-      <li class=""><a href="#" link="@routes.CustomerController.delete(0L)" class="btn" id="customer-delete">Delete</a></li>
+      <li class="">
+      	<a href="@routes.CustomerController.create_new()" class="btn" id="customer-add">
+      		@Messages("common.button.add")</a>
+      </li>
+      <li class="">
+      	<a href="#" link="@routes.CustomerController.update_get(0L)" class="btn" id="customer-edit">
+      		@Messages("common.button.edit")</a>
+      </li>
+      <li class="">
+      	<a href="#" link="@routes.CustomerController.delete(0L)" class="btn" id="customer-delete">
+      		@Messages("common.button.delete")</a>
+      </li>
       <li>
       	<select id="areaid" name="areaid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 
-      		<option class="blank" value="0">--- Choose Area ---</option>
+      		<option class="blank" value="0">@Messages("choose.area")</option>
       		@for((key, value) <- models.Area.asMap()){
 				<option value="@key">@value</option>
       		}                                                      
@@ -18,10 +27,10 @@
       </li>
       
       <li class="pull-right">
-	  	<a href="#" class="btn" id="customer-terminated">Terminated</a>
+	  	<a href="#" class="btn" id="customer-terminated">@Messages("customer.terminated")</a>
 	  </li> 
 	  <li class="pull-right">
-	  	<a href="#" class="btn" id="customer-all">All</a>
+	  	<a href="#" class="btn" id="customer-all">@Messages("customer.all")</a>
 	  </li> 
     </ul>
   </div>
@@ -77,7 +86,7 @@
 
 		$("#customer-grid").jqGrid({
 			datatype: "local",
-		    colNames:['Srno','ID','Name','Address','Mobile','Sub Area','Rate','Joining Date','Balance'],
+		    colNames:['@Messages("common.srno")','@Messages("common.id")','@Messages("customer.name")','@Messages("customer.address")','@Messages("customer.mobile")','@Messages("subarea")','@Messages("customer.rate")','@Messages("customer.joining.date")','@Messages("customer.balance")'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,width:'50px',sorttype:'int'},
@@ -91,7 +100,7 @@
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
-		    caption: "Customers",		    
+		    caption: "@Messages("customer.index")",		    
 		    height: 250,
 		    width: 900
 		});		
@@ -113,7 +122,7 @@
 			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
-			alert("Please select row");
+			alert('@Messages("please.select.row")');
 		} 		
 	};
 
@@ -132,7 +141,7 @@
 					jqXHR.setRequestHeader("Content-Type", "application/json");					
 				},
 				success: function(data, textStatus, jqXHR){					
-					alert('Selected customer has been deleted successfully');
+					alert('@Messages("record.deleted.succ")');
 					process_customers('@routes.CustomerController.all_active_by_area(0L)');
 				},
 				error: function(jqXHR, textStatus, errorThrown){				
@@ -143,7 +152,7 @@
 			});
 
 		} else { 
-			alert("Please select row");
+			alert('@Messages("please.select.row")');
 		}
 	};
 

@@ -20,6 +20,7 @@ import java.util.Map;
 import views.html.customer.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class CustomerController extends Controller {
@@ -47,11 +48,11 @@ public class CustomerController extends Controller {
 		}
 
 		if(Customer.isCustomerIdExists(0L,customerForm.id_number,new Long(customerForm.areaid))){
-			filledForm.reject("Customer Id already exists.");
+			filledForm.reject(Messages.get("customer.id.exists"));
 			return badRequest(create.render(filledForm));
 		}
 		if(Customer.isMobileNumberExists(0L,customerForm.mobile_number)){
-			filledForm.reject("Customer mobile number already exists.");
+			filledForm.reject(Messages.get("customer.mobile.exists"));
 			return badRequest(create.render(filledForm));
 		}
 
@@ -128,16 +129,16 @@ public class CustomerController extends Controller {
 		Customer customer=Customer.get(id);
 
 		if(customer==null){			
-			filledForm.reject("Customer does not exists");
+			filledForm.reject(Messages.get("id.not.exists",id));
 			return badRequest(update.render(filledForm,id));	
 		}
 
 		if(Customer.isCustomerIdExists(id,customerForm.id_number,new Long(customerForm.areaid))){
-			filledForm.reject("Customer Id already exists.");
+			filledForm.reject(Messages.get("customer.id.exists"));
 			return badRequest(update.render(filledForm,id));
 		}
 		if(Customer.isMobileNumberExists(id,customerForm.mobile_number)){
-			filledForm.reject("Customer mobile number already exists.");
+			filledForm.reject(Messages.get("customer.mobile.exists"));
 			return badRequest(update.render(filledForm,id));
 		}
 
@@ -178,13 +179,13 @@ public class CustomerController extends Controller {
 	public static Result delete(Long id){		
 		Customer customer=Customer.get(id);
 		if(customer==null){
-			return notFound("Customer having id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		if(!Invoice.isBelongsToCustomer(id)){
 			Customer.delete(id);			
-			return ok("Selected Customer has been deleted successfully");
+			return ok(Messages.get("record.deleted.succ"));
 		}
-		return notFound("Customer ['" + customer.name + "'] is associated with Invoice(s)");			
+		return notFound(Messages.get("customer.assoc.invoice",customer.name));			
 	}	
 
 	/**
@@ -209,7 +210,7 @@ public class CustomerController extends Controller {
 
 	public static Result all_by_area(Long areaId) {
 		if (areaId == null) {
-			return badRequest("Expecting Area Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		List<Customer> customers = Customer.allByArea(areaId);
@@ -218,7 +219,7 @@ public class CustomerController extends Controller {
 
 	public static Result all_active_by_area(Long areaId) {
 		if (areaId == null) {
-			return badRequest("Expecting Area Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 
 		List<Customer> customers = Customer.allActiveByArea(areaId);
@@ -227,7 +228,7 @@ public class CustomerController extends Controller {
 
 	public static Result all_terminated_by_area(Long areaId) {
 		if (areaId == null) {
-			return badRequest("Expecting Area Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 
 		List<Customer> customers = Customer.allTerminatedByArea(areaId);
@@ -241,13 +242,13 @@ public class CustomerController extends Controller {
 	 */
 	public static Result get(Long id) {
 		if (id == null) {
-			return badRequest("Expecting Customer Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 
 		Customer customer = Customer.get(id);
 
 		if (customer == null) {
-			return notFound("Customer with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		JsonNode result = Json.toJson(customer);
 		return ok(result);
@@ -260,11 +261,11 @@ public class CustomerController extends Controller {
 	public static Result create() {
 		JsonNode jsonNode = request().body().asJson();
 		if (jsonNode == null) {
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		Customer customer = Json.fromJson(jsonNode, Customer.class);
 		if (customer == null) {
-			return badRequest("Expecting Customer Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		customer.save();
 		ObjectNode result = Json.newObject();
@@ -279,16 +280,16 @@ public class CustomerController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id) {
 		if (id == null) {
-			return badRequest("Expecting Customer Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 
 		JsonNode jsonNode = request().body().asJson();
 		if (jsonNode == null) {
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		Customer customer = Json.fromJson(jsonNode, Customer.class);
 		if (customer == null) {
-			return badRequest("Expecting Customer Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		customer.id = id;
 		customer.update();

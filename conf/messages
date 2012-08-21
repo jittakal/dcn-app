@@ -65,16 +65,53 @@ area.name=Area Name M
 area.index=Areas M
 area.add=Create Area M
 area.update=Update Area M
+choose.area=--- Choose Area --- M
 
 area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s) M
+
+# Customer
+customer=Customer M
+customer.name=Customer Name M
+customer.address=Address M
+customer.mobile=Mobile M
+customer.rate=Rate M
+customer.joining.date=Joining Date M
+customer.terminated.date=Terminated Date M
+customer.id.number=ID Number M
+customer.balance=Balance M
+customer.deposite.amount=Deposite Amount M
+customer.index=Customers M
+customer.add=Create Customer M
+customer.update=Update Customer M
+customer.terminated=Terminated M
+customer.all=All M
+
+customer.id.exists=Customer Id already exists M
+customer.mobile.exists=Customer mobile number already exists M
+customer.assoc.invoice=Customer ['{0}'] is associated with Invoice(s)
+
+# Customer Type
+customer.type=Customer Type M
+customer.type.other=Other M
+customer.type.ent=Ent M
 
 # Employee
 employee=Employee M
 employee.name=Employee Name M
 
 # Node
+node=Node M
 default.node= - Default Node
+choose.node=--- Choose Node --- M
 
-# Amplify
+# Amplifier
+amplifier=Amplifier M
 default.amplify= - Default Amplifier
+choose.amplifier=--- Choose Amplifier --- M
 
+# SubArea
+subarea=Sub Area M
+choose.subarea=--- Choose Sub Area --- M
+
+# Price
+price=Price M
