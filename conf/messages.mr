@@ -1,46 +1,192 @@
-# Common 
+# Application
+app.name=Darpan Cable Network
 
-# Property Names
+# Common Property Names
 common.id=ID
+common.srno=SrNo.
 
-# Button Names
-common.button.add=inavaIna
+# Common Button Names
+common.button.add=Add
 common.button.edit=Edit
 common.button.delete=Delete
 common.button.save=Save
+common.button.login=Login
+common.button.terminated=Terminated
+common.button.all=All
+common.button.search=Search
+common.button.make.payment=Make Payment
+common.button.print=Print
+common.button.generate=Generate
 
-# Messages
-please.select.row=Please Select Row M
+# Error Messages
+please.select.row=Please Select Row
+json.expecting=Expecting Json Data
+name.already.exists=Name already exists
+id.not.exists=Id {0} does not exists
+record.deleted.succ=Selected record has been deleted successfully
+id.expecting=Expecting Id
 
-common.json.expecting=Expecting Json Data
+# Login
+login.username=Username
+login.password=Password
 
+invalid.user=Invalid username or password, please try again
+
+
+# Welcome Page
+welcome.logout=LOGOUT
+
+# Sidebar Menu
+menu.header.invoice=Invoice & Payment
+menu.header.admin=Admin
+menu.header.report=Reports
+menu.header.profile=Profile
+
+menu.search.invoice=Search Invoice
+menu.generate.invoice=Generate Invoice
+menu.payment.report=Collection Report
+menu.customer=Customer
+menu.employee=Employee
+menu.area=Area
+menu.subarea=Sub Area
+menu.node=Node
+menu.amplifier=Amplifier
+menu.price=Price
+menu.user=User
+menu.report.1=Report 1
+menu.change.password=Change Password
+
+# Amplifier
+amplifier=Amplifier
+amplifier.name=Amplifier Name
+amplifier.index=Amplifiers
+amplifier.add=Create Amplifier
+amplifier.update=Update Amplifier
+
+amplifier.assoc.customer=Amplifier ['{0}'] is associated with Customer(s)
 
 # Area
-area=Area M
-area.id=ID M
-area.name=Area Name M
+area=Area
+area.name=Area Name
+area.index=Areas
+area.add=Create Area
+area.update=Update Area
+choose.area=--- Choose Area ---
 
-area.index=Areas M
-area.index.srno=Srno M
-
-area.add=Create Area M
-
-area.update=Update Area M
-
-area.name.exists=Area name already exists M
-area.not.exists=Area with id {0} does not exists
-area.delete.succ=Selected area has been deleted successfully
 area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s)
-area.id.expecting=Expecting Area Id
+
+# Customer
+customer=Customer
+customer.name=Customer Name
+customer.address=Address
+customer.mobile=Mobile
+customer.rate=Rate
+customer.joining.date=Joining Date
+customer.terminated.date=Terminated Date
+customer.id.number=ID Number
+customer.balance=Balance
+customer.deposite.amount=Deposite Amount
+customer.index=Customers
+customer.add=Create Customer
+customer.update=Update Customer
+
+customer.id.exists=Customer Id already exists
+customer.mobile.exists=Customer mobile number already exists
+customer.assoc.invoice=Customer ['{0}'] is associated with Invoice(s)
+
+# Customer Type
+customer.type=Customer Type
+customer.type.other=Other
+customer.type.ent=Ent
 
 # Employee
-employee=Employee M
+employee=Employee
+employee.index=Employees
+employee.name=Employee Name
+employee.address=Address
+employee.mobile=Mobile Number
+employee.joining.date=Joining Date
+employee.terminated.date=Terminated Date
 
-employee.name=Employee Name M
+employee.add=Create Employee
+employee.update=Update Employee
+employee.assoc.area=Employee ['{0}'] is associated with Area(s)
+
+# Invoice
+year=Year
+month=Month
+search.invoice=Search Invoice
+search.invoice.result=Invoice Search Result
+invoice.amount=Invoice Amount
+is.paid=Is Paid?
+generate.invoice=Generate Invoice
+generate.invoice.list=Generated Invoice List
 
 # Node
+node=Node
+node.name=Node Name
+node.index=Nodes
 default.node= - Default Node
+choose.node=--- Choose Node ---
+node.add=Create Node
+node.update=Update Node
+node.assoc.customer=Node ['{0}'] is associated with Customer(s)
 
-# Amplify
+# Amplifier
+amplifier=Amplifier
 default.amplify= - Default Amplifier
+choose.amplifier=--- Choose Amplifier ---
 
+# SubArea
+subarea=Sub Area
+subarea.index=Sub Areas
+subarea.name=Sub Area Name
+subarea.create=Create SubArea
+subarea.update=Update SubArea
+choose.subarea=--- Choose Sub Area ---
+
+subarea.assoc.customer=Sub Area ['{0}'] is associated with Customer(s)
+
+# Price
+price=Price
+
+# Reports
+collection.report.yearly=Collection Report Yearly
+th.total=Total
+th.id.nr=Id Nr.
+
+th.jan=Jan
+th.feb=Feb
+th.mar=Mar
+th.apr=Apr
+th.may=May
+th.jun=Jun
+th.jul=Jul
+th.aug=Aug
+th.sept=Sept
+th.oct=Oct
+th.nov=Nov
+th.dec=Dec
+
+# Price
+price=price
+price.index=Prices
+price.amount=Rate Amount
+price.create=Create Price
+price.update=Update Price
+
+price.assoc.customer=Price ['{0}'] is associated with Customer(s)
+amount.already.exists=Price amount already exists
+
+# User
+user=User
+user.index=Users
+user.role=Role
+user.name=User Name
+change.password=Change Password
+current.password=Current Password
+new.password=New Password
+confirm.password=Confirm Password
+
+invalid.current.password=Invalid current password, please try again
+password.changes.succ=Password Changed Successfully

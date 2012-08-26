@@ -1,154 +1,154 @@
 # Application
-app.name=Darpan Cable Network M
+app.name=Darpan Cable Network
 
 # Common Property Names
-common.id=ID M
-common.srno=SrNo. M
+common.id=ID
+common.srno=SrNo.
 
 # Common Button Names
-common.button.add=Add M
-common.button.edit=Edit M
-common.button.delete=Delete M
-common.button.save=Save M
-common.button.login=Login M
-common.button.terminated=Terminated M
-common.button.all=All M
-common.button.search=Search M
-common.button.make.payment=Make Payment M
-common.button.print=Print M
-common.button.generate=Generate M
+common.button.add=Add
+common.button.edit=Edit
+common.button.delete=Delete
+common.button.save=Save
+common.button.login=Login
+common.button.terminated=Terminated
+common.button.all=All
+common.button.search=Search
+common.button.make.payment=Make Payment
+common.button.print=Print
+common.button.generate=Generate
 
 # Error Messages
-please.select.row=Please Select Row M
-json.expecting=Expecting Json Data M
-name.already.exists=Name already exists M
-id.not.exists=Id {0} does not exists M
-record.deleted.succ=Selected record has been deleted successfully M
-id.expecting=Expecting Id M
+please.select.row=Please Select Row
+json.expecting=Expecting Json Data
+name.already.exists=Name already exists
+id.not.exists=Id {0} does not exists
+record.deleted.succ=Selected record has been deleted successfully
+id.expecting=Expecting Id
 
 # Login
-login.username=Username M
-login.password=Password M
+login.username=Username
+login.password=Password
 
-invalid.user=Invalid username or password, please try again M
+invalid.user=Invalid username or password, please try again
 
 
 # Welcome Page
-welcome.logout=LOGOUT M
+welcome.logout=LOGOUT
 
 # Sidebar Menu
-menu.header.invoice=Invoice & Payment M
-menu.header.admin=Admin M
-menu.header.report=Reports M
-menu.header.profile=Profile M
+menu.header.invoice=Invoice & Payment
+menu.header.admin=Admin
+menu.header.report=Reports
+menu.header.profile=Profile
 
-menu.search.invoice=Search Invoice M
-menu.generate.invoice=Generate Invoice M
-menu.payment.report=Collection Report M
-menu.customer=Customer M
-menu.employee=Employee M
-menu.area=Area M
-menu.subarea=Sub Area M
-menu.node=Node M
-menu.amplifier=Amplifier M
-menu.price=Price M
-menu.user=User M
-menu.report.1=Report 1 M
-menu.change.password=Change Password M
+menu.search.invoice=Search Invoice
+menu.generate.invoice=Generate Invoice
+menu.payment.report=Collection Report
+menu.customer=Customer
+menu.employee=Employee
+menu.area=Area
+menu.subarea=Sub Area
+menu.node=Node
+menu.amplifier=Amplifier
+menu.price=Price
+menu.user=User
+menu.report.1=Report 1
+menu.change.password=Change Password
 
 # Amplifier
-amplifier=Amplifier M
-amplifier.name=Amplifier Name M
-amplifier.index=Amplifiers M
-amplifier.add=Create Amplifier M
-amplifier.update=Update Amplifier M
+amplifier=Amplifier
+amplifier.name=Amplifier Name
+amplifier.index=Amplifiers
+amplifier.add=Create Amplifier
+amplifier.update=Update Amplifier
 
 amplifier.assoc.customer=Amplifier ['{0}'] is associated with Customer(s)
 
 # Area
-area=Area M
-area.name=Area Name M
-area.index=Areas M
-area.add=Create Area M
-area.update=Update Area M
-choose.area=--- Choose Area --- M
+area=Area
+area.name=Area Name
+area.index=Areas
+area.add=Create Area
+area.update=Update Area
+choose.area=--- Choose Area ---
 
-area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s) M
+area.assoc.subarea=Area ['{0}'] is associated with Sub Area(s)
 
 # Customer
-customer=Customer M
-customer.name=Customer Name M
-customer.address=Address M
-customer.mobile=Mobile M
-customer.rate=Rate M
-customer.joining.date=Joining Date M
-customer.terminated.date=Terminated Date M
-customer.id.number=ID Number M
-customer.balance=Balance M
-customer.deposite.amount=Deposite Amount M
-customer.index=Customers M
-customer.add=Create Customer M
-customer.update=Update Customer M
+customer=Customer
+customer.name=Customer Name
+customer.address=Address
+customer.mobile=Mobile
+customer.rate=Rate
+customer.joining.date=Joining Date
+customer.terminated.date=Terminated Date
+customer.id.number=ID Number
+customer.balance=Balance
+customer.deposite.amount=Deposite Amount
+customer.index=Customers
+customer.add=Create Customer
+customer.update=Update Customer
 
-customer.id.exists=Customer Id already exists M
-customer.mobile.exists=Customer mobile number already exists M
+customer.id.exists=Customer Id already exists
+customer.mobile.exists=Customer mobile number already exists
 customer.assoc.invoice=Customer ['{0}'] is associated with Invoice(s)
 
 # Customer Type
-customer.type=Customer Type M
-customer.type.other=Other M
-customer.type.ent=Ent M
+customer.type=Customer Type
+customer.type.other=Other
+customer.type.ent=Ent
 
 # Employee
-employee=Employee M
-employee.index=Employees M
-employee.name=Employee Name M
-employee.address=Address M
-employee.mobile=Mobile Number M
-employee.joining.date=Joining Date M
-employee.terminated.date=Terminated Date M
+employee=Employee
+employee.index=Employees
+employee.name=Employee Name
+employee.address=Address
+employee.mobile=Mobile Number
+employee.joining.date=Joining Date
+employee.terminated.date=Terminated Date
 
-employee.add=Create Employee M
-employee.update=Update Employee M
-employee.assoc.area=Employee ['{0}'] is associated with Area(s) M
+employee.add=Create Employee
+employee.update=Update Employee
+employee.assoc.area=Employee ['{0}'] is associated with Area(s)
 
 # Invoice
-year=Year M
-month=Month M
-search.invoice=Search Invoice M
-search.invoice.result=Invoice Search Result M
+year=Year
+month=Month
+search.invoice=Search Invoice
+search.invoice.result=Invoice Search Result
 invoice.amount=Invoice Amount
 is.paid=Is Paid?
-generate.invoice=Generate Invoice M
-generate.invoice.list=Generated Invoice List M
+generate.invoice=Generate Invoice
+generate.invoice.list=Generated Invoice List
 
 # Node
-node=Node M
-node.name=Node Name M
-node.index=Nodes M
+node=Node
+node.name=Node Name
+node.index=Nodes
 default.node= - Default Node
-choose.node=--- Choose Node --- M
-node.add=Create Node M
-node.update=Update Node M
+choose.node=--- Choose Node ---
+node.add=Create Node
+node.update=Update Node
 node.assoc.customer=Node ['{0}'] is associated with Customer(s)
 
 # Amplifier
-amplifier=Amplifier M
+amplifier=Amplifier
 default.amplify= - Default Amplifier
-choose.amplifier=--- Choose Amplifier --- M
+choose.amplifier=--- Choose Amplifier ---
 
 # SubArea
-subarea=Sub Area M
+subarea=Sub Area
 subarea.index=Sub Areas
 subarea.name=Sub Area Name
 subarea.create=Create SubArea
 subarea.update=Update SubArea
-choose.subarea=--- Choose Sub Area --- M
+choose.subarea=--- Choose Sub Area ---
 
 subarea.assoc.customer=Sub Area ['{0}'] is associated with Customer(s)
 
 # Price
-price=Price M
+price=Price
 
 # Reports
 collection.report.yearly=Collection Report Yearly
@@ -190,6 +190,3 @@ confirm.password=Confirm Password
 
 invalid.current.password=Invalid current password, please try again
 password.changes.succ=Password Changed Successfully
-
-
-
