@@ -19,6 +19,7 @@ import views.html.node.*;
 
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class NodeController extends Controller {
@@ -46,7 +47,7 @@ public class NodeController extends Controller {
 		}
 
 		if(Node.isNameExists(0L,nodeForm.name)){			
-			filledForm.reject("Node name already exists.");
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(create.render(filledForm));	
 		}
 
@@ -77,7 +78,7 @@ public class NodeController extends Controller {
 		}		
 
 		if(Node.isNameExists(id,nodeForm.name)){			
-			filledForm.reject("Node name already exists.");
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(update.render(filledForm,id));	
 		}
 
@@ -101,13 +102,13 @@ public class NodeController extends Controller {
 	public static Result delete(Long id){		
 		Node node=Node.get(id);
 		if(node==null){
-			return notFound("Node having id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		if(!Customer.isBelongsToNode(id)){
 			Node.delete(id);			
-			return ok("Selected Node has been deleted successfully");
+			return ok(Messages.get("record.deleted.succ"));
 		}
-		return notFound("Node ['" + node.name + "'] is associated with Customer(s)");			
+		return notFound(Messages.get("node.assoc.customer",node.name));			
 	}
 	
 	/**
@@ -126,13 +127,13 @@ public class NodeController extends Controller {
 	 */	
 	public static Result get(Long id){
 		if(id==null){
-			return badRequest("Expecting Node Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		Node node=Node.get(id);
 		
 		if(node==null){
-			return notFound("Node with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		JsonNode result = Json.toJson(node);		
 		return ok(result);
@@ -145,11 +146,11 @@ public class NodeController extends Controller {
 	public static Result create(){		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Node node=Json.fromJson(jsonNode, Node.class);
 		if(node==null){
-			return badRequest("Expecting Node Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		node.save();
 		ObjectNode result=Json.newObject();
@@ -164,16 +165,16 @@ public class NodeController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id){
 		if(id==null){
-			return badRequest("Expecting Node Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Node node=Json.fromJson(jsonNode, Node.class);
 		if(node==null){
-			return badRequest("Expecting Node Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		node.id=id;
 		node.update();

@@ -11,23 +11,24 @@
 		@form(action = routes.InvoiceController.generate()) {
 			<table class="table">
 		    <thead>
-		    	<tr><th colspan="3">Generate Invoice</th></tr>
+		    	<tr><th colspan="3">@Messages("generate.invoice")</th></tr>
 		    </thead>	
 		    <tbody>	
 		    <tr>	    	
-		    	<td>@select(field=invoiceGenerateForm("year"), options = options(InvoiceController.yearAsMap), args= '_label -> "Year")</td> 
-		    	<td colspan="2">@select(field=invoiceGenerateForm("month"), options = options(InvoiceController.monthAsMap), args= '_label -> "Month")</td>	    	
+		    	<td>@select(field=invoiceGenerateForm("year"), options = options(InvoiceController.yearAsMap), args= '_label -> Messages("year"))</td> 
+		    	<td colspan="2">@select(field=invoiceGenerateForm("month"), options = options(InvoiceController.monthAsMap), args= '_label -> Messages("month"))</td>	    	
 		    </tr>	    
 			</tbody>
 		    <tfoot>
 			<tr>
-		    	<td colspan="3"><button type="submit" class="btn btn-primary">Generate</button></td> 	
+		    	<td colspan="3"><button type="submit" class="btn btn-primary">
+		    		@Messages("common.button.generate")</button></td> 	
 		    </tr>	
 			</tfoot>
 			</table>		
 		}
 	}else{
-		@generateresult(invoices,"Generated Invoice List")
+		@generateresult(invoices,Messages("generate.invoice.list"))
 	}
 	
 }

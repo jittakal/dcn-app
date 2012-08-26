@@ -18,6 +18,7 @@ import play.data.Form;
 import views.html.subarea.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class SubAreaController extends Controller {
@@ -45,7 +46,7 @@ public class SubAreaController extends Controller {
 		}
 
 		if(SubArea.isNameExists(0L,subareaForm.name)){			
-			filledForm.reject("Sub Area name already exists.");
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(create.render(filledForm));	
 		}
 
@@ -76,7 +77,7 @@ public class SubAreaController extends Controller {
 		}		
 
 		if(SubArea.isNameExists(id,subareaForm.name)){			
-			filledForm.reject("Sub Area name already exists.");
+			filledForm.reject(Messages.get("name.already.exists"));
 			return badRequest(update.render(filledForm,id));	
 		}
 
@@ -100,13 +101,13 @@ public class SubAreaController extends Controller {
 	public static Result delete(Long id){		
 		SubArea subarea=SubArea.get(id);
 		if(subarea==null){
-			return notFound("Sub Area having id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		if(!Customer.isBelongsToSubArea(id)){
 			SubArea.delete(id);			
-			return ok("Selected Sub Area has been deleted successfully");
+			return ok(Messages.get("record.deleted.succ"));
 		}
-		return notFound("Sub Area ['" + subarea.name + "'] is associated with Customer(s)");			
+		return notFound(Messages.get("subarea.assoc.customer",subarea.name));			
 	}
 	
 	/**
@@ -125,13 +126,13 @@ public class SubAreaController extends Controller {
 	 */	
 	public static Result get(Long id){
 		if(id==null){
-			return badRequest("Expecting Sub Area Id");
+			return badRequest(Messages.get("expecting.id"));
 		}
 		
 		SubArea subarea=SubArea.get(id);
 		
 		if(subarea==null){
-			return notFound("Sub Area with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists", id));
 		}
 		JsonNode result = Json.toJson(subarea);		
 		return ok(result);
@@ -144,11 +145,11 @@ public class SubAreaController extends Controller {
 	public static Result create(){		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}		
 		SubArea subarea=Json.fromJson(jsonNode, SubArea.class);
 		if(subarea==null){
-			return badRequest("Expecting Sub Area Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		subarea.save();
 		ObjectNode result=Json.newObject();
@@ -163,16 +164,16 @@ public class SubAreaController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id){
 		if(id==null){
-			return badRequest("Expecting Sub Area Id");
+			return badRequest(Messages.get("expecting.id"));
 		}
 		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}		
 		SubArea subarea=Json.fromJson(jsonNode, SubArea.class);
 		if(subarea==null){
-			return badRequest("Expecting Sub Area Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		subarea.id=id;
 		subarea.update();

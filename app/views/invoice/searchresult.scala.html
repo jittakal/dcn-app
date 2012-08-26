@@ -11,22 +11,22 @@
         </tr>
         <tr>
             <th>&nbsp;</th>
-            <th>Month</th><th id="monthth" colspan="2"></th><th>Year</th><th id="yearth" colspan="3"></th>
+            <th>@Messages("month")</th><th id="monthth" colspan="2"></th><th>@Messages("year")</th><th id="yearth" colspan="3"></th>
         </tr>
         <tr>
             <th>&nbsp;</th>
-            <th>Area</th><th id="areath" colspan="2"></th>
-            <th>Employee</th><th id="employeeth" colspan="3"></th>
+            <th>@Messages("area")</th><th id="areath" colspan="2"></th>
+            <th>@Messages("employee")</th><th id="employeeth" colspan="3"></th>
         </tr>
     	<tr>
             <th>&nbsp;</th>
-            <th>Id Number</th>
-    		<th>Name</th>
-            <th>Sub Area</th>
-    		<th>Address</th>
-    		<th>Invoice Amount</th>
-            <th>Is Paid</th>
-    		<th>Balance</th>
+            <th>@Messages("customer.id.number")</th>
+    		<th>@Messages("customer.name")</th>
+            <th>@Messages("subarea")</th>
+    		<th>@Messages("customer.address")</th>
+    		<th>@Messages("invoice.amount")</th>
+            <th>@Messages("is.paid")</th>
+    		<th>@Messages("customer.balance")</th>
     	</tr>
     </thead>	     
     <tbody>	
@@ -56,8 +56,10 @@
     <tfoot>
         <tr>
             <td colspan="6">
-                <button id="paymentbtn" type="button" class="btn btn-primary">Make Payment</button>
-                <button id="printbtn" type="button" class="btn btn-primary">Print</button>
+                <button id="paymentbtn" type="button" class="btn btn-primary">
+                    @Messages("common.button.make.payment")</button>
+                <button id="printbtn" type="button" class="btn btn-primary">
+                    @Messages("common.button.print")</button>
             </td>
         </tr>
     </tfoot>

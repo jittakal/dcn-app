@@ -8,11 +8,7 @@
     <li lid="generate/invoice">
     	<a href="@routes.InvoiceController.generate_get()">
     		<i class="icon-cog"></i>@Messages("menu.generate.invoice")</a>
-    </li>
-    <li lid="payment/report">
-    	<a href="@routes.PaymentController.report()">
-    		<i class="icon-cog"></i>@Messages("menu.payment.report")</a>
-    </li>
+    </li>    
 
     <li class="divider"></li>	
     <li class="nav-header">@Messages("menu.header.admin")</li>
@@ -53,7 +49,10 @@
 	</li>
     <li class="divider"></li>
     <li class="nav-header">@Messages("menu.header.report")</li>
-    <li><a href="#"><i class="icon-cog"></i>@Messages("menu.report.1")</a></li>
+    <li lid="payment/report">
+    	<a href="@routes.PaymentController.report()">
+    		<i class="icon-cog"></i>@Messages("menu.payment.report")</a>
+    </li>
              
 
     <li class="divider"></li>	

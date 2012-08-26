@@ -10,24 +10,24 @@
 
 		<table class="table">
 		    <thead>
-		    	<tr><th>Change Password</th></tr>
+		    	<tr><th>@Messages("change.password")</th></tr>
 		    </thead>	
 		    <tbody>	
 			    <tr><td>			    	
-			    	@inputPassword(field=changePasswdForm("current_passwd"), args = 'class-> "input-large", 'placeholder -> "current password", '_label -> "Current Password",'_showConstraints -> false)		
+			    	@inputPassword(field=changePasswdForm("current_passwd"), args = 'class-> "input-large", 'placeholder -> Messages("current.password"), '_label -> Messages("current.password"),'_showConstraints -> false)		
 			    </td></tr>
 
 			    <tr><td>			    	
-			    	@inputPassword(field=changePasswdForm("new_passwd"), args = 'class-> "input-large", 'placeholder -> "new password", '_label -> "New Password",'_showConstraints -> false)
+			    	@inputPassword(field=changePasswdForm("new_passwd"), args = 'class-> "input-large", 'placeholder -> Messages("new.password"), '_label -> Messages("new.password"),'_showConstraints -> false)
 			    </td></tr>
 
 			    <tr><td>			    	
-			    	@inputPassword(field=changePasswdForm("confirm_passwd"), args = 'class-> "input-large", 'placeholder -> "confirm password", '_label -> "Confirm Password",'_showConstraints -> false)
+			    	@inputPassword(field=changePasswdForm("confirm_passwd"), args = 'class-> "input-large", 'placeholder -> Messages("confirm.password"), '_label -> Messages("confirm.password"),'_showConstraints -> false)
 			    </td></tr>
 		    </tbody>
 		    <tfoot>
 			<tr>
-		    	<td><button type="submit" class="btn btn-primary">Save</button></td> 	
+		    	<td><button type="submit" class="btn btn-primary">@Messages("common.button.save")</button></td> 	
 		    </tr>	
 			</tfoot>
 		</table>

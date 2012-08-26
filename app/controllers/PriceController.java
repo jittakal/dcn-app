@@ -15,6 +15,7 @@ import forms.PriceForm;
 import views.html.price.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class PriceController extends Controller {
@@ -49,7 +50,7 @@ public class PriceController extends Controller {
 		}
 
 		if(Price.isAmountExists(0L,priceForm.amount)){
-			filledForm.reject("Price amount already exists.");
+			filledForm.reject(Messages.get("amount.already.exists"));
 			return badRequest(create.render(filledForm));	
 		}
 		
@@ -80,7 +81,7 @@ public class PriceController extends Controller {
 		}
 
 		if(Price.isAmountExists(id,priceForm.amount)){
-			filledForm.reject("Price amount already exists.");
+			filledForm.reject(Messages.get("amount.already.exists"));
 			return badRequest(update.render(filledForm,id));	
 		}
 
@@ -95,13 +96,13 @@ public class PriceController extends Controller {
 	public static Result delete(Long id){		
 		Price price=Price.get(id);
 		if(price==null){
-			return notFound("Price having id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		if(!Customer.isBelongsToPrice(id)){
 			Price.delete(id);			
-			return ok("Selected Price has been deleted successfully");
+			return ok(Messages.get("record.deleted.succ"));
 		}
-		return notFound("Price ['" + price.amount.toString() + "'] is associated with Customer(s)");			
+		return notFound(Messages.get("price.assoc.customer",price.amount.toString()));			
 	}
 
 	/**
@@ -121,13 +122,13 @@ public class PriceController extends Controller {
 	 */
 	public static Result get(Long id) {
 		if (id == null) {
-			return badRequest("Expecting Price Id");
+			return badRequest(Messages.get("expecting.id"));
 		}
 
 		Price price = Price.get(id);
 
 		if (price == null) {
-			return notFound("Price with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		JsonNode result = Json.toJson(price);
 		return ok(result);
@@ -140,11 +141,11 @@ public class PriceController extends Controller {
 	public static Result create() {
 		JsonNode jsonNode = request().body().asJson();
 		if (jsonNode == null) {
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		Price price = Json.fromJson(jsonNode, Price.class);
 		if (price == null) {
-			return badRequest("Expecting Price Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		price.save();
 		ObjectNode result = Json.newObject();
@@ -159,16 +160,16 @@ public class PriceController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id) {
 		if (id == null) {
-			return badRequest("Expecting Price Id");
+			return badRequest(Messages.get("expecting.id"));
 		}
 
 		JsonNode jsonNode = request().body().asJson();
 		if (jsonNode == null) {
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		Price price = Json.fromJson(jsonNode, Price.class);
 		if (price == null) {
-			return badRequest("Expecting Price Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		price.id = id;
 		price.update();

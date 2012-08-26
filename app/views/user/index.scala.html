@@ -35,7 +35,7 @@
 
 		$("#user-grid").jqGrid({
 			datatype: "local",
-		    colNames:['Srno','ID','User Name','Role'],
+		    colNames:['@Messages("common.srno")','@Messages("common.id")','@Messages("user.name")','@Messages("user.role")'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
@@ -44,7 +44,7 @@
 		    ],		   
 		    viewrecords: true,
 		    multiselect: false,
-		    caption: "Users",		    
+		    caption: "@Messages("user.index")",		    
 		    height: 250,
 		    width: 900
 		});		

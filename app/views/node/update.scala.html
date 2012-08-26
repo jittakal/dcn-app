@@ -8,6 +8,6 @@
 	@views.html.common.errormsg(nodeForm.globalErrors())	
 	
 	@form(action = routes.NodeController.update_save(id)) {
-		@node.form(nodeForm,"Update Node")
+		@node.form(nodeForm,Messages("node.update"))
 	}
 }

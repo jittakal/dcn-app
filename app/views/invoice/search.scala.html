@@ -11,21 +11,24 @@
 	@form(action = routes.InvoiceController.search()) {
 		<table class="table">
 	    <thead>
-	    	<tr><th colspan="2">Search Invoice</th></tr>
+	    	<tr><th colspan="2">@Messages("search.invoice")</th></tr>
 	    </thead>	
 	    <tbody>	
 	    <tr>	    	
-	    	<td>@select(field=invoiceSearchForm("year"), options = options(InvoiceController.get_year_map), args= '_label -> "Year")</td> 
-	    	<td>@select(field=invoiceSearchForm("month"), options = options(InvoiceController.get_month_map), args= '_label -> "Month")</td>	    	
+	    	<td>@select(field=invoiceSearchForm("year"), options = options(InvoiceController.get_year_map), args= '_label -> Messages("year"))</td> 
+	    	<td>@select(field=invoiceSearchForm("month"), options = options(InvoiceController.get_month_map), args= '_label -> Messages("month"))</td>	    	
 	    </tr>	    
 		<tr>
-	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(Area.asMap), args= '_label -> "Area", '_default -> "--- Choose Area ---")</td>
-	    	<td>@select(field=invoiceSearchForm("subareaid"), options = options(SubArea.asMapByAreaId(invoiceSearchForm("areaid").value)), args= '_label -> "Sub Area", '_default -> "--- Choose Subarea ---")</td>	    	
+	    	<td>@select(field=invoiceSearchForm("areaid"), options = options(Area.asMap), args= '_label -> Messages("area"), '_default -> Messages("choose.area"))</td>
+	    	<td>@select(field=invoiceSearchForm("subareaid"), options = options(SubArea.asMapByAreaId(invoiceSearchForm("areaid").value)), args= '_label -> Messages("subarea"), '_default -> Messages("choose.subarea"))</td>	    	
 	    </tr>	    
 	    </tbody>
 	    <tfoot>
 		<tr>
-	    	<td colspan="2"><button id="searchbtn" type="submit" class="btn btn-primary">Search</button></td> 	
+	    	<td colspan="2">
+	    		<button id="searchbtn" type="submit" class="btn btn-primary">
+	    			@Messages("common.button.search")</button>
+	    	</td> 	
 	    </tr>	
 		</tfoot>
 		</table>
@@ -45,7 +48,7 @@
 	}
 
 	@if(invoices!=null && !invoices.isEmpty()){
-		@searchresult(invoices,"Invoice Search Result")	
+		@searchresult(invoices,Messages("search.invoice.result"))	
 	}
 
 }

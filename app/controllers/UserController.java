@@ -16,6 +16,7 @@ import views.html.user.*;
 import views.html.common.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 
 public class UserController extends Controller {
@@ -47,14 +48,14 @@ public class UserController extends Controller {
 
 		User auser=User.authenticate(session().get("username"),cpForm.current_passwd);
 		if(auser==null){			
-			filledForm.reject("Invalid current password, please try again");
+			filledForm.reject(Messages.get("invalid.current.password"));
 			return badRequest(passwd.render(filledForm));	
 		}
 
 		auser.password=cpForm.new_passwd;
 		auser.update();
 				
-		return ok(msg.render("Password changed successfully"));
+		return ok(msg.render(Messages.get("password.changed.succ")));
 	}
 
 	/**
@@ -76,13 +77,13 @@ public class UserController extends Controller {
 	@Authenticated(value = DcnAuthenticator.class)
 	public static Result get(Long id) {
 		if (id == null) {
-			return badRequest("Expecting User Id");
+			return badRequest(Messages.get("expecting.id"));
 		}
 
 		User user = User.get(id);
 
 		if (user == null) {
-			return notFound("User with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		JsonNode result = Json.toJson(user);
 		return ok(result);
@@ -95,11 +96,11 @@ public class UserController extends Controller {
 	public static Result create() {
 		JsonNode jsonNode = request().body().asJson();
 		if (jsonNode == null) {
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		User user = Json.fromJson(jsonNode, User.class);
 		if (user == null) {
-			return badRequest("Expecting User Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		user.save();
 		ObjectNode result = Json.newObject();
@@ -115,16 +116,16 @@ public class UserController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id) {
 		if (id == null) {
-			return badRequest("Expecting User Id");
+			return badRequest(Messages.get("expecting.id"));
 		}
 
 		JsonNode jsonNode = request().body().asJson();
 		if (jsonNode == null) {
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		User user = Json.fromJson(jsonNode, User.class);
 		if (user == null) {
-			return badRequest("Expecting User Json data");
+			return badRequest(Messages.get("expecting.json"));
 		}
 		user.id = id;
 		user.update();

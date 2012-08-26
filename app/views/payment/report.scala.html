@@ -23,7 +23,7 @@
 	    	</select>
     	</li>
     	<li>
-    		<button id="generatebtn" type="button" class="btn btn-primary" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;">Generate</button>
+    		<button id="generatebtn" type="button" class="btn btn-primary" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;">@Messages("common.button.generate")</button>
     	</li>    	
     </ul>
   	</div>
@@ -34,13 +34,13 @@
 		<table class="table table-striped table-bordered table-condensed">
 		    <thead>
 		        <tr>
-		            <th colspan="16">Payment Report - @{java.util.Calendar.getInstance().getTime()}</th>       
+		            <th colspan="16">@Messages("collection.report.yearly") - @{java.util.Calendar.getInstance().getTime()}</th>       
 		        </tr>        
 		    	<tr>            
-		            <th>Id Nr.</th><th>Name</th><th>Sub Area</th>
-		    		<th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th>
-		    		<th>Jun</th><th>Jul</th><th>Aug</th><th>Sept</th>
-		    		<th>Oct</th><th>Nov</th><th>Dec</th><th>Total</th>
+		            <th>@Messages("th.id.nr")</th><th>@Messages("customer.name")</th><th>@Messages("subarea")</th>
+		    		<th>@Messages("th.jan")</th><th>@Messages("th.feb")</th><th>@Messages("th.mar")</th><th>@Messages("th.apr")</th><th>@Messages("th.may")</th>
+		    		<th>@Messages("th.jun")</th><th>@Messages("th.jul")</th><th>@Messages("th.aug")</th><th>@Messages("th.sept")</th>
+		    		<th>@Messages("th.oct")</th><th>@Messages("th.nov")</th><th>@Messages("th.dec")</th><th>@Messages("th.total")</th>
 		    	</tr>
 		    </thead>	     
 		    <tbody id="tbodyid">				    
@@ -70,7 +70,7 @@
 			});
 
 			var temprow=row;
-				temprow=temprow.replace("{idnumber}","").replace("{name}","").replace("{subarea}","<b>Total</b>");				
+				temprow=temprow.replace("{idnumber}","").replace("{name}","").replace("{subarea}","<b>@Messages("th.total")</b>");				
 			var rowtotal=0;
 			for(i=1; i<=12; i++){
 				var coltotal=0;
@@ -112,7 +112,5 @@
 			$("#generatebtn").click(on_generate_click);		
 		});
 	</script>
-
-
 
 }

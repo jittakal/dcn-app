@@ -7,27 +7,29 @@
     <thead><tr><th colspan="2">@title</th></tr></thead>	
     <tbody>	
     <tr><td>
-	@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> "employee name", '_label -> "Employee Name",'_showConstraints -> false)	
+	@inputText(field=employeeForm("name"), args = 'class -> "input-large", 'placeholder -> Messages("employee.name"), '_label -> Messages("employee.name"),'_showConstraints -> false)	
 	</td><td>
-	@textarea(field=employeeForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 'placeholder -> "employee address", '_label -> "Address",'_showConstraints -> false)	
+	@textarea(field=employeeForm("address"), args = 'rows -> 3, 'cols -> 50, 'class -> "input-large", 'placeholder -> Messages("employee.address"), '_label -> Messages("employee.address"),'_showConstraints -> false)	
 	</td></tr>
 
 	<tr><td>
-	@inputText(field=employeeForm("mobile_number"), args = 'class -> "input-large", 'placeholder -> "mobile number", '_label -> "Mobile Number",'_showConstraints -> false)	
+	@inputText(field=employeeForm("mobile_number"), args = 'class -> "input-large", 'placeholder -> Messages("employee.mobile"), '_label -> Messages("employee.mobile"), '_showConstraints -> false)	
 	</td><td>
-	@inputText(field=employeeForm("joining_date"), args = 'class -> "input-large", '_label -> "Joining date",'_showConstraints -> false)	
+	@inputText(field=employeeForm("joining_date"), args = 'class -> "input-large", '_label -> Messages("employee.joining.date"),'_showConstraints -> false)	
 	</td></tr>
 
 	@if(isupdate){
 	<tr><td colspan="2">
-	@inputText(field=employeeForm("terminate_date"), args = 'class -> "input-large", '_label -> "Terminate Date",'_showConstraints -> false)	
+	@inputText(field=employeeForm("terminate_date"), args = 'class -> "input-large", '_label -> Messages("employee.terminated.date"),'_showConstraints -> false)	
 	</td></tr>
 	}
 
     </tbody>
     <tfoot>
 	<tr>
-    	<td colspan="2"><button type="submit" class="btn btn-primary">Save</button></td> 	
+    	<td colspan="2">
+    		<button type="submit" class="btn btn-primary">@Messages("common.button.save")</button>
+    	</td> 	
     </tr>	
 	</tfoot>
 </table>

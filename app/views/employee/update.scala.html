@@ -8,7 +8,7 @@
 	@views.html.common.errormsg(employeeForm.globalErrors())	
 	
 	@form(action = routes.EmployeeController.update_save(id)) {
-		@employee.form(employeeForm,"Update Employee",true)	
+		@employee.form(employeeForm,Messages("employee.update"),true)	
 	}
 	
 }

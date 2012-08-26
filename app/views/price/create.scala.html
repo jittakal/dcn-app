@@ -8,6 +8,6 @@
 	@views.html.common.errormsg(priceForm.globalErrors())	
 	
 	@form(action = routes.PriceController.create_save()) {
-		@price.form(priceForm,"Create Price")
+		@price.form(priceForm,Messages("price.create"))
 	}
 }

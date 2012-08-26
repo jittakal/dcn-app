@@ -11,6 +11,12 @@ common.button.edit=Edit M
 common.button.delete=Delete M
 common.button.save=Save M
 common.button.login=Login M
+common.button.terminated=Terminated M
+common.button.all=All M
+common.button.search=Search M
+common.button.make.payment=Make Payment M
+common.button.print=Print M
+common.button.generate=Generate M
 
 # Error Messages
 please.select.row=Please Select Row M
@@ -31,7 +37,7 @@ invalid.user=Invalid username or password, please try again M
 welcome.logout=LOGOUT M
 
 # Sidebar Menu
-menu.header.invoice=Invoice & Collection M
+menu.header.invoice=Invoice & Payment M
 menu.header.admin=Admin M
 menu.header.report=Reports M
 menu.header.profile=Profile M
@@ -83,8 +89,6 @@ customer.deposite.amount=Deposite Amount M
 customer.index=Customers M
 customer.add=Create Customer M
 customer.update=Update Customer M
-customer.terminated=Terminated M
-customer.all=All M
 
 customer.id.exists=Customer Id already exists M
 customer.mobile.exists=Customer mobile number already exists M
@@ -97,12 +101,36 @@ customer.type.ent=Ent M
 
 # Employee
 employee=Employee M
+employee.index=Employees M
 employee.name=Employee Name M
+employee.address=Address M
+employee.mobile=Mobile Number M
+employee.joining.date=Joining Date M
+employee.terminated.date=Terminated Date M
+
+employee.add=Create Employee M
+employee.update=Update Employee M
+employee.assoc.area=Employee ['{0}'] is associated with Area(s) M
+
+# Invoice
+year=Year M
+month=Month M
+search.invoice=Search Invoice M
+search.invoice.result=Invoice Search Result M
+invoice.amount=Invoice Amount
+is.paid=Is Paid?
+generate.invoice=Generate Invoice M
+generate.invoice.list=Generated Invoice List M
 
 # Node
 node=Node M
+node.name=Node Name M
+node.index=Nodes M
 default.node= - Default Node
 choose.node=--- Choose Node --- M
+node.add=Create Node M
+node.update=Update Node M
+node.assoc.customer=Node ['{0}'] is associated with Customer(s)
 
 # Amplifier
 amplifier=Amplifier M
@@ -111,7 +139,57 @@ choose.amplifier=--- Choose Amplifier --- M
 
 # SubArea
 subarea=Sub Area M
+subarea.index=Sub Areas
+subarea.name=Sub Area Name
+subarea.create=Create SubArea
+subarea.update=Update SubArea
 choose.subarea=--- Choose Sub Area --- M
+
+subarea.assoc.customer=Sub Area ['{0}'] is associated with Customer(s)
 
 # Price
 price=Price M
+
+# Reports
+collection.report.yearly=Collection Report Yearly
+th.total=Total
+th.id.nr=Id Nr.
+
+th.jan=Jan
+th.feb=Feb
+th.mar=Mar
+th.apr=Apr
+th.may=May
+th.jun=Jun
+th.jul=Jul
+th.aug=Aug
+th.sept=Sept
+th.oct=Oct
+th.nov=Nov
+th.dec=Dec
+
+# Price
+price=price
+price.index=Prices
+price.amount=Rate Amount
+price.create=Create Price
+price.update=Update Price
+
+price.assoc.customer=Price ['{0}'] is associated with Customer(s)
+amount.already.exists=Price amount already exists
+
+# User
+user=User
+user.index=Users
+user.role=Role
+user.name=User Name
+change.password=Change Password
+current.password=Current Password
+new.password=New Password
+confirm.password=Confirm Password
+
+invalid.current.password=Invalid current password, please try again
+password.changes.succ=Password Changed Successfully
+
+
+

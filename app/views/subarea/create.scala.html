@@ -7,6 +7,6 @@
 	@views.html.common.errormsg(subareaForm.globalErrors())	
 	
 	@form(action = routes.SubAreaController.create_save()) {
-		@subarea.form(subareaForm,"Create Sub Area")
+		@subarea.form(subareaForm,Messages("subarea.create"))
 	}
 }

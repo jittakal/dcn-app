@@ -2,18 +2,23 @@
 
  	<div class="subnav">
 	    <ul class="nav nav-pills">      
-	      <li class=""><a href="@routes.EmployeeController.create_new()" class="btn" id="employee-add">Add</a></li> 
 	      <li class="">
-	      	<a href="#" link="@routes.EmployeeController.update_get(0L)" class="btn" id="employee-edit">Edit</a>
+	      	<a href="@routes.EmployeeController.create_new()" class="btn" id="employee-add">
+	      		@Messages("common.button.add")</a>
+	      </li> 
+	      <li class="">
+	      	<a href="#" link="@routes.EmployeeController.update_get(0L)" class="btn" id="employee-edit">
+	      		@Messages("common.button.edit")</a>
 	      </li>  
 	      <li class="">
-	      	<a href="#" link="@routes.EmployeeController.delete(0L)" class="btn" id="employee-delete">Delete</a>
+	      	<a href="#" link="@routes.EmployeeController.delete(0L)" class="btn" id="employee-delete">
+	      		@Messages("common.button.delete")</a>
 	      </li> 		          
 	      <li class="pull-right">
-	      	<a href="#" class="btn" id="employee-terminated">Terminated</a>
+	      	<a href="#" class="btn" id="employee-terminated">@Messages("common.button.terminated")</a>
 	      </li> 
 	      <li class="pull-right">
-	      	<a href="#" class="btn" id="employee-all">All</a>
+	      	<a href="#" class="btn" id="employee-all">@Messages("common.button.all")</a>
 	      </li> 
 	    </ul>
   	</div>
@@ -63,7 +68,7 @@
 
 		employee_grid.jqGrid({
 			datatype: "local",
-		    colNames:['Srno','ID','Name','Address','Mobile','Joining Date'],
+		    colNames:['@Messages("common.srno")','@Messages("common.id")','@Messages("employee.name")','@Messages("employee.address")','@Messages("employee.mobile")','@Messages("employee.joining.date")'],
 		    colModel:[
 		    	{name:'id',index:'id',hidden:true,sorttype:'int',width:'50px',key:true},
 		    	{name:'pk',index:'pk',hidden:true,sorttype:'int',width:'50px'},
@@ -74,7 +79,7 @@
 		    ],		    
 		    viewrecords: true,
 		    multiselect: false,
-		    caption: "Employees",		    
+		    caption: "@Messages("employee.index")",		    
 		    height: 250,
 		    width: 900
 		});
@@ -94,7 +99,7 @@
 			link=link.replace('0',ret.pk);
 			$(this).attr('href',link);
 		} else { 
-			alert("Please select row");
+			alert('@Messages("please.select.row")');
 		} 		
 	}	
 
@@ -113,7 +118,7 @@
 					jqXHR.setRequestHeader("Content-Type", "application/json");					
 				},
 				success: function(data, textStatus, jqXHR){					
-					alert('Selected employee has been deleted successfully');
+					alert('@Messages("record.deleted.succ")');
 					process_employees('@routes.EmployeeController.all_active()');
 				},
 				error: function(jqXHR, textStatus, errorThrown){				
@@ -124,7 +129,7 @@
 			});
 
 		} else { 
-			alert("Please select row");
+			alert('@Messages("please.select.row")');
 		} 		
 	};
 

@@ -17,6 +17,7 @@ import play.mvc.Result;
 import views.html.employee.*;
 import play.mvc.Security.Authenticated;
 import util.DcnAuthenticator;
+import play.i18n.Messages;
 
 @Authenticated(value = DcnAuthenticator.class)
 public class EmployeeController extends Controller {
@@ -91,13 +92,13 @@ public class EmployeeController extends Controller {
 	public static Result delete(Long id){		
 		Employee employee=Employee.get(id);
 		if(employee==null){
-			return notFound("Employee having id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		if(!Area.isBelongsToEmployee(id)){
 			Employee.delete(id);			
-			return ok("Selected Employee has been deleted successfully");
+			return ok(Messages.get("record.deleted.succ"));
 		}
-		return 	notFound("Employee ['" + employee.name + "'] is associated with Area(s)");			
+		return 	notFound(Messages.get("employee.assoc.area",employee.name));			
 	}
 	
 	/**
@@ -126,13 +127,13 @@ public class EmployeeController extends Controller {
 	 */	
 	public static Result get(Long id){
 		if(id==null){
-			return badRequest("Expecting Employee Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		Employee employee=Employee.get(id);
 		
 		if(employee==null){
-			return notFound("Employee with id [" + id + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",id));
 		}
 		JsonNode result = Json.toJson(employee);		
 		return ok(result);
@@ -140,12 +141,12 @@ public class EmployeeController extends Controller {
 
 	public static Result get_by_area(Long aid){
 		if(aid==null){
-			return badRequest("Expecting Area Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		Area area=Area.get(aid);		
 		if(area==null){
-			return notFound("Employee with id [" + aid + "] does not exists.");
+			return notFound(Messages.get("id.not.exists",aid));
 		}
 
 		Employee employee=area.employee;
@@ -160,11 +161,11 @@ public class EmployeeController extends Controller {
 	public static Result create(){		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Employee employee=Json.fromJson(jsonNode, Employee.class);
 		if(employee==null){
-			return badRequest("Expecting Employee Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		employee.save();
 		ObjectNode result=Json.newObject();
@@ -179,16 +180,16 @@ public class EmployeeController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(Long id){
 		if(id==null){
-			return badRequest("Expecting Employee Id");
+			return badRequest(Messages.get("id.expecting"));
 		}
 		
 		JsonNode jsonNode = request().body().asJson();
 		if(jsonNode ==null){
-			return badRequest("Expecting Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}		
 		Employee employee=Json.fromJson(jsonNode, Employee.class);
 		if(employee==null){
-			return badRequest("Expecting Employee Json data");
+			return badRequest(Messages.get("json.expecting"));
 		}
 		employee.id=id;
 		employee.update();
