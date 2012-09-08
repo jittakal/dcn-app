@@ -44,6 +44,7 @@ menu.header.profile=Profile
 
 menu.search.invoice=Search Invoice
 menu.generate.invoice=Generate Invoice
+menu.payment.daily.report=Daily Collection Report
 menu.payment.report=Collection Report
 menu.customer=Customer
 menu.employee=Employee

@@ -1,6 +1,6 @@
 package controllers;
 
-import java.util.List;
+import java.util.*;
 
 import models.Payment;
 import models.Invoice;
@@ -11,6 +11,7 @@ import org.codehaus.jackson.node.ObjectNode;
 
 import services.PaymentService;
 import sos.CollectionReportSO;
+import sos.DailyCollectionReportSO;
 
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -21,7 +22,7 @@ import util.DcnAuthenticator;
 
 import views.html.payment.*;
 
-@Authenticated(value = DcnAuthenticator.class)
+//@Authenticated(value = DcnAuthenticator.class)
 public class PaymentController extends Controller {
 
 	@BodyParser.Of(BodyParser.Json.class)
@@ -57,6 +58,10 @@ public class PaymentController extends Controller {
 	public static Result report() {
 		return ok(report.render());
 	}
+
+	public static Result daily_report() {
+		return ok(dailyreport.render());
+	}
 		
 	public static Result payment_report(Long aid, Integer year) {
 
@@ -68,6 +73,18 @@ public class PaymentController extends Controller {
 		}
 
 		List<CollectionReportSO> collectionReports=PaymentService.collectionReport(aid,year);
+		return ok(Json.toJson(collectionReports));
+	}
+
+	public static Result daily_payment_report(Integer month,Integer year) {		
+		if (month == null) {
+			return badRequest("Expecting month");
+		}
+		if (year == null) {
+			return badRequest("Expecting year");
+		}
+
+		Map collectionReports=PaymentService.dailyCollectionReport(month,year);
 		return ok(Json.toJson(collectionReports));
 	}
 

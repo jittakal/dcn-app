@@ -1,0 +1,124 @@
+@()
+
+@import helper._
+@import models._
+@import controllers._
+
+@main() {
+		
+	<div class="subnav">
+    <ul class="nav nav-pills">                	
+    	<li>
+	      	<select id="monthid" name="monthid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 	      		
+	      		<option value="1">@Messages("th.jan")</option><option value="2">@Messages("th.feb")</option>
+	      		<option value="3">@Messages("th.mar")</option><option value="4">@Messages("th.apr")</option>
+	      		<option value="5">@Messages("th.may")</option><option value="6">@Messages("th.jun")</option>
+	      		<option value="7">@Messages("th.jul")</option><option value="8">@Messages("th.aug")</option>
+	      		<option value="9">@Messages("th.sept")</option><option value="10">@Messages("th.oct")</option>
+	      		<option value="11">@Messages("th.nov")</option><option value="12">@Messages("th.dec")</option>
+	    	</select>
+    	</li>    	
+    	<li>
+	      	<select id="yearid" name="yearid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 	      		
+	      		@for(year <- controllers.InvoiceController.get_year_list()){
+					<option value="@year">@year</option>
+	      		}                                                      
+	    	</select>
+    	</li>    	    	
+    	<li>
+    		<button id="generatebtn" type="button" class="btn btn-primary" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;">@Messages("common.button.generate")</button>
+    	</li>    	
+    </ul>
+  	</div>
+	
+	<br/>
+
+	<div>
+		<table class="table table-striped table-bordered table-condensed">
+		    <thead>
+		        <tr>
+		            <th>@Messages("collection.report.monthly") - @{java.util.Calendar.getInstance().getTime()}</th>       
+		        </tr>        
+		    </thead>
+		</table>
+		<table class="table table-striped table-bordered table-condensed">
+		    <thead id="theadid">
+		    </thead>	     
+		    <tbody id="tbodyid">				    
+		 	</tbody>	        
+		</table>	
+	</div>
+
+	<script type="text/javascript">
+		var on_month_change = function(event){
+			// empty the tbody
+			$("#theadid").text("");
+			$("#tbodyid").text("");
+		};	
+
+		var on_year_change = function(event){
+			$("#theadid").text("");
+			$("#tbodyid").text("");
+		};		
+
+		var render_payment_report = function(rdata) {			
+			$("#theadid").text("");
+			$("#tbodyid").text("");
+			var headerrow='<tr><th>@Messages("area.name")</th>';
+			$.each(rdata.days,function(i,day){
+				headerrow += '<th>' + day + '</th>';
+			});
+			headerrow += '</tr>';
+			$("#theadid").append(headerrow);
+
+			$.each(rdata,function(key,area){
+				if(key!='days'){
+					var datarow='<tr><td>' + area.name + '</td>';
+					$.each(rdata.days,function(i,day){
+						var day_key='' + day;
+						if(area.day_total[day_key]!=undefined){
+							datarow += '<td>' + area.day_total[day_key] + '</td>';
+						}else{
+							datarow += '<td>0</td>';
+						}						
+					});
+					datarow += '</tr>';
+					$("#tbodyid").append(datarow);					
+				}
+			});
+		};
+
+		var on_generate_click = function(event){
+			$("#tbodyid").text("");
+			var req_url='@routes.PaymentController.daily_payment_report(0,-1)';			
+			req_url = req_url.replace("0",$("#monthid").val()).replace("-1",$("#yearid").val());
+			$.ajax({
+				url: req_url,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){					
+					if(data.days.length>0){
+						render_payment_report(data);	
+					}else{
+						$("#tbodyid").append('<tr><td>@Messages("no.collection.data")</td></tr>');							
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					//display_error_msg(errorThrown);	
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});			
+		};
+
+		$(function(){
+			$("#monthid").change(on_month_change);		
+			$("#yearid").change(on_year_change);		
+			$("#generatebtn").click(on_generate_click);		
+		});
+	</script>
+
+}
