@@ -44,8 +44,10 @@ menu.header.profile=Profile
 
 menu.search.invoice=Search Invoice
 menu.generate.invoice=Generate Invoice
-menu.payment.daily.report=Daily Collection Report
-menu.payment.report=Collection Report
+menu.payment.daily.report=Collection Report - Area
+menu.payment.daily.report.sa=Collection Report - Sub Area
+menu.payment.report=Collection Report - Yearly
+menu.invoice.report=Invoice Report - Yearly
 menu.customer=Customer
 menu.employee=Employee
 menu.area=Area
@@ -153,6 +155,8 @@ price=Price
 
 # Reports
 collection.report.yearly=Collection Report Yearly
+collection.report.monthly=Collection Report Monthly
+no.collection.data=No Collection Yet
 th.total=Total
 th.id.nr=Id Nr.
 
