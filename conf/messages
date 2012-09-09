@@ -47,6 +47,7 @@ menu.generate.invoice=Generate Invoice
 menu.payment.daily.report=Collection Report - Area
 menu.payment.daily.report.sa=Collection Report - Sub Area
 menu.payment.report=Collection Report - Yearly
+menu.invoice.report=Invoice Report - Yearly
 menu.customer=Customer
 menu.employee=Employee
 menu.area=Area

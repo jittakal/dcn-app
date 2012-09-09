@@ -8,10 +8,13 @@ public class DailyCollectionReportSO implements Serializable{
 
 	public String name;
 
+	public Integer itotal=0;
+
 	public Map<Integer,Integer> day_total=new LinkedHashMap<Integer,Integer>();
 
-	public DailyCollectionReportSO(String iname){
+	public DailyCollectionReportSO(String iname, Integer intotal){
 		this.name=iname;				
+		this.itotal=intotal;
 	}	
 
 	public DailyCollectionReportSO(String iname, Integer iday, Integer itotal){

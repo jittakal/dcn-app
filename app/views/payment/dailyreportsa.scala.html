@@ -26,6 +26,13 @@
 	    	</select>
     	</li>    	    	
     	<li>
+	      	<select id="areaid" name="areaid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 	      		
+	      		@for((key, value) <- models.Area.asMap()){
+					<option value="@key">@value</option>
+	      		}                                                      
+	    	</select>
+    	</li>
+    	<li>
     		<button id="generatebtn" type="button" class="btn btn-primary" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;">@Messages("common.button.generate")</button>
     	</li>    	
     </ul>
@@ -50,21 +57,27 @@
 	</div>
 
 	<script type="text/javascript">
-		var on_month_change = function(event){
+		var on_change = function(event){
 			// empty the tbody
 			$("#theadid").text("");
 			$("#tbodyid").text("");
+		}
+		var on_month_change = function(event){
+			on_change(event);
 		};	
 
 		var on_year_change = function(event){
-			$("#theadid").text("");
-			$("#tbodyid").text("");
+			on_change(event);
 		};		
+
+		var on_area_change = function(event){
+			on_change(event);
+		};
 
 		var render_payment_report = function(rdata) {			
 			$("#theadid").text("");
 			$("#tbodyid").text("");
-			var headerrow='<tr><th>@Messages("area.name")</th><th>@Messages("invoice.amount")</th>';
+			var headerrow='<tr><th>@Messages("subarea.name")</th><th>@Messages("invoice.amount")</th>';
 			$.each(rdata.days,function(i,day){
 				headerrow += '<th>' + day + '</th>';
 			});
@@ -73,11 +86,12 @@
 
 			$.each(rdata,function(key,area){
 				if(key!='days'){
-					var rowtotal=0, datarow='<tr><td>' + area.name + '</td><td id="itotal">' + area.itotal + '</td>';
+					var rowtotal=0;
+					var datarow='<tr><td>' + area.name + '</td><td id="itotal">' + area.itotal + '</td>';
 					$.each(rdata.days,function(i,day){
 						var day_key='' + day, td_day_key=day_key + '_td';
 						if(area.day_total[day_key]!=undefined){
-							datarow += '<td id="'+td_day_key+'">' + area.day_total[day_key] + '</td>';
+							datarow += '<td id="' + td_day_key + '">' + area.day_total[day_key] + '</td>';
 							rowtotal += area.day_total[day_key];
 						}else{
 							datarow += '<td>0</td>';
@@ -115,8 +129,8 @@
 
 		var on_generate_click = function(event){
 			$("#tbodyid").text("");
-			var req_url='@routes.PaymentController.daily_payment_report(0,-1)';			
-			req_url = req_url.replace("0",$("#monthid").val()).replace("-1",$("#yearid").val());
+			var req_url='@routes.PaymentController.daily_payment_report_sa(-1,-2,-3L)';			
+			req_url = req_url.replace("-1",$("#monthid").val()).replace("-2",$("#yearid").val()).replace("-3",$("#areaid").val());
 			$.ajax({
 				url: req_url,
 				processData:false,
@@ -142,6 +156,7 @@
 		$(function(){
 			$("#monthid").change(on_month_change);		
 			$("#yearid").change(on_year_change);		
+			$("#areaid").change(on_area_change);
 			$("#generatebtn").click(on_generate_click);		
 		});
 	</script>

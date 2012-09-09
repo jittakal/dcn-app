@@ -142,6 +142,9 @@ PUT		/service/invoice/:id		controllers.InvoiceController.update(id: Long)
 # Payment
 GET 	/portal/payment/report 		controllers.PaymentController.report()
 GET 	/portal/payment/daily/report 		controllers.PaymentController.daily_report()
+GET 	/portal/payment/sa/daily/report 	controllers.PaymentController.daily_report_sa()
+GET 	/portal/invoice/report 		controllers.PaymentController.ireport()
+
 
 GET		/service/payments			controllers.PaymentController.all()	
 GET		/service/payment/:id		controllers.PaymentController.get(id: Long)					
@@ -151,6 +154,8 @@ POST	/service/do/payment			controllers.PaymentController.payment()
 
 GET 	/service/p/report/:aid/:year controllers.PaymentController.payment_report(aid: Long, year: Integer)
 GET 	/service/p/d/report/:month/:year controllers.PaymentController.daily_payment_report(month: Integer, year: Integer)
+GET 	/service/p/d/r/sa/:month/:year/:area controllers.PaymentController.daily_payment_report_sa(month: Integer, year: Integer, area: Long)
+GET 	/service/invoice/report/:year controllers.PaymentController.invoice_report(year: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path

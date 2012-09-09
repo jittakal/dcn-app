@@ -10,8 +10,7 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
 import services.PaymentService;
-import sos.CollectionReportSO;
-import sos.DailyCollectionReportSO;
+import sos.*;
 
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -59,8 +58,16 @@ public class PaymentController extends Controller {
 		return ok(report.render());
 	}
 
+	public static Result ireport() {
+		return ok(invoicereport.render());
+	}
+
 	public static Result daily_report() {
 		return ok(dailyreport.render());
+	}
+
+	public static Result daily_report_sa() {
+		return ok(dailyreportsa.render());
 	}
 		
 	public static Result payment_report(Long aid, Integer year) {
@@ -85,6 +92,30 @@ public class PaymentController extends Controller {
 		}
 
 		Map collectionReports=PaymentService.dailyCollectionReport(month,year);
+		return ok(Json.toJson(collectionReports));
+	}
+
+	public static Result daily_payment_report_sa(Integer month,Integer year,Long aid) {		
+		if (month == null) {
+			return badRequest("Expecting month");
+		}
+		if (year == null) {
+			return badRequest("Expecting year");
+		}
+		if (aid == null) {
+			return badRequest("Expecting Area Id");
+		}
+
+		Map collectionReports=PaymentService.dailyCollectionReport(month,year,aid);
+		return ok(Json.toJson(collectionReports));
+	}
+
+	public static Result invoice_report(Integer year) {				
+		if (year == null) {
+			return badRequest("Expecting year");
+		}		
+
+		Map<String,InvoiceReportSO> collectionReports=PaymentService.invoiceReport(year);
 		return ok(Json.toJson(collectionReports));
 	}
 

@@ -47,21 +47,28 @@
 		<a href="@routes.UserController.index()">
 			<i class="icon-star-empty"></i>@Messages("menu.user")</a>
 	</li>
-    <li class="divider"></li>
-    <li class="nav-header">@Messages("menu.header.report")</li>
-    <li lid="payment/report">
-    	<a href="@routes.PaymentController.report()">
-    		<i class="icon-cog"></i>@Messages("menu.payment.report")</a>
-    </li>
-    <li lid="payment/daily/report">
-    	<a href="@routes.PaymentController.daily_report()">
-    		<i class="icon-cog"></i>@Messages("menu.payment.daily.report")</a>
-    </li>
-    <li lid="payment/daily/report/sa">
-    	<a href="@routes.PaymentController.daily_report()">
-    		<i class="icon-cog"></i>@Messages("menu.payment.daily.report.sa")</a>
-    </li>
-        
+
+	@if(session.get("role").toUpperCase()=="ADMIN"){
+	    <li class="divider"></li>
+	    <li class="nav-header">@Messages("menu.header.report")</li>
+	    <li lid="payment/report">
+	    	<a href="@routes.PaymentController.report()">
+	    		<i class="icon-cog"></i>@Messages("menu.payment.report")</a>
+	    </li>
+	    <li lid="invoice/report">
+	    	<a href="@routes.PaymentController.ireport()">
+	    		<i class="icon-cog"></i>@Messages("menu.invoice.report")</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li lid="payment/daily/report">
+	    	<a href="@routes.PaymentController.daily_report()">
+	    		<i class="icon-cog"></i>@Messages("menu.payment.daily.report")</a>
+	    </li>
+	    <li lid="payment/sa/daily/report">
+	    	<a href="@routes.PaymentController.daily_report_sa()">
+	    		<i class="icon-cog"></i>@Messages("menu.payment.daily.report.sa")</a>
+	    </li>	    
+    }
 
     <li class="divider"></li>	
     <li class="nav-header">@Messages("menu.header.profile")</li>

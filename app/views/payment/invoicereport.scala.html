@@ -1,0 +1,100 @@
+@()
+
+@import helper._
+@import models._
+@import controllers._
+
+@main() {
+		
+	<div class="subnav">
+    <ul class="nav nav-pills">                	
+    	<li>
+	      	<select id="yearid" name="yearid" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;"> 	      		
+	      		@for(year <- controllers.InvoiceController.get_year_list()){
+					<option value="@year">@year</option>
+	      		}                                                      
+	    	</select>
+    	</li>    
+    	<li>
+    		<button id="generatebtn" type="button" class="btn btn-primary" style="border-radius: 5px 5px 5px 5px;margin-bottom: 2px;margin-top: 4px;">@Messages("common.button.generate")</button>
+    	</li>    		    	    	
+    </ul>
+  	</div>
+	
+	<br/>
+
+	<div>		
+		<table class="table table-striped table-bordered table-condensed">
+		    <thead>
+		        <tr>
+		            <th colspan="16">@Messages("menu.invoice.report") - @{java.util.Calendar.getInstance().getTime()}</th>       
+		        </tr>        
+		    	<tr>            
+		            <th>@Messages("area.name")</th><th>@Messages("th.jan")</th><th>@Messages("th.feb")</th>
+		            <th>@Messages("th.mar")</th><th>@Messages("th.apr")</th><th>@Messages("th.may")</th>
+		    		<th>@Messages("th.jun")</th><th>@Messages("th.jul")</th><th>@Messages("th.aug")</th>
+		    		<th>@Messages("th.sept")</th><th>@Messages("th.oct")</th><th>@Messages("th.nov")</th>
+		    		<th>@Messages("th.dec")</th><th>@Messages("th.total")</th><th>@Messages("customer.balance")</th>
+		    	</tr>
+		    </thead>	     
+		    <tbody id="tbodyid">				    
+		 	</tbody>	        
+		</table>	
+	</div>
+
+	<script type="text/javascript">
+			
+		var on_year_change = function(event){			
+			$("#tbodyid").text("");
+		};		
+
+		var render_payment_report = function(rdata) {						
+			$("#tbodyid").text("");
+
+			$.each(rdata,function(key,area){			
+					var irowtotal=0, prowtotal=0, datarow='<tr><td rowspan="2">' + key + '</td>';
+					$.each(area.invoice,function(month,itotal){											
+						datarow += '<td>' + itotal + '</td>';						
+						irowtotal += itotal;
+					});
+					datarow += '<td>' + irowtotal + '</td><td rowspan="2">{balance}</td></tr><tr>';
+					
+					$.each(area.invoice,function(month,ptotal){											
+						datarow += '<td>' + ptotal + '</td>';						
+						prowtotal += ptotal;
+					});
+					datarow += '<td>'+ prowtotal +'</td></tr>';
+
+					$("#tbodyid").append(datarow.replace("{balance}",irowtotal-prowtotal));									
+			});
+		};
+
+		var on_generate_click = function(event){
+			$("#tbodyid").text("");
+			var req_url='@routes.PaymentController.invoice_report(0)';			
+			req_url = req_url.replace("0",$("#yearid").val());
+			$.ajax({
+				url: req_url,
+				processData:false,
+				type: 'GET',
+				beforeSend:function(jqXHR, settings){					
+					jqXHR.setRequestHeader("Content-Type", "application/json");					
+				},
+				success: function(data, textStatus, jqXHR){										
+					render_payment_report(data);						
+				},
+				error: function(jqXHR, textStatus, errorThrown){				
+					//display_error_msg(errorThrown);	
+				},
+				complete: function(jqXHR,textStatus){					
+				}	
+			});			
+		};
+
+		$(function(){			
+			$("#yearid").change(on_year_change);		
+			$("#generatebtn").click(on_generate_click);		
+		});
+	</script>
+
+}

@@ -55,7 +55,7 @@
 <table class="table table-striped table-bordered table-condensed">
     <tfoot>
         <tr>
-            <td colspan="6">
+            <td colspan="6">                
                 <button id="paymentbtn" type="button" class="btn btn-primary">
                     @Messages("common.button.make.payment")</button>
                 <button id="printbtn" type="button" class="btn btn-primary">
@@ -65,10 +65,10 @@
     </tfoot>
 </table>
 
+
 <script type="text/javascript">
     var make_payment_on_click=function(){
         // get values of all selected check boxes        
-
         var customers=new Array();
         $.each($("input#paymentchkbox:checked"),function(i,chkbox){            
             var customer={};
