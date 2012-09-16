@@ -82,7 +82,7 @@ public class PaymentService {
 
  		SqlRow sqlRow=sqlQuery.findUnique();		
 
- 		if(sqlRow==null)
+ 		if(sqlRow==null || sqlRow.getInteger("itotal")==null)
  			return 0;
 
  		return sqlRow.getInteger("itotal");
@@ -104,7 +104,7 @@ public class PaymentService {
 
  		SqlRow sqlRow=sqlQuery.findUnique();		
 
- 		if(sqlRow==null)
+ 		if(sqlRow==null || sqlRow.getInteger("itotal")==null)
  			return 0;
 
  		return sqlRow.getInteger("itotal");
