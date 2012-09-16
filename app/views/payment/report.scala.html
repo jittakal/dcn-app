@@ -30,7 +30,7 @@
 	
 	<br/>
 
-	<div>
+	<div id="report">
 		<table class="table table-striped table-bordered table-condensed">
 		    <thead>
 		        <tr>
@@ -47,6 +47,17 @@
 		 	</tbody>	        
 		</table>	
 	</div>
+
+	<table class="table table-striped table-bordered table-condensed">
+    <tfoot>
+        <tr>
+            <td>                             
+                <button id="printbtn" type="button" class="btn btn-primary">
+                    @Messages("common.button.print")</button>
+            </td>
+        </tr>
+    </tfoot>
+	</table>
 
 	<script type="text/javascript">
 		var on_area_change = function(event){
@@ -106,7 +117,18 @@
 			});			
 		};
 
+		var view_report_to_print = function(){
+	        var w=window.open();
+	        w.document.open();
+	        w.document.write($("head").html());
+	        w.document.write("<style>body{background-image:none;margin:auto;font-size:10px;width:1280px} .container{width:1280px}</style>");
+	        w.document.write('<div class="container"><div class="well">' + $("#report").html() + "</div></div>");
+	        w.document.close();
+	        w.print();        
+	    };
+
 		$(function(){
+			$("#printbtn").click(view_report_to_print);
 			$("#areaid").change(on_area_change);		
 			$("#yearid").change(on_year_change);		
 			$("#generatebtn").click(on_generate_click);		
