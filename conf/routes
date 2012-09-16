@@ -157,6 +157,9 @@ GET 	/service/p/d/report/:month/:year controllers.PaymentController.daily_paymen
 GET 	/service/p/d/r/sa/:month/:year/:area controllers.PaymentController.daily_payment_report_sa(month: Integer, year: Integer, area: Long)
 GET 	/service/invoice/report/:year controllers.PaymentController.invoice_report(year: Integer)
 
+# Reports
+GET 	/service/report/c/a 		controllers.ReportController.customer_counts()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
