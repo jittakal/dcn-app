@@ -14,7 +14,8 @@ import play.mvc.Result;
 import java.util.Map;
 
 import forms.AmplyForm;
-import play.data.Form;
+import play.data.*;
+import static play.data.Form.*;
 import views.html.amply.*;
 
 import play.mvc.Security.Authenticated;

@@ -14,7 +14,8 @@ import play.mvc.Result;
 import java.util.Map;
 
 import forms.NodeForm;
-import play.data.Form;
+import play.data.*;
+import static play.data.Form.*;
 import views.html.node.*;
 
 import play.mvc.Security.Authenticated;

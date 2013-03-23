@@ -5,7 +5,8 @@ import java.util.List;
 import models.*;
 
 import forms.AreaForm;
-import play.data.Form;
+import play.data.*;
+import static play.data.Form.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.BodyParser;

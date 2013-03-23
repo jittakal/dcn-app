@@ -4,7 +4,8 @@ import java.util.List;
 
 import models.User;
 import forms.ChangePasswdForm;
-import play.data.Form;
+import play.data.*;
+import static play.data.Form.*;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 

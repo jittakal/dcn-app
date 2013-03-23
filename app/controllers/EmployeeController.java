@@ -5,7 +5,8 @@ import java.util.List;
 import models.Employee;
 import models.Area;
 import forms.EmployeeForm;
-import play.data.Form;
+import play.data.*;
+import static play.data.Form.*;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
